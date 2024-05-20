@@ -1,6 +1,9 @@
-﻿using System;
+﻿using SupermarketApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,6 +26,8 @@ namespace SupermarketApp
         public MainWindow()
         {
             InitializeComponent();
+            SupermarketMAPEntities supermarketMAPEntities = new SupermarketMAPEntities();
+            var users = supermarketMAPEntities.Users.ToList();
         }
     }
 }
