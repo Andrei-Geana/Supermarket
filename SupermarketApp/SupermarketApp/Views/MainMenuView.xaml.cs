@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SupermarketApp
+namespace SupermarketApp.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainMenuView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainMenuView : UserControl
     {
-        public MainWindow()
+        public MainMenuView()
         {
             InitializeComponent();
         }
