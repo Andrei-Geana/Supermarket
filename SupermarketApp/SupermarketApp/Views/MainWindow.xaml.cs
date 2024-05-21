@@ -26,8 +26,6 @@ namespace SupermarketApp
         public MainWindow()
         {
             InitializeComponent();
-            SupermarketMAPEntities supermarketMAPEntities = new SupermarketMAPEntities();
-            var users = supermarketMAPEntities.Users.ToList();
         }
     }
 }
