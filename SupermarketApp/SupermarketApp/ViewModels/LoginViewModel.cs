@@ -13,10 +13,10 @@ namespace SupermarketApp.ViewModels
 {
     public class LoginViewModel : ViewModelBase
     {
-        public LoginViewModel(Navigation navigation, Func<MainMenuViewModel> createMenuViewModel) 
+        public LoginViewModel(Navigation navigation, Func<MainMenuViewModel> createMenuViewModel, Func<CashierViewModel> createCashierViewModel) 
         {
             NavigateToAdminMenu = new NavigationCommand(navigation, createMenuViewModel);
-            NavigateToCashierMenu = new NavigationCommand(navigation, createMenuViewModel);
+            NavigateToCashierMenu = new NavigationCommand(navigation, createCashierViewModel);
             RegisterCommand = new RelayCommand<object>(param => Register());
             LoginCommand = new RelayCommand<object>(param => Login());
         }
@@ -50,11 +50,14 @@ namespace SupermarketApp.ViewModels
 
         private void Register()
         {
-            //if it can register
+            //checks if it can register
             if(false)
             {
                 //register
-                ;
+                
+
+                //automatically login
+                Login();
             }
             else
             {

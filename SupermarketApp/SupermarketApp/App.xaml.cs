@@ -34,13 +34,18 @@ namespace SupermarketApp
 
         private MainMenuViewModel CreateMainMenu()
         {
-            return new MainMenuViewModel(_navigation, CreateLoginMenu);
+            return new MainMenuViewModel(_navigation, CreateLoginMenu, CreateCashierMenu);
         }
 
         private LoginViewModel CreateLoginMenu()
         {
             ResetCurrentUser();
-            return new LoginViewModel(_navigation, CreateMainMenu);
+            return new LoginViewModel(_navigation, CreateMainMenu, CreateCashierMenu);
+        }
+
+        private CashierViewModel CreateCashierMenu()
+        {
+            return new CashierViewModel(_navigation, CreateMainMenu, CreateLoginMenu);
         }
 
         private void ResetCurrentUser()
