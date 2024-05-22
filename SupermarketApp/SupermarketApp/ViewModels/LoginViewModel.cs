@@ -1,5 +1,7 @@
 ﻿using Checkers_Game.Command;
 using SupermarketApp.Commands;
+using SupermarketApp.Models;
+using SupermarketApp.Models.BusinessLogic;
 using SupermarketApp.Stores;
 using System;
 using System.Collections.Generic;
@@ -13,11 +15,15 @@ namespace SupermarketApp.ViewModels
 {
     public class LoginViewModel : ViewModelBase
     {
+        private UserBLL _userBLL;
+        private RoleBLL _roleBLL;
         public LoginViewModel(Navigation navigation, Func<MainMenuViewModel> createMenuViewModel, Func<CashierViewModel> createCashierViewModel) 
         {
             NavigateToAdminMenu = new NavigationCommand(navigation, createMenuViewModel);
             NavigateToCashierMenu = new NavigationCommand(navigation, createCashierViewModel);
             LoginCommand = new RelayCommand<object>(param => Login());
+            _userBLL = new UserBLL();
+            _roleBLL = new RoleBLL();
         }
 
         public ICommand LoginCommand { get; set; }
@@ -25,20 +31,20 @@ namespace SupermarketApp.ViewModels
         public ICommand NavigateToCashierMenu { get; set; }
         public string Username 
         { 
-            get => App._username;
+            get => App.CurrentUser.name;
             set
             {
-                App._username = value;
+                App.CurrentUser.name = value;
                 OnPropertyChanged(nameof(Username));
                 OnPropertyChanged(nameof(ButtonIsEnabled));
             }
         }
         public string Password 
         { 
-            get => App._password;
+            get => App.CurrentUser.password;
             set
             {
-                App._password = value;
+                App.CurrentUser.password = value;
                 OnPropertyChanged(nameof(Password));
                 OnPropertyChanged(nameof(ButtonIsEnabled));
             }
@@ -49,10 +55,12 @@ namespace SupermarketApp.ViewModels
         public void Login()
         {
             //checks if login is successful
-            if (true)
+            User user = _userBLL.Login(App.CurrentUser);
+            if (user != null) 
             {
+                App.CurrentUser = user;
                 //checks if user is admin
-                if (true)
+                if (App.CurrentUser.id_role == _roleBLL.GetIdOfAdmin())
                     NavigateToAdminMenu.Execute(null);
                 else
                     NavigateToCashierMenu.Execute(null);

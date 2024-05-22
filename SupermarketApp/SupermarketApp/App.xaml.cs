@@ -1,4 +1,5 @@
-﻿using SupermarketApp.Stores;
+﻿using SupermarketApp.Models;
+using SupermarketApp.Stores;
 using SupermarketApp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -18,8 +19,7 @@ namespace SupermarketApp
         private readonly Navigation _navigation = new Navigation();
 
         //placeholder for current user
-        public static string _username;
-        public static string _password;
+        public static User CurrentUser { get; set; }
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -50,8 +50,7 @@ namespace SupermarketApp
 
         private void ResetCurrentUser()
         {
-            _username = "";
-            _password = "";
+            CurrentUser = new User();
 
         }
     }
