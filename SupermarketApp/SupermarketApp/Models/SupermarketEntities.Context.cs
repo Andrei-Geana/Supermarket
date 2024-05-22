@@ -12,6 +12,8 @@ namespace SupermarketApp.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class SupermarketMAPEntities : DbContext
     {
@@ -33,5 +35,10 @@ namespace SupermarketApp.Models
         public virtual DbSet<Receipt> Receipts { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
+    
+        public virtual ObjectResult<GetUsers_Result> GetUsersWithRoles()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUsers_Result>("GetUsers");
+        }
     }
 }
