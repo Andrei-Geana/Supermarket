@@ -17,14 +17,12 @@ namespace SupermarketApp.ViewModels
         {
             NavigateToAdminMenu = new NavigationCommand(navigation, createMenuViewModel);
             NavigateToCashierMenu = new NavigationCommand(navigation, createCashierViewModel);
-            RegisterCommand = new RelayCommand<object>(param => Register());
             LoginCommand = new RelayCommand<object>(param => Login());
         }
 
         public ICommand LoginCommand { get; set; }
         public ICommand NavigateToAdminMenu { get; set; }
         public ICommand NavigateToCashierMenu { get; set; }
-        public ICommand RegisterCommand { get; set; }
         public string Username 
         { 
             get => App._username;
@@ -47,23 +45,6 @@ namespace SupermarketApp.ViewModels
         }
 
         public bool ButtonIsEnabled => !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password);
-
-        private void Register()
-        {
-            //checks if it can register
-            if(false)
-            {
-                //register
-                
-
-                //automatically login
-                Login();
-            }
-            else
-            {
-                MessageBox.Show("Unable to create account. Please enter other credentials.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
 
         public void Login()
         {

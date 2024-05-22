@@ -24,17 +24,11 @@
         <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
         <PasswordBox Grid.Row="1" Grid.Column="1" PasswordChanged="PasswordBox_PasswordChanged"/>
 
-        <Button HorizontalAlignment="Right" VerticalAlignment="Center" 
+        <Button HorizontalAlignment="Center" VerticalAlignment="Center" 
             Command="{Binding LoginCommand}"
             IsEnabled="{Binding ButtonIsEnabled, UpdateSourceTrigger=PropertyChanged}"
-            Grid.Row="2">
+            Grid.Row="2" Grid.ColumnSpan="2">
             LOGIN
-        </Button>
-        <Button HorizontalAlignment="Left" VerticalAlignment="Center" 
-        Command="{Binding RegisterCommand}"
-        IsEnabled="{Binding ButtonIsEnabled, UpdateSourceTrigger=PropertyChanged}"
-        Grid.Row="2" Grid.Column="1">
-                REGISTER
         </Button>
     </Grid>
 </UserControl>
