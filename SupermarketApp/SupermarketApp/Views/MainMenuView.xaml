@@ -6,7 +6,41 @@
              xmlns:local="clr-namespace:SupermarketApp.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <TextBlock>MAIN MENU</TextBlock>
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button 
+            Command="{Binding NavigateBackToLoginCommand}" 
+            Margin="50 25 50 25">
+            BACK
+        </Button>
+        <Button Command="{}" 
+                Margin="50 25 50 25"
+                Grid.Column="1" 
+                Grid.Row="1">
+            CASHIER MENU
+        </Button>
+        <Button Command="{}" 
+        Margin="50 25 50 25"
+        Grid.Column="1" 
+        Grid.Row="2">
+            PRODUCTS
+        </Button>
+        <Button Command="{}" 
+        Margin="50 25 50 25"
+        Grid.Column="1" 
+        Grid.Row="3">
+            CATEGORIES
+        </Button>
     </Grid>
 </UserControl>

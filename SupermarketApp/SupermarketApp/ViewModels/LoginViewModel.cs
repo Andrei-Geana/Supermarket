@@ -33,6 +33,7 @@ namespace SupermarketApp.ViewModels
             {
                 App._username = value;
                 OnPropertyChanged(nameof(Username));
+                OnPropertyChanged(nameof(LoginButtonIsEnabled));
             }
         }
         public string Password 
@@ -42,7 +43,10 @@ namespace SupermarketApp.ViewModels
             {
                 App._password = value;
                 OnPropertyChanged(nameof(Password));
+                OnPropertyChanged(nameof(LoginButtonIsEnabled));
             }
         }
+
+        public bool LoginButtonIsEnabled => !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password);
     }
 }

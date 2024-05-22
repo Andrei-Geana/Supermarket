@@ -26,6 +26,7 @@
 
         <Button HorizontalAlignment="Right" VerticalAlignment="Center" 
             Command="{Binding LoginCommand}"
+            IsEnabled="{Binding LoginButtonIsEnabled, UpdateSourceTrigger=PropertyChanged}"
             Grid.Row="2">
             LOGIN
         </Button>
