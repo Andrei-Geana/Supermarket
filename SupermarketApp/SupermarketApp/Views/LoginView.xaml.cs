@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SupermarketApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,20 @@ namespace SupermarketApp.Views
         public LoginView()
         {
             InitializeComponent();
+        }
+
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+
+            var password = (sender as PasswordBox);
+            if (password != null) 
+            {
+                var viewModel = DataContext as LoginViewModel;
+                if(viewModel != null)
+                {
+                    viewModel.Password = password.Password.ToString();
+                }
+            }
         }
     }
 }

@@ -85,6 +85,7 @@
     </Compile>
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\NavigationCommand.cs" />
+    <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Stores\Navigation.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainMenuViewModel.cs" />

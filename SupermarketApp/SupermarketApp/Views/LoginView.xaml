@@ -20,8 +20,9 @@
         <TextBlock Grid.Row="0" Grid.Column="0" Text="USER/EMAIL" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
         <TextBlock Grid.Row="0" Grid.Column="1" Text="PASSWORD" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
 
-        <TextBox Grid.Row="1" Grid.Column="0"   />
-        <TextBox Grid.Row="1" Grid.Column="1"    />
+        <TextBox Grid.Row="1" Grid.Column="0"  Text="{Binding Username, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+        <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
+        <PasswordBox Grid.Row="1" Grid.Column="1" PasswordChanged="PasswordBox_PasswordChanged"/>
 
         <Button HorizontalAlignment="Right" VerticalAlignment="Center" 
             Command="{Binding LoginCommand}"
@@ -29,7 +30,7 @@
             LOGIN
         </Button>
         <Button HorizontalAlignment="Left" VerticalAlignment="Center" 
-        Command="{Binding ResetFieldsCommand}"
+        Command="{Binding ResetCommand}"
         Grid.Row="2" Grid.Column="1">
                 RESET
         </Button>

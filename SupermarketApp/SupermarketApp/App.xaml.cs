@@ -17,9 +17,13 @@ namespace SupermarketApp
     {
         private readonly Navigation _navigation = new Navigation();
 
+        //placeholder for current user
+        public static string _username;
+        public static string _password;
+
         protected override void OnStartup(StartupEventArgs e)
         {
-            _navigation.CurrentViewModel = new LoginViewModel(_navigation, CreateMainMenu);
+            _navigation.CurrentViewModel = CreateLoginMenu();
             MainWindow = new MainWindow()
             {
                 DataContext = new MainViewModel(_navigation)
@@ -31,6 +35,13 @@ namespace SupermarketApp
         private MainMenuViewModel CreateMainMenu()
         {
             return new MainMenuViewModel(_navigation);
+        }
+
+        private LoginViewModel CreateLoginMenu()
+        {
+            _username = "";
+            _password = "";
+            return new LoginViewModel(_navigation, CreateMainMenu);
         }
     }
 }
