@@ -26,14 +26,15 @@
 
         <Button HorizontalAlignment="Right" VerticalAlignment="Center" 
             Command="{Binding LoginCommand}"
-            IsEnabled="{Binding LoginButtonIsEnabled, UpdateSourceTrigger=PropertyChanged}"
+            IsEnabled="{Binding ButtonIsEnabled, UpdateSourceTrigger=PropertyChanged}"
             Grid.Row="2">
             LOGIN
         </Button>
         <Button HorizontalAlignment="Left" VerticalAlignment="Center" 
-        Command="{Binding ResetCommand}"
+        Command="{Binding RegisterCommand}"
+        IsEnabled="{Binding ButtonIsEnabled, UpdateSourceTrigger=PropertyChanged}"
         Grid.Row="2" Grid.Column="1">
-                RESET
+                REGISTER
         </Button>
     </Grid>
 </UserControl>

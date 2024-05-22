@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace SupermarketApp.ViewModels
@@ -14,18 +15,16 @@ namespace SupermarketApp.ViewModels
     {
         public LoginViewModel(Navigation navigation, Func<MainMenuViewModel> createMenuViewModel) 
         {
-            LoginCommand = new NavigationCommand(navigation, createMenuViewModel);
-            ResetCommand = new RelayCommand<object>(param => ResetFields());
-        }
-
-        private void ResetFields()
-        {
-            Username = "";
-            Password = "";
+            NavigateToAdminMenu = new NavigationCommand(navigation, createMenuViewModel);
+            NavigateToCashierMenu = new NavigationCommand(navigation, createMenuViewModel);
+            RegisterCommand = new RelayCommand<object>(param => Register());
+            LoginCommand = new RelayCommand<object>(param => Login());
         }
 
         public ICommand LoginCommand { get; set; }
-        public ICommand ResetCommand { get; set; }
+        public ICommand NavigateToAdminMenu { get; set; }
+        public ICommand NavigateToCashierMenu { get; set; }
+        public ICommand RegisterCommand { get; set; }
         public string Username 
         { 
             get => App._username;
@@ -33,7 +32,7 @@ namespace SupermarketApp.ViewModels
             {
                 App._username = value;
                 OnPropertyChanged(nameof(Username));
-                OnPropertyChanged(nameof(LoginButtonIsEnabled));
+                OnPropertyChanged(nameof(ButtonIsEnabled));
             }
         }
         public string Password 
@@ -43,10 +42,42 @@ namespace SupermarketApp.ViewModels
             {
                 App._password = value;
                 OnPropertyChanged(nameof(Password));
-                OnPropertyChanged(nameof(LoginButtonIsEnabled));
+                OnPropertyChanged(nameof(ButtonIsEnabled));
             }
         }
 
-        public bool LoginButtonIsEnabled => !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password);
+        public bool ButtonIsEnabled => !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password);
+
+        private void Register()
+        {
+            //if it can register
+            if(false)
+            {
+                //register
+                ;
+            }
+            else
+            {
+                MessageBox.Show("Unable to create account. Please enter other credentials.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public void Login()
+        {
+            //checks if login is successful
+            if (true)
+            {
+                //checks if user is admin
+                if (true)
+                    NavigateToAdminMenu.Execute(null);
+                else
+                    NavigateToCashierMenu.Execute(null);
+            }
+            else
+            {
+                MessageBox.Show("Invalid credentials.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
     }
 }

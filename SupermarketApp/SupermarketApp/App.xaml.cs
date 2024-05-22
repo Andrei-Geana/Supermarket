@@ -39,11 +39,11 @@ namespace SupermarketApp
 
         private LoginViewModel CreateLoginMenu()
         {
-            resetCurrentUser();
+            ResetCurrentUser();
             return new LoginViewModel(_navigation, CreateMainMenu);
         }
 
-        private void resetCurrentUser()
+        private void ResetCurrentUser()
         {
             _username = "";
             _password = "";
