@@ -22,7 +22,7 @@
         <Button 
             Command="{Binding NavigateBackToLoginCommand}" 
             Margin="50 25 50 25">
-            BACK
+            LOG OUT
         </Button>
         <Button Command="{Binding NavigateToCashierMenu}" 
                 Margin="50 25 50 25"
@@ -49,6 +49,12 @@
         Grid.Column="2" 
         Grid.Row="1">
             USERS
+        </Button>
+        <Button Command="{Binding NavigateToCategoriesMenu}" 
+        Margin="50 25 50 25"
+        Grid.Column="2" 
+        Grid.Row="2">
+            CATEGORIES
         </Button>
     </Grid>
 </UserControl>

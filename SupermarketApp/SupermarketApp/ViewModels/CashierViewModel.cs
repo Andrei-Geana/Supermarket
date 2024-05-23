@@ -38,5 +38,21 @@ namespace SupermarketApp.ViewModels
                 NavigateBackToLogin.Execute(null);
             }
         }
+
+        public string TextButton
+        {
+            get
+            {
+                if (App.CurrentUser.id_role == _roleBLL.GetIdOfAdmin())
+                {
+                    return "BACK";
+                }
+                else
+                {
+                    return "LOG OUT";
+                }
+            }
+        }
+
     }
 }
