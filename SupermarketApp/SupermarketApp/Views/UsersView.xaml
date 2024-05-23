@@ -22,8 +22,30 @@
         <Button Command="{Binding NavigateBackToMenu}" Grid.Row="0" Grid.Column="0" Margin="50 25 50 25">BACK</Button>
 
         <DataGrid Name="usersGrid" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="3" AutoGenerateColumns="True"
-          ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding UsersList}">
-            
+          ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" ItemsSource="{Binding UsersList}"
+                  SelectedItem="{Binding SelectedUser, Mode=TwoWay}">
         </DataGrid>
+
+        <TextBox 
+            Grid.Row="1"
+            Text="{Binding SelectedUser.Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+        <TextBox 
+            Grid.Row="2"
+            Text="{Binding SelectedUser.Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+        <ComboBox 
+            Grid.Row="3"
+            ItemsSource="{Binding Roles, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+            DisplayMemberPath="name"
+            SelectedValue="{Binding SelectedUser.Role, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+            SelectedValuePath="name"
+            />
+
+        <Button Grid.Column="2" Grid.Row="0" Command="{Binding ResetSelectionCommand}" >RESET</Button>
+       
+        <Button Grid.Column="0" Grid.Row="4" Command="{Binding AddUserCommand}" IsEnabled="{Binding AddButtonIsEnabled, UpdateSourceTrigger=PropertyChanged}">ADD</Button>
+        <Button Grid.Column="1" Grid.Row="4" Command="{Binding ModifyUserCommand}" IsEnabled="{Binding ModifyAndDeleteButtonsAreEnabled, UpdateSourceTrigger=PropertyChanged}">MODIFY</Button>
+        <Button Grid.Column="2" Grid.Row="4" Command="{Binding DeleteUserCommand}" IsEnabled="{Binding ModifyAndDeleteButtonsAreEnabled, UpdateSourceTrigger=PropertyChanged}">DELETE</Button>
     </Grid>
 </UserControl>

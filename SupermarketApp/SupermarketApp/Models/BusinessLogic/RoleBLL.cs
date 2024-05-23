@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,19 @@ namespace SupermarketApp.Models.BusinessLogic
         public int GetIdOfAdmin()
         {
             return entities.Roles.Where(role => role.name == _adminString).First().id;
+        }
+
+        public ObservableCollection<Role> GetRoles()
+        {
+            var roles = entities.Roles.ToList();
+            ObservableCollection<Role> returnedRoles = new ObservableCollection<Role>();
+            foreach (var role in roles) { returnedRoles.Add(role); }
+            return returnedRoles;
+        }
+
+        public int GetIdOfRole(string roleName)
+        {
+            return entities.Roles.Where(role => role.name.Equals(roleName)).FirstOrDefault().id;
         }
     }
 }
