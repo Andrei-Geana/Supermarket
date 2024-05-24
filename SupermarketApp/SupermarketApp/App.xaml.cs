@@ -34,7 +34,7 @@ namespace SupermarketApp
 
         private MainMenuViewModel CreateMainMenu()
         {
-            return new MainMenuViewModel(_navigation, CreateLoginMenu, CreateCashierMenu, CreateUsersMenu, CreateCategoriesMenu);
+            return new MainMenuViewModel(_navigation, CreateLoginMenu, CreateCashierMenu, CreateUsersMenu, CreateCategoriesMenu, CreateRolesMenu);
         }
 
         private LoginViewModel CreateLoginMenu()
@@ -56,6 +56,11 @@ namespace SupermarketApp
         private CategoriesViewModel CreateCategoriesMenu()
         {
             return new CategoriesViewModel(_navigation, CreateMainMenu);
+        }
+
+        private RolesViewModel CreateRolesMenu()
+        {
+            return new RolesViewModel(_navigation, CreateMainMenu);
         }
 
         private void ResetCurrentUser()

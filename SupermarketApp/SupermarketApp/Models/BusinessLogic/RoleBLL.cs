@@ -25,13 +25,62 @@ namespace SupermarketApp.Models.BusinessLogic
         {
             var roles = entities.Roles.ToList();
             ObservableCollection<Role> returnedRoles = new ObservableCollection<Role>();
-            foreach (var role in roles) { returnedRoles.Add(role); }
+            foreach (var role in roles) 
+            {
+                Role newRole = new Role
+                {
+                    id = role.id,
+                    name = role.name
+                };
+                returnedRoles.Add(newRole);
+            }
             return returnedRoles;
         }
 
         public int GetIdOfRole(string roleName)
         {
             return entities.Roles.Where(role => role.name.Equals(roleName)).FirstOrDefault().id;
+        }
+
+        public void AddRole(Role newRole)
+        {
+            try
+            {
+                entities.Roles.Add(newRole);
+                entities.SaveChanges();
+            }
+            catch
+            {
+                throw new Exception("Role was not added to database.");
+            }
+        }
+
+        public void DeleteRoleWithId(int id)
+        {
+            try
+            {
+                //need to update with only logic deletion
+                entities.Roles.Remove(entities.Roles.Where(role => role.id == id).FirstOrDefault());
+                entities.SaveChanges();
+            }
+            catch
+            {
+                throw new Exception("Role to be deleted was not found in database.");
+            }
+        }
+
+        public void ModifyRole(Role newRole)
+        {
+            try
+            {
+                var existingCategory = entities.Roles.FirstOrDefault(role => role.id == newRole.id) ?? throw new Exception("Role not found in database");
+                existingCategory.name = newRole.name;
+                entities.SaveChanges();
+            }
+            catch
+            {
+                throw new Exception("Role was not modified in database.");
+            }
         }
     }
 }

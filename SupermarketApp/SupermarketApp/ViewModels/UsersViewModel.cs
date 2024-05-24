@@ -27,9 +27,8 @@ namespace SupermarketApp.ViewModels
             NavigateBackToMenu = new NavigationCommand(navigation, createMainMenu);
             _userBLL = new UserBLL();
             _roleBLL = new RoleBLL();
-            UsersList = _userBLL.GetUsers();
             Roles = _roleBLL.GetRoles();
-            SelectedUser = new GetUsers_Result();
+            ResetUser();
 
             AddUserCommand = new RelayCommand<object>(param => AddUser());
             ModifyUserCommand = new RelayCommand<object>(param => ModifyUser());

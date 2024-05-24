@@ -14,7 +14,15 @@ namespace SupermarketApp.Models.BusinessLogic
         {
             var categories = entities.Product_Category.ToList();
             ObservableCollection<Product_Category> returnedCategories = new ObservableCollection<Product_Category>();
-            foreach (var category in categories) { returnedCategories.Add(category); }
+            foreach (var category in categories) 
+            {
+                Product_Category newCategory = new Product_Category
+                {
+                    id = category.id,
+                    name = category.name
+                };
+                returnedCategories.Add(newCategory);
+            }
             return returnedCategories;
         }
 
