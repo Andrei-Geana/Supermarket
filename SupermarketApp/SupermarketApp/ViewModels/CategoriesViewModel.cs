@@ -20,9 +20,11 @@ namespace SupermarketApp.ViewModels
         private ObservableCollection<Product_Category> _categories;
 
         private Product_Category _selectedCategory;
-        public CategoriesViewModel(Navigation navigation, Func<MainMenuViewModel> createMainMenu)
+        public CategoriesViewModel(Navigation navigation, Func<MainMenuViewModel> createMainMenu, Func<ProductsViewModel> createProductsMenu, Func<ProvidersViewModel> createProvidersMenu)
         {
             NavigateBackToMenu = new NavigationCommand(navigation, createMainMenu);
+            NavigateToProducts = new NavigationCommand(navigation, createProductsMenu);
+            NavigateToProviders = new NavigationCommand(navigation, createProvidersMenu);
             _productCategoryBLL = new ProductCategoryBLL();
             ResetCategory();
 
@@ -96,6 +98,8 @@ namespace SupermarketApp.ViewModels
         }
 
         public ICommand NavigateBackToMenu { get; set; }
+        public ICommand NavigateToProducts { get; set; }
+        public ICommand NavigateToProviders { get; set; }
         public ICommand AddCategoryCommand { get; set; }
         public ICommand ModifyCategoryCommand { get; set; }
         public ICommand DeleteCategoryCommand { get; set; }

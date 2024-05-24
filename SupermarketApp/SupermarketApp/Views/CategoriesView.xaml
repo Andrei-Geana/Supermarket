@@ -11,6 +11,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -21,7 +22,7 @@
         </Grid.RowDefinitions>
         <Button Command="{Binding NavigateBackToMenu}" Grid.Row="0" Grid.Column="0" Margin="50 25 50 25">BACK</Button>
 
-        <DataGrid Name="categoriesGrid" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="3" AutoGenerateColumns="False"
+        <DataGrid Name="categoriesGrid" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="3" AutoGenerateColumns="False"
           ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" ItemsSource="{Binding Categories, Mode=TwoWay}"
           SelectedItem="{Binding SelectedCategory, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
             <DataGrid.Columns>
@@ -34,11 +35,15 @@
         Grid.Row="1"
         Text="{Binding SelectedCategory.name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
-        <Button Grid.Column="2" Grid.Row="0" Command="{Binding ResetSelectionCommand}" >RESET</Button>
+        <Button Grid.Column="1" Grid.Row="0" Command="{Binding NavigateToProducts}" >GO TO PRODUCTS</Button>
+        <Button Grid.Column="2" Grid.Row="0" Command="{Binding NavigateToProviders}" >GO TO PROVIDERS</Button>
+        <Button Grid.Column="3" Grid.Row="0" IsEnabled="False" >GO TO CATEGORIES</Button>
 
-        <Button Grid.Column="0" Grid.Row="4" Command="{Binding AddCategoryCommand}" IsEnabled="{Binding AddButtonIsEnabled, UpdateSourceTrigger=PropertyChanged}">ADD</Button>
-        <Button Grid.Column="1" Grid.Row="4" Command="{Binding ModifyCategoryCommand}" IsEnabled="{Binding ModifyAndDeleteButtonsAreEnabled, UpdateSourceTrigger=PropertyChanged}">MODIFY</Button>
-        <Button Grid.Column="2" Grid.Row="4" Command="{Binding DeleteCategoryCommand}" IsEnabled="{Binding ModifyAndDeleteButtonsAreEnabled, UpdateSourceTrigger=PropertyChanged}">DELETE</Button>
+        <Button Grid.Column="0" Grid.Row="4" Command="{Binding ResetSelectionCommand}" >RESET</Button>
+
+        <Button Grid.Column="1" Grid.Row="4" Command="{Binding AddCategoryCommand}" IsEnabled="{Binding AddButtonIsEnabled, UpdateSourceTrigger=PropertyChanged}">ADD</Button>
+        <Button Grid.Column="2" Grid.Row="4" Command="{Binding ModifyCategoryCommand}" IsEnabled="{Binding ModifyAndDeleteButtonsAreEnabled, UpdateSourceTrigger=PropertyChanged}">MODIFY</Button>
+        <Button Grid.Column="3" Grid.Row="4" Command="{Binding DeleteCategoryCommand}" IsEnabled="{Binding ModifyAndDeleteButtonsAreEnabled, UpdateSourceTrigger=PropertyChanged}">DELETE</Button>
 
     </Grid>
 </UserControl>

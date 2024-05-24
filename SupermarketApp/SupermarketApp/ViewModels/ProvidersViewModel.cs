@@ -19,9 +19,11 @@ namespace SupermarketApp.ViewModels
         private ProviderBLL _providerBLL;
         private ObservableCollection<Provider> _providers;
         private Provider _selectedProvider;
-        public ProvidersViewModel(Navigation navigation, Func<MainMenuViewModel> createMainMenu)
+        public ProvidersViewModel(Navigation navigation, Func<MainMenuViewModel> createMainMenu, Func<ProductsViewModel> createProductsMenu, Func<CategoriesViewModel> createCategoriesMenu)
         {
             NavigateBackToMenu = new NavigationCommand(navigation, createMainMenu);
+            NavigateToProducts = new NavigationCommand(navigation, createProductsMenu);
+            NavigateToCategories = new NavigationCommand(navigation, createCategoriesMenu);
             _providerBLL = new ProviderBLL();
             ResetProvider();
 
@@ -115,6 +117,8 @@ namespace SupermarketApp.ViewModels
         }
 
         public ICommand NavigateBackToMenu { get; set; }
+        public ICommand NavigateToProducts { get; set; }
+        public ICommand NavigateToCategories { get; set; }
         public ICommand AddProviderCommand { get; set; }
         public ICommand ModifyProviderCommand { get; set; }
         public ICommand DeleteProviderCommand { get; set; }
