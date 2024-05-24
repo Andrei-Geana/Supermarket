@@ -20,9 +20,10 @@ namespace SupermarketApp.ViewModels
         private ObservableCollection<Role> _roles;
 
         private Role _selectedRole;
-        public RolesViewModel(Navigation navigation, Func<MainMenuViewModel> createMainMenu)
+        public RolesViewModel(Navigation navigation, Func<MainMenuViewModel> createMainMenu, Func<UsersViewModel> createUsersMenu)
         {
             NavigateBackToMenu = new NavigationCommand(navigation, createMainMenu);
+            NavigateToUsersMenu = new NavigationCommand(navigation, createUsersMenu);
             _roleBLL = new RoleBLL();
             ResetRole();
 
@@ -96,6 +97,7 @@ namespace SupermarketApp.ViewModels
         }
 
         public ICommand NavigateBackToMenu { get; set; }
+        public ICommand NavigateToUsersMenu { get; set; }
         public ICommand AddCategoryCommand { get; set; }
         public ICommand ModifyCategoryCommand { get; set; }
         public ICommand DeleteCategoryCommand { get; set; }

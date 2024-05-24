@@ -46,12 +46,5 @@
         Grid.Row="1">
             USERS
         </Button>
-
-        <Button Command="{Binding NavigateToRolesMenu}" 
-        Margin="50 25 50 25"
-        Grid.Column="2" 
-        Grid.Row="3">
-            ROLES
-        </Button>
     </Grid>
 </UserControl>

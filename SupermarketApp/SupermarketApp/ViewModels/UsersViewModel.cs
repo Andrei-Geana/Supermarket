@@ -22,9 +22,10 @@ namespace SupermarketApp.ViewModels
         private ObservableCollection<GetUsers_Result> _users;
         private ObservableCollection<Role> _roles;
         private GetUsers_Result _selectedUser;
-        public UsersViewModel(Navigation navigation, Func<MainMenuViewModel> createMainMenu)
+        public UsersViewModel(Navigation navigation, Func<MainMenuViewModel> createMainMenu, Func<RolesViewModel> createRolesMenu)
         {
             NavigateBackToMenu = new NavigationCommand(navigation, createMainMenu);
+            NavigateToRolesMenu = new NavigationCommand(navigation, createRolesMenu);
             _userBLL = new UserBLL();
             _roleBLL = new RoleBLL();
             Roles = _roleBLL.GetRoles();
@@ -38,6 +39,7 @@ namespace SupermarketApp.ViewModels
 
 
         public ICommand NavigateBackToMenu { get; set; }
+        public ICommand NavigateToRolesMenu { get; set; }
         public ObservableCollection<GetUsers_Result> UsersList 
         { 
             get => _users;
