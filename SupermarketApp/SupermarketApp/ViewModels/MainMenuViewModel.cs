@@ -14,17 +14,19 @@ namespace SupermarketApp.ViewModels
         public MainMenuViewModel() { }
 
         public MainMenuViewModel(Navigation navigation, Func<LoginViewModel> createLoginMenu, Func<CashierViewModel> createCashierMenu
-            , Func<UsersViewModel> createUsersMenu, Func<ProductsViewModel> createProductsMenu)
+            , Func<UsersViewModel> createUsersMenu, Func<ProductsViewModel> createProductsMenu, Func<StocksViewModel> createStocksMenu)
         {
             NavigateBackToLoginCommand = new NavigationCommand(navigation, createLoginMenu);
             NavigateToCashierMenu = new NavigationCommand(navigation, createCashierMenu);
             NavigateToUsersMenu = new NavigationCommand(navigation, createUsersMenu);
             NavigateToProductsMenu = new NavigationCommand(navigation, createProductsMenu);
+            NavigateToStocksMenu = new NavigationCommand(navigation, createStocksMenu);
         }
 
         public ICommand NavigateBackToLoginCommand { get; set; }
         public ICommand NavigateToCashierMenu { get; set; }
         public ICommand NavigateToUsersMenu { get; set; }
         public ICommand NavigateToProductsMenu { get; set; }
+        public ICommand NavigateToStocksMenu { get; set; }
     }
 }

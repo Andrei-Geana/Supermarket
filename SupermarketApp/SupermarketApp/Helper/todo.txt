@@ -1,6 +1,4 @@
-﻿-product
--providers
--product_in_stock
+﻿-product_in_stock
 -receipts
 -cashier menu
 

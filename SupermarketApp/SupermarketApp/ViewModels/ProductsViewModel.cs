@@ -117,9 +117,9 @@ namespace SupermarketApp.ViewModels
                 {
                     throw new Exception("Invalid Barcode: Must be of length 8.");
                 }
-                foreach (var caracter in SelectedProduct.bar_code)
+                foreach (var character in SelectedProduct.bar_code)
                 {
-                    if (!char.IsDigit(caracter))
+                    if (!char.IsDigit(character))
                     {
                         throw new Exception("Invalid barcode: Must contain only digits.");
                     }
