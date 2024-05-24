@@ -62,5 +62,11 @@
         Grid.Row="3">
             ROLES
         </Button>
+        <Button Command="{Binding NavigateToProvidersMenu}" 
+        Margin="50 25 50 25"
+        Grid.Column="2" 
+        Grid.Row="4">
+            PROVIDERS
+        </Button>
     </Grid>
 </UserControl>

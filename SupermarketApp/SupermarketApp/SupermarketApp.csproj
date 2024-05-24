@@ -86,9 +86,13 @@
       <DependentUpon>SupermarketEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\CategoriesViewModel.cs" />
+    <Compile Include="ViewModels\ProvidersViewModel.cs" />
     <Compile Include="ViewModels\RolesViewModel.cs" />
     <Compile Include="Views\CategoriesView.xaml.cs">
       <DependentUpon>CategoriesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProvidersView.xaml.cs">
+      <DependentUpon>ProvidersView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RolesView.xaml.cs">
       <DependentUpon>RolesView.xaml</DependentUpon>
@@ -190,6 +194,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\ProvidersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\RolesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
