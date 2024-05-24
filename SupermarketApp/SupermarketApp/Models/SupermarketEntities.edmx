@@ -171,6 +171,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="GetProductsWithProviderAndCategoryName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="SupermarketMAPModelStoreContainer">
           <EntitySet Name="Product_Category" EntityType="Self.Product_Category" Schema="dbo" store:Type="Tables" />
@@ -432,12 +433,21 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
           <FunctionImport Name="GetUsers" ReturnType="Collection(SupermarketMAPModel.GetUsers_Result)" />
+          <FunctionImport Name="GetProductsWithProviderAndCategoryName" ReturnType="Collection(SupermarketMAPModel.GetProductsWithProviderAndCategoryName_Result)" />
         </EntityContainer>
         <ComplexType Name="GetUsers_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="255" />
           <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
           <Property Type="String" Name="Role" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="GetProductsWithProviderAndCategoryName_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="CategoryName" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="ProviderName" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="bar_code" Nullable="false" MaxLength="8" />
+          <Property Type="Boolean" Name="deleted" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -542,6 +552,18 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Role" ColumnName="Role" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetProductsWithProviderAndCategoryName" FunctionName="SupermarketMAPModel.Store.GetProductsWithProviderAndCategoryName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SupermarketMAPModel.GetProductsWithProviderAndCategoryName_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="ProviderName" ColumnName="ProviderName" />
+                <ScalarProperty Name="bar_code" ColumnName="bar_code" />
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

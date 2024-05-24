@@ -19,12 +19,13 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Button Command="{Binding NavigateBackToMenu}" Grid.Row="0" Grid.Column="0" Margin="50 25 50 25">BACK</Button>
 
         <DataGrid Name="categoriesGrid" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="3" AutoGenerateColumns="True"
-          ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" ItemsSource="{Binding Providers, Mode=TwoWay}"
-          SelectedItem="{Binding SelectedProvider, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+          ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" ItemsSource="{Binding Products, Mode=TwoWay}"
+          SelectedItem="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
             <DataGrid.Columns>
                 <!--<DataGridTextColumn Header="ID" Binding="{Binding id}" />
         <DataGridTextColumn Header="Name" Binding="{Binding name}" />-->
@@ -33,22 +34,38 @@
 
         <TextBox 
         Grid.Row="1"
-        Text="{Binding SelectedProvider.name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        Text="{Binding SelectedProduct.name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
         <TextBox 
         Grid.Row="2"
-        Text="{Binding SelectedProvider.country_of_origin, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        Text="{Binding SelectedProduct.bar_code, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+        <ComboBox 
+        Grid.Row="3"
+        ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+        DisplayMemberPath="name"
+        SelectedValue="{Binding SelectedProduct.CategoryName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+        SelectedValuePath="name"
+        />
+        <ComboBox 
+        Grid.Row="4"
+        ItemsSource="{Binding Providers, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+        DisplayMemberPath="name"
+        SelectedValue="{Binding SelectedProduct.ProviderName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+        SelectedValuePath="name"
+        />
+
 
 
         <Button Grid.Column="1" Grid.Row="0" IsEnabled="False" >GO TO PRODUCTS</Button>
         <Button Grid.Column="2" Grid.Row="0" Command="{Binding NavigateToProviders}" >GO TO PROVIDERS</Button>
         <Button Grid.Column="3" Grid.Row="0" Command="{Binding NavigateToCategories}" >GO TO CATEGORIES</Button>
         
-        <Button Grid.Column="0" Grid.Row="4" Command="{Binding ResetSelectionCommand}" >RESET</Button>
+        <Button Grid.Column="0" Grid.Row="5" Command="{Binding ResetSelectionCommand}" >RESET</Button>
 
-        <Button Grid.Column="1" Grid.Row="4" Command="{Binding AddProviderCommand}" IsEnabled="{Binding AddButtonIsEnabled, UpdateSourceTrigger=PropertyChanged}">ADD</Button>
-        <Button Grid.Column="2" Grid.Row="4" Command="{Binding ModifyProviderCommand}" IsEnabled="{Binding ModifyAndDeleteButtonsAreEnabled, UpdateSourceTrigger=PropertyChanged}">MODIFY</Button>
-        <Button Grid.Column="3" Grid.Row="4" Command="{Binding DeleteProviderCommand}" IsEnabled="{Binding ModifyAndDeleteButtonsAreEnabled, UpdateSourceTrigger=PropertyChanged}">DELETE</Button>
+        <Button Grid.Column="1" Grid.Row="5" Command="{Binding AddProductCommand}" IsEnabled="{Binding AddButtonIsEnabled, UpdateSourceTrigger=PropertyChanged}">ADD</Button>
+        <Button Grid.Column="2" Grid.Row="5" Command="{Binding ModifyProductCommand}" IsEnabled="{Binding ModifyAndDeleteButtonsAreEnabled, UpdateSourceTrigger=PropertyChanged}">MODIFY</Button>
+        <Button Grid.Column="3" Grid.Row="5" Command="{Binding DeleteProductCommand}" IsEnabled="{Binding ModifyAndDeleteButtonsAreEnabled, UpdateSourceTrigger=PropertyChanged}">DELETE</Button>
 
 
     </Grid>

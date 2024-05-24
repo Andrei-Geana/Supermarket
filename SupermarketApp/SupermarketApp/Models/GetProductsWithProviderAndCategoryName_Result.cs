@@ -10,21 +10,14 @@
 namespace SupermarketApp.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Product_Category
+    public partial class GetProductsWithProviderAndCategoryName_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Product_Category()
-        {
-            this.Products = new HashSet<Product>();
-        }
-    
         public int id { get; set; }
         public string name { get; set; }
+        public string CategoryName { get; set; }
+        public string ProviderName { get; set; }
+        public string bar_code { get; set; }
         public bool deleted { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Products { get; set; }
     }
 }

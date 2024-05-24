@@ -33,19 +33,11 @@ namespace SupermarketApp.Models.BusinessLogic
 
         public ObservableCollection<GetUsers_Result> GetUsersWithRoleName()
         {
-            ReinitializeList();
-            ObservableCollection< GetUsers_Result > returnedUsers = new ObservableCollection< GetUsers_Result >();
-            RoleBLL roleBLL = new RoleBLL();
-            foreach (var user in _users) 
+            ObservableCollection<GetUsers_Result> returnedUsers = new ObservableCollection<GetUsers_Result>();
+            var users = entities.GetUsersWithRoleName().ToList();
+            foreach (var user in users) 
             {
-                GetUsers_Result newUser = new GetUsers_Result
-                {
-                    ID = user.id,
-                    Name = user.name,
-                    Password = user.password,
-                    Role = roleBLL.GetRoleName(user.id_role)
-                };
-                returnedUsers.Add(newUser); 
+                returnedUsers.Add(user); 
             }
             return returnedUsers;
         }

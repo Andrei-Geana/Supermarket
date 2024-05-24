@@ -82,6 +82,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\GetProductsWithProviderAndCategoryName_Result.cs">
+      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GetUsers_Result.cs">
       <DependentUpon>SupermarketEntities.tt</DependentUpon>
     </Compile>

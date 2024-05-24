@@ -36,9 +36,14 @@ namespace SupermarketApp.Models
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
     
-        public virtual ObjectResult<GetUsers_Result> GetUsersWithRoles()
+        public virtual ObjectResult<GetUsers_Result> GetUsersWithRoleName()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUsers_Result>("GetUsers");
+        }
+    
+        public virtual ObjectResult<GetProductsWithProviderAndCategoryName_Result> GetProductsWithProviderAndCategoryName()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetProductsWithProviderAndCategoryName_Result>("GetProductsWithProviderAndCategoryName");
         }
     }
 }
