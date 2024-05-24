@@ -13,33 +13,47 @@ namespace SupermarketApp.Models.BusinessLogic
         private static readonly string _cashierString = "CASHIER";
 
         private SupermarketMAPEntities entities = new SupermarketMAPEntities();
+        private ObservableCollection<Role> _roles;
 
-        public RoleBLL() { }
-
-        public int GetIdOfAdmin()
+        public RoleBLL() 
         {
-            return entities.Roles.Where(role => role.name == _adminString).First().id;
+            ReinitializeList();
         }
 
-        public ObservableCollection<Role> GetRoles()
+        private void ReinitializeList()
         {
             var roles = entities.Roles.ToList();
-            ObservableCollection<Role> returnedRoles = new ObservableCollection<Role>();
-            foreach (var role in roles) 
+            _roles = new ObservableCollection<Role>();
+            foreach (var role in roles)
             {
                 Role newRole = new Role
                 {
                     id = role.id,
                     name = role.name
                 };
-                returnedRoles.Add(newRole);
+                _roles.Add(newRole);
             }
-            return returnedRoles;
+        }
+
+        public int GetIdOfAdmin()
+        {
+            return _roles.Where(role => role.name == _adminString).First().id;
+        }
+
+        public ObservableCollection<Role> GetRoles()
+        {
+            ReinitializeList();
+            return _roles;
         }
 
         public int GetIdOfRole(string roleName)
         {
-            return entities.Roles.Where(role => role.name.Equals(roleName)).FirstOrDefault().id;
+            return _roles.Where(role => role.name.Equals(roleName)).FirstOrDefault().id;
+        }
+
+        public string GetRoleName(int id)
+        {
+            return _roles.Where(role => role.id == id).FirstOrDefault().name;
         }
 
         public void AddRole(Role newRole)
@@ -48,6 +62,7 @@ namespace SupermarketApp.Models.BusinessLogic
             {
                 entities.Roles.Add(newRole);
                 entities.SaveChanges();
+                _roles.Add(newRole);
             }
             catch
             {
@@ -62,6 +77,7 @@ namespace SupermarketApp.Models.BusinessLogic
                 //need to update with only logic deletion
                 entities.Roles.Remove(entities.Roles.Where(role => role.id == id).FirstOrDefault());
                 entities.SaveChanges();
+                _roles.Remove(_roles.Where(role => role.id == id).FirstOrDefault());
             }
             catch
             {
@@ -76,6 +92,8 @@ namespace SupermarketApp.Models.BusinessLogic
                 var existingCategory = entities.Roles.FirstOrDefault(role => role.id == newRole.id) ?? throw new Exception("Role not found in database");
                 existingCategory.name = newRole.name;
                 entities.SaveChanges();
+                var currentCategory = _roles.FirstOrDefault(role => role.id == newRole.id);
+                currentCategory.name = newRole.name;
             }
             catch
             {

@@ -128,7 +128,7 @@ namespace SupermarketApp.ViewModels
         }
         private void ResetUser()
         {
-            UsersList = _userBLL.GetUsers();
+            UsersList = _userBLL.GetUsersWithRoleName();
             SelectedUser = new GetUsers_Result();
         }
         public bool ModifyAndDeleteButtonsAreEnabled => SelectedUser != null && SelectedUser.ID != 0;

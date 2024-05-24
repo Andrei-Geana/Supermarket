@@ -12,20 +12,41 @@ namespace SupermarketApp.Models.BusinessLogic
     public class UserBLL
     {
         private SupermarketMAPEntities entities = new SupermarketMAPEntities();
-
-        public UserBLL() {}
+        private ObservableCollection<User> _users;
+        public UserBLL() 
+        {
+            ReinitializeList();
+        }
 
         public User Login(User user)
         {
-            User u = entities.Users.Where(mock => mock.password == user.password).Where(mock => mock.name == user.name).FirstOrDefault();
+            User u = _users.Where(mock => mock.password == user.password).Where(mock => mock.name == user.name).FirstOrDefault();
             return u;
         }
 
-        public ObservableCollection<GetUsers_Result> GetUsers()
+        public void ReinitializeList()
         {
-            var users = entities.GetUsersWithRoles().ToList();
+            var users = entities.Users.ToList();
+            _users = new ObservableCollection<User>();
+            foreach (var user in users) { _users.Add(user); }
+        }
+
+        public ObservableCollection<GetUsers_Result> GetUsersWithRoleName()
+        {
+            ReinitializeList();
             ObservableCollection< GetUsers_Result > returnedUsers = new ObservableCollection< GetUsers_Result >();
-            foreach (var user in users) { returnedUsers.Add(user); }
+            RoleBLL roleBLL = new RoleBLL();
+            foreach (var user in _users) 
+            {
+                GetUsers_Result newUser = new GetUsers_Result
+                {
+                    ID = user.id,
+                    Name = user.name,
+                    Password = user.password,
+                    Role = roleBLL.GetRoleName(user.id_role)
+                };
+                returnedUsers.Add(newUser); 
+            }
             return returnedUsers;
         }
 
@@ -36,6 +57,7 @@ namespace SupermarketApp.Models.BusinessLogic
                 //need to update with only logic deletion
                 entities.Users.Remove(entities.Users.Where(user => user.id == ID).FirstOrDefault());
                 entities.SaveChanges();
+                _users.Remove(_users.Where(user => user.id == ID).FirstOrDefault());
             }
             catch 
             { 
@@ -49,6 +71,7 @@ namespace SupermarketApp.Models.BusinessLogic
             {
                 entities.Users.Add(newUser);
                 entities.SaveChanges();
+                _users.Add(newUser);
             }
             catch
             {
@@ -65,6 +88,12 @@ namespace SupermarketApp.Models.BusinessLogic
                 existingUser.password = userToBeModified.password;
                 existingUser.id_role = userToBeModified.id_role;
                 entities.SaveChanges();
+
+                var currentUser = _users.FirstOrDefault(user => user.id == userToBeModified.id);
+                currentUser.name = userToBeModified.name;
+                currentUser.password = userToBeModified.password;
+                currentUser.id_role = userToBeModified.id_role;
+
             }
             catch
             {

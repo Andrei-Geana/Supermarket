@@ -1,2 +1,8 @@
-﻿-logic elimination
+﻿-product
+-providers
+-product_in_stock
+-receipts
+-cashier menu
+
+-logic elimination
 -stored procedures
