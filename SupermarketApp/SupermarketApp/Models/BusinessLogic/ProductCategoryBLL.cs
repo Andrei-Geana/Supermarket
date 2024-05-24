@@ -17,5 +17,46 @@ namespace SupermarketApp.Models.BusinessLogic
             foreach (var category in categories) { returnedCategories.Add(category); }
             return returnedCategories;
         }
+
+        public void AddCategory(Product_Category newCategory)
+        {
+            try
+            {
+                entities.Product_Category.Add(newCategory);
+                entities.SaveChanges();
+            }
+            catch
+            {
+                throw new Exception("Category was not added to database.");
+            }
+        }
+
+        public void ModifyCategory(Product_Category newCategory)
+        {
+            try
+            {
+                var existingCategory = entities.Product_Category.FirstOrDefault(category => category.id == newCategory.id) ?? throw new Exception("Category not found in database");
+                existingCategory.name = newCategory.name;
+                entities.SaveChanges();
+            }
+            catch
+            {
+                throw new Exception("Category was not modified in database.");
+            }
+        }
+
+        internal void DeleteCategoryWithId(int id)
+        {
+            try
+            {
+                //need to update with only logic deletion
+                entities.Product_Category.Remove(entities.Product_Category.Where(category => category.id == id).FirstOrDefault());
+                entities.SaveChanges();
+            }
+            catch
+            {
+                throw new Exception("Category to be deleted was not found in database.");
+            }
+        }
     }
 }

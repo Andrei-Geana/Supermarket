@@ -70,7 +70,6 @@ namespace SupermarketApp.ViewModels
 
         private void AddUser()
         {
-            
             try
             {
                 if (string.IsNullOrEmpty(SelectedUser.Name) || string.IsNullOrEmpty(SelectedUser.Password) || string.IsNullOrEmpty(SelectedUser.Role))

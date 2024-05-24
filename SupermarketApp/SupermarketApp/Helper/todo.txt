@@ -1,0 +1,2 @@
+﻿-logic elimination
+-stored procedures
