@@ -5,6 +5,8 @@ using SupermarketApp.Models.BusinessLogic;
 using SupermarketApp.Stores;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 
 namespace SupermarketApp.ViewModels
@@ -26,12 +28,15 @@ namespace SupermarketApp.ViewModels
         private string _name = "";
         private string _provider = "";
         private string _category = "";
+        private int _quantity;
         private DateTime _expirationDate;
         public CashierViewModel(Navigation navigation, Func<MainMenuViewModel> createMainMenu, Func<LoginViewModel> createLoginMenu)
         {
             NavigateBackToLogin = new NavigationCommand(navigation, createLoginMenu);
             NavigateBackToMainMenu = new NavigationCommand(navigation, createMainMenu);
             NavigateBack = new RelayCommand<object>(param => DecideWhereToGoBack());
+            AddProductToReceipt = new RelayCommand<object>(param => AddProductToReceiptDetails());
+            RemoveProductFromReceipt = new RelayCommand<object>(param => RemoveFromReceiptDetails());
 
             _stockBLL = new StockBLL();
             _stockBLL = new StockBLL();
@@ -42,6 +47,7 @@ namespace SupermarketApp.ViewModels
 
             Categories = _categoryBLL.GetCategories();
             Providers = _providerBLL.GetProviders();
+            ReceiptDetails = new ObservableCollection<Receipt_Details>();
 
             Categories.Insert(0, new Product_Category() { name = "" });
             Providers.Insert(0, new Provider() { name = "" });
@@ -50,9 +56,78 @@ namespace SupermarketApp.ViewModels
 
         }
 
+        private void RemoveFromReceiptDetails()
+        {
+            try
+            {
+                if (Quantity < 0 || Quantity > SelectedReceiptDetail.quantity)
+                {
+                    throw new Exception("Invalid data: Quantity invalid to remove.");
+                }
+                _stocks.Where(stock => stock.id == SelectedReceiptDetail.id_stock).FirstOrDefault().remaining_quantity += Quantity;
+                SelectedReceiptDetail.quantity -= Quantity;
+                if (SelectedReceiptDetail.quantity == 0)
+                {
+                    ReceiptDetails.Remove(SelectedReceiptDetail);
+                }
+                else
+                {
+                    var updatedDetails = new ObservableCollection<Receipt_Details>(_receiptDetails);
+                    ReceiptDetails = updatedDetails;
+                }
+                var updatedStocks = new ObservableCollection<GetRemainingStock_Result>(_stocks);
+                Stocks = updatedStocks;
+
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private ObservableCollection<Receipt_Details> _receiptDetails;
+        private Receipt_Details _selectedReceiptDetail;
+
+        private void AddProductToReceiptDetails()
+        {
+            try
+            {
+                if(Quantity<0 || Quantity>SelectedStock.remaining_quantity)
+                {
+                    throw new Exception("Invalid data: Quantity invalid.");
+                }
+                Receipt_Details details = new Receipt_Details()
+                {
+                    id_stock = SelectedStock.id,
+                    price_per_item = SelectedStock.sell_price,
+                    quantity = Quantity
+
+                };
+                var alreadyIn = ReceiptDetails.Where(x => x.id_stock == details.id_stock).FirstOrDefault();
+                if(alreadyIn!=null)
+                {
+                    alreadyIn.quantity += details.quantity;
+                    var updatedDetails = new ObservableCollection<Receipt_Details>(_receiptDetails);
+                    ReceiptDetails = updatedDetails;
+                }
+                else
+                    ReceiptDetails.Add(details);
+                Stocks.Where(stock => stock.id == details.id_stock).FirstOrDefault().remaining_quantity -= Quantity;
+                var updatedStocks = new ObservableCollection<GetRemainingStock_Result>(_stocks);
+                Stocks = updatedStocks;
+
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         public ICommand NavigateBackToLogin { get; set; }
         public ICommand NavigateBackToMainMenu { get; set; }
         public ICommand NavigateBack { get; set; }
+        public ICommand AddProductToReceipt { get; set; }
+        public ICommand RemoveProductFromReceipt { get; set; }
 
         public void ResetSelection()
         {
@@ -70,6 +145,44 @@ namespace SupermarketApp.ViewModels
 
 
 
+
+
+
+        public ObservableCollection<GetRemainingStock_Result> Stocks 
+        { 
+            get
+            {
+                ObservableCollection<GetRemainingStock_Result> finalResult = new ObservableCollection<GetRemainingStock_Result>();
+                foreach(var item in _stocks)
+                {
+                    if (item.remaining_quantity == 0)
+                        continue;
+                    if (!item.bar_code.StartsWith(Barcode))
+                        continue;
+                    if (!item.product_name.StartsWith(Name))
+                        continue;
+                    if (!string.IsNullOrEmpty(Provider) && item.provider_name != Provider)
+                        continue;
+                    if (!string.IsNullOrEmpty(Category) && item.category_name != Category)
+                        continue;
+                    if (item.expiration_date < ExpirationDate)
+                        continue;
+                    finalResult.Add(item);
+                }
+                return finalResult;
+            }
+            set { _stocks = value; OnPropertyChanged(nameof(Stocks)); }
+        }
+        public GetRemainingStock_Result SelectedStock { get => _selectedStock; set { _selectedStock = value; OnPropertyChanged(nameof(SelectedStock)); OnPropertyChanged(nameof(AddButtonIsEnabled)); } }
+
+        public string Barcode { get => _barcode; set { _barcode = value; OnPropertyChanged(nameof(Barcode)); OnPropertyChanged(nameof(Stocks)); } }
+        public string Name { get => _name; set { _name = value; OnPropertyChanged(nameof(Name)); OnPropertyChanged(nameof(Stocks)); } }
+        public string Provider { get => _provider; set { _provider = value; OnPropertyChanged(nameof(Provider)); OnPropertyChanged(nameof(Stocks)); } }
+        public string Category { get => _category; set { _category = value; OnPropertyChanged(nameof(Category)); OnPropertyChanged(nameof(Stocks)); } }
+        public DateTime ExpirationDate { get => _expirationDate; set { _expirationDate = value; OnPropertyChanged(nameof(ExpirationDate)); OnPropertyChanged(nameof(Stocks)); } }
+
+        public ObservableCollection<Product_Category> Categories { get => _categories; set => _categories = value; }
+        public ObservableCollection<Provider> Providers { get => _providers; set => _providers = value; }
 
 
 
@@ -101,38 +214,12 @@ namespace SupermarketApp.ViewModels
             }
         }
 
-        public ObservableCollection<GetRemainingStock_Result> Stocks 
-        { 
-            get
-            {
-                ObservableCollection<GetRemainingStock_Result> finalResult = new ObservableCollection<GetRemainingStock_Result>();
-                foreach(var item in _stocks)
-                {
-                    if (!item.bar_code.StartsWith(Barcode))
-                        continue;
-                    if (!item.product_name.StartsWith(Name))
-                        continue;
-                    if (!string.IsNullOrEmpty(Provider) && item.provider_name != Provider)
-                        continue;
-                    if (!string.IsNullOrEmpty(Category) && item.category_name != Category)
-                        continue;
-                    if (item.expiration_date < ExpirationDate)
-                        continue;
-                    finalResult.Add(item);
-                }
-                return finalResult;
-            }
-            set => _stocks = value; 
-        }
-        public GetRemainingStock_Result SelectedStock { get => _selectedStock; set { _selectedStock = value; OnPropertyChanged(nameof(SelectedStock)); } }
+        public bool MinusButtonIsEnabled => SelectedReceiptDetail != null && SelectedReceiptDetail.quantity != 0;
+        public bool AddButtonIsEnabled => SelectedStock != null && SelectedStock.id != 0;
 
-        public string Barcode { get => _barcode; set { _barcode = value; OnPropertyChanged(nameof(Barcode)); OnPropertyChanged(nameof(Stocks)); } }
-        public string Name { get => _name; set { _name = value; OnPropertyChanged(nameof(Name)); OnPropertyChanged(nameof(Stocks)); } }
-        public string Provider { get => _provider; set { _provider = value; OnPropertyChanged(nameof(Provider)); OnPropertyChanged(nameof(Stocks)); } }
-        public string Category { get => _category; set { _category = value; OnPropertyChanged(nameof(Category)); OnPropertyChanged(nameof(Stocks)); } }
-        public DateTime ExpirationDate { get => _expirationDate; set { _expirationDate = value; OnPropertyChanged(nameof(ExpirationDate)); OnPropertyChanged(nameof(Stocks)); } }
+        public int Quantity { get => _quantity; set { _quantity = value; OnPropertyChanged(nameof(Quantity)); } }
 
-        public ObservableCollection<Product_Category> Categories { get => _categories; set => _categories = value; }
-        public ObservableCollection<Provider> Providers { get => _providers; set => _providers = value; }
+        public ObservableCollection<Receipt_Details> ReceiptDetails { get => _receiptDetails; set { _receiptDetails = value; OnPropertyChanged(nameof(ReceiptDetails)); } }
+        public Receipt_Details SelectedReceiptDetail { get => _selectedReceiptDetail; set { _selectedReceiptDetail = value; OnPropertyChanged(nameof(SelectedReceiptDetail)); OnPropertyChanged(nameof(MinusButtonIsEnabled)); } }
     }
 }

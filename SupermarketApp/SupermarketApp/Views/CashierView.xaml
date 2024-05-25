@@ -46,12 +46,22 @@
         <Calendar Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="3" SelectedDate="{Binding ExpirationDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
         <DataGrid Name="stocksGrid" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Grid.RowSpan="3" AutoGenerateColumns="True"
-        ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" ItemsSource="{Binding Stocks}"
+        ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" ItemsSource="{Binding Stocks, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
         SelectedItem="{Binding SelectedStock, Mode=TwoWay}">
             <DataGrid.Columns>
             </DataGrid.Columns>
         </DataGrid>
 
+        <DataGrid Name="detailsGrid" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="3" Grid.RowSpan="3" AutoGenerateColumns="True" Margin="50"
+        ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" ItemsSource="{Binding ReceiptDetails, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+        SelectedItem="{Binding SelectedReceiptDetail, Mode=TwoWay}">
+            <DataGrid.Columns>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <TextBox Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="0" Grid.Row="5" Margin="22,25,22,25"/>
+        <Button IsEnabled="{Binding AddButtonIsEnabled, UpdateSourceTrigger=PropertyChanged}" Grid.Row="5" Grid.Column="1" Margin="30" Command="{Binding AddProductToReceipt}">+</Button>
+        <Button IsEnabled="{Binding MinusButtonIsEnabled, UpdateSourceTrigger=PropertyChanged}" Grid.Row="5" Grid.Column="2" Margin="30" Command="{Binding RemoveProductFromReceipt}">-</Button>
 
     </Grid>
 </UserControl>
