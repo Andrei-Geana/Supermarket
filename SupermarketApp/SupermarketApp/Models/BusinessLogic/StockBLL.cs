@@ -85,5 +85,13 @@ namespace SupermarketApp.Models.BusinessLogic
                 throw new Exception("Stock to be deleted was not found in database.");
             }
         }
+
+        public ObservableCollection<GetRemainingStock_Result> GetRemainingStock()
+        {
+            var data = entities.GetRemainingStock().ToList();
+            ObservableCollection<GetRemainingStock_Result> result = new ObservableCollection<GetRemainingStock_Result>();
+            foreach (var item in data) result.Add(item);
+            return result;
+        }
     }
 }

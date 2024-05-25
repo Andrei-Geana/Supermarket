@@ -11,6 +11,8 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -18,7 +20,38 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Button Command="{Binding NavigateBack}" Margin="50 25 50 25" Content="{Binding TextButton}"></Button>
+
+
+        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="1" Grid.Row="0" Margin="0,0,43,50"/>
+        <ComboBox 
+        Grid.Row="0" Grid.Column="2" Margin="0,0,10,50"
+        ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+        DisplayMemberPath="name"
+        SelectedValue="{Binding Category, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+        SelectedValuePath="name"
+        />
+        
+        <TextBox Text="{Binding Barcode, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="1" Grid.Row="1" Margin="0,0,43,50"/>
+        <ComboBox 
+        Grid.Row="1" Grid.Column="2" Margin="0,0,10,50"
+        ItemsSource="{Binding Providers, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+        DisplayMemberPath="name"
+        SelectedValue="{Binding Provider, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+        SelectedValuePath="name"
+        />
+
+        <Calendar Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="3" SelectedDate="{Binding ExpirationDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+        <DataGrid Name="stocksGrid" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Grid.RowSpan="3" AutoGenerateColumns="True"
+        ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" ItemsSource="{Binding Stocks}"
+        SelectedItem="{Binding SelectedStock, Mode=TwoWay}">
+            <DataGrid.Columns>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
     </Grid>
 </UserControl>
