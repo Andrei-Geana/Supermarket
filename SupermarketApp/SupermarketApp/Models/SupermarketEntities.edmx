@@ -172,6 +172,7 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="GetProductsWithProviderAndCategoryName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetStockDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="SupermarketMAPModelStoreContainer">
           <EntitySet Name="Product_Category" EntityType="Self.Product_Category" Schema="dbo" store:Type="Tables" />
@@ -434,6 +435,7 @@
           </AssociationSet>
           <FunctionImport Name="GetUsers" ReturnType="Collection(SupermarketMAPModel.GetUsers_Result)" />
           <FunctionImport Name="GetProductsWithProviderAndCategoryName" ReturnType="Collection(SupermarketMAPModel.GetProductsWithProviderAndCategoryName_Result)" />
+          <FunctionImport Name="GetStockDetails" ReturnType="Collection(SupermarketMAPModel.GetStockDetails_Result)" />
         </EntityContainer>
         <ComplexType Name="GetUsers_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -448,6 +450,18 @@
           <Property Type="String" Name="ProviderName" Nullable="false" MaxLength="255" />
           <Property Type="String" Name="bar_code" Nullable="false" MaxLength="8" />
           <Property Type="Boolean" Name="deleted" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetStockDetails_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="product_name" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="provider_name" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="initial_quantity" Nullable="false" />
+          <Property Type="Int32" Name="remaining_quantity" Nullable="false" />
+          <Property Type="String" Name="unit_of_measurement" Nullable="false" MaxLength="8" />
+          <Property Type="DateTime" Name="arrival_date" Nullable="false" />
+          <Property Type="DateTime" Name="expiration_date" Nullable="false" />
+          <Property Type="Double" Name="buy_price" Nullable="false" />
+          <Property Type="Double" Name="sell_price" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -564,6 +578,22 @@
                 <ScalarProperty Name="ProviderName" ColumnName="ProviderName" />
                 <ScalarProperty Name="bar_code" ColumnName="bar_code" />
                 <ScalarProperty Name="deleted" ColumnName="deleted" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetStockDetails" FunctionName="SupermarketMAPModel.Store.GetStockDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SupermarketMAPModel.GetStockDetails_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="provider_name" ColumnName="provider_name" />
+                <ScalarProperty Name="initial_quantity" ColumnName="initial_quantity" />
+                <ScalarProperty Name="remaining_quantity" ColumnName="remaining_quantity" />
+                <ScalarProperty Name="unit_of_measurement" ColumnName="unit_of_measurement" />
+                <ScalarProperty Name="arrival_date" ColumnName="arrival_date" />
+                <ScalarProperty Name="expiration_date" ColumnName="expiration_date" />
+                <ScalarProperty Name="buy_price" ColumnName="buy_price" />
+                <ScalarProperty Name="sell_price" ColumnName="sell_price" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

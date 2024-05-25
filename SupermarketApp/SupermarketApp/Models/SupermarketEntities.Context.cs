@@ -45,5 +45,10 @@ namespace SupermarketApp.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetProductsWithProviderAndCategoryName_Result>("GetProductsWithProviderAndCategoryName");
         }
+    
+        public virtual ObjectResult<GetStockDetails_Result> GetStockDetails()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetStockDetails_Result>("GetStockDetails");
+        }
     }
 }

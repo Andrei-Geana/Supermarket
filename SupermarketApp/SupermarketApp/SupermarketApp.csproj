@@ -85,6 +85,9 @@
     <Compile Include="Models\GetProductsWithProviderAndCategoryName_Result.cs">
       <DependentUpon>SupermarketEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetStockDetails_Result.cs">
+      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GetUsers_Result.cs">
       <DependentUpon>SupermarketEntities.tt</DependentUpon>
     </Compile>
