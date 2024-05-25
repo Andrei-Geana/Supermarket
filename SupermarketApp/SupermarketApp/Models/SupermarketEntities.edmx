@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SupermarketMAPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="SupermarketMAPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Product_Category">
           <Key>
             <PropertyRef Name="id" />
@@ -212,7 +212,8 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SupermarketMAPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -396,7 +397,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SupermarketMAPEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SupermarketMAPEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Product_Category" EntityType="Self.Product_Category" />
           <EntitySet Name="Product_In_Stock" EntityType="Self.Product_In_Stock" />
           <EntitySet Name="Products" EntityType="Self.Product" />
@@ -433,16 +434,10 @@
             <End Role="Role" EntitySet="Roles" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
-          <FunctionImport Name="GetUsers" ReturnType="Collection(SupermarketMAPModel.GetUsers_Result)" />
           <FunctionImport Name="GetProductsWithProviderAndCategoryName" ReturnType="Collection(SupermarketMAPModel.GetProductsWithProviderAndCategoryName_Result)" />
           <FunctionImport Name="GetStockDetails" ReturnType="Collection(SupermarketMAPModel.GetStockDetails_Result)" />
+          <FunctionImport Name="GetUsers" ReturnType="Collection(SupermarketMAPModel.GetUsers_Result)" />
         </EntityContainer>
-        <ComplexType Name="GetUsers_Result">
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" />
-          <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
-          <Property Type="String" Name="Role" Nullable="false" MaxLength="255" />
-        </ComplexType>
         <ComplexType Name="GetProductsWithProviderAndCategoryName_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="String" Name="name" Nullable="false" MaxLength="255" />
@@ -454,6 +449,7 @@
         <ComplexType Name="GetStockDetails_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="String" Name="product_name" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="category_name" Nullable="false" MaxLength="255" />
           <Property Type="String" Name="provider_name" Nullable="false" MaxLength="255" />
           <Property Type="Int32" Name="initial_quantity" Nullable="false" />
           <Property Type="Int32" Name="remaining_quantity" Nullable="false" />
@@ -463,12 +459,18 @@
           <Property Type="Double" Name="buy_price" Nullable="false" />
           <Property Type="Double" Name="sell_price" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="GetUsers_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Role" Nullable="false" MaxLength="255" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SupermarketMAPModelStoreContainer" CdmEntityContainer="SupermarketMAPEntities">
+        <EntityContainerMapping StorageEntityContainer="SupermarketMAPModelStoreContainer" CdmEntityContainer="SupermarketMAPEntities1">
           <EntitySetMapping Name="Product_Category">
             <EntityTypeMapping TypeName="SupermarketMAPModel.Product_Category">
               <MappingFragment StoreEntitySet="Product_Category">
@@ -559,16 +561,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GetUsers" FunctionName="SupermarketMAPModel.Store.GetUsers">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SupermarketMAPModel.GetUsers_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Role" ColumnName="Role" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetProductsWithProviderAndCategoryName" FunctionName="SupermarketMAPModel.Store.GetProductsWithProviderAndCategoryName">
             <ResultMapping>
               <ComplexTypeMapping TypeName="SupermarketMAPModel.GetProductsWithProviderAndCategoryName_Result">
@@ -586,6 +578,7 @@
               <ComplexTypeMapping TypeName="SupermarketMAPModel.GetStockDetails_Result">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="category_name" ColumnName="category_name" />
                 <ScalarProperty Name="provider_name" ColumnName="provider_name" />
                 <ScalarProperty Name="initial_quantity" ColumnName="initial_quantity" />
                 <ScalarProperty Name="remaining_quantity" ColumnName="remaining_quantity" />
@@ -594,6 +587,16 @@
                 <ScalarProperty Name="expiration_date" ColumnName="expiration_date" />
                 <ScalarProperty Name="buy_price" ColumnName="buy_price" />
                 <ScalarProperty Name="sell_price" ColumnName="sell_price" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetUsers" FunctionName="SupermarketMAPModel.Store.GetUsers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SupermarketMAPModel.GetUsers_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

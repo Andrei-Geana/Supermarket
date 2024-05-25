@@ -11,7 +11,7 @@ namespace SupermarketApp.Models.BusinessLogic
 {
     public class UserBLL
     {
-        private SupermarketMAPEntities entities = new SupermarketMAPEntities();
+        private SupermarketMAPEntities1 entities = new SupermarketMAPEntities1();
         private ObservableCollection<User> _users;
         public UserBLL() 
         {
@@ -34,7 +34,7 @@ namespace SupermarketApp.Models.BusinessLogic
         public ObservableCollection<GetUsers_Result> GetUsersWithRoleName()
         {
             ObservableCollection<GetUsers_Result> returnedUsers = new ObservableCollection<GetUsers_Result>();
-            var users = entities.GetUsersWithRoleName().ToList();
+            var users = entities.GetUsers().ToList();
             foreach (var user in users) 
             {
                 returnedUsers.Add(user); 

@@ -12,7 +12,7 @@ namespace SupermarketApp.Models.BusinessLogic
         private static readonly string _adminString = "ADMIN";
         private static readonly string _cashierString = "CASHIER";
 
-        private SupermarketMAPEntities entities = new SupermarketMAPEntities();
+        private SupermarketMAPEntities1 entities = new SupermarketMAPEntities1();
         private ObservableCollection<Role> _roles;
 
         public RoleBLL() 

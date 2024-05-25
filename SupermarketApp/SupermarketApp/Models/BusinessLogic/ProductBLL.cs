@@ -9,7 +9,7 @@ namespace SupermarketApp.Models.BusinessLogic
 {
     public class ProductBLL
     {
-        private SupermarketMAPEntities entities = new SupermarketMAPEntities();
+        private SupermarketMAPEntities1 entities = new SupermarketMAPEntities1();
         private ObservableCollection<Product> _products;
 
         public ProductBLL()

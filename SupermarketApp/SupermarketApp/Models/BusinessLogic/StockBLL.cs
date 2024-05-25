@@ -9,7 +9,7 @@ namespace SupermarketApp.Models.BusinessLogic
 {
     public class StockBLL
     {
-        private SupermarketMAPEntities entities = new SupermarketMAPEntities();
+        private SupermarketMAPEntities1 entities = new SupermarketMAPEntities1();
         private ObservableCollection<Product_In_Stock> _productsInStock;
 
         public StockBLL()

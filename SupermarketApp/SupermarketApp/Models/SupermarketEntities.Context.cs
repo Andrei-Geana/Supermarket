@@ -15,10 +15,10 @@ namespace SupermarketApp.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class SupermarketMAPEntities : DbContext
+    public partial class SupermarketMAPEntities1 : DbContext
     {
-        public SupermarketMAPEntities()
-            : base("name=SupermarketMAPEntities")
+        public SupermarketMAPEntities1()
+            : base("name=SupermarketMAPEntities1")
         {
         }
     
@@ -36,11 +36,6 @@ namespace SupermarketApp.Models
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
     
-        public virtual ObjectResult<GetUsers_Result> GetUsersWithRoleName()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUsers_Result>("GetUsers");
-        }
-    
         public virtual ObjectResult<GetProductsWithProviderAndCategoryName_Result> GetProductsWithProviderAndCategoryName()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetProductsWithProviderAndCategoryName_Result>("GetProductsWithProviderAndCategoryName");
@@ -49,6 +44,11 @@ namespace SupermarketApp.Models
         public virtual ObjectResult<GetStockDetails_Result> GetStockDetails()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetStockDetails_Result>("GetStockDetails");
+        }
+    
+        public virtual ObjectResult<GetUsers_Result> GetUsers()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUsers_Result>("GetUsers");
         }
     }
 }

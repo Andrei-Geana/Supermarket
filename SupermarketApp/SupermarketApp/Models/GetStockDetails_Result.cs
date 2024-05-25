@@ -15,6 +15,7 @@ namespace SupermarketApp.Models
     {
         public int id { get; set; }
         public string product_name { get; set; }
+        public string category_name { get; set; }
         public string provider_name { get; set; }
         public int initial_quantity { get; set; }
         public int remaining_quantity { get; set; }

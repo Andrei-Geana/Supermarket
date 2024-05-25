@@ -91,6 +91,45 @@
     <Compile Include="Models\GetUsers_Result.cs">
       <DependentUpon>SupermarketEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Product.cs">
+      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Product_Category.cs">
+      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Product_In_Stock.cs">
+      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Provider.cs">
+      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Receipt.cs">
+      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Receipt_Details.cs">
+      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Role.cs">
+      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SupermarketEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SupermarketEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SupermarketEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SupermarketEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SupermarketEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\CategoriesViewModel.cs" />
     <Compile Include="ViewModels\ProductsViewModel.cs" />
     <Compile Include="ViewModels\ProvidersViewModel.cs" />
@@ -153,45 +192,6 @@
     <Compile Include="Models\BusinessLogic\RoleBLL.cs" />
     <Compile Include="Models\BusinessLogic\StockBLL.cs" />
     <Compile Include="Models\BusinessLogic\UserBLL.cs" />
-    <Compile Include="Models\Product.cs">
-      <DependentUpon>SupermarketEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Product_Category.cs">
-      <DependentUpon>SupermarketEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Product_In_Stock.cs">
-      <DependentUpon>SupermarketEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Provider.cs">
-      <DependentUpon>SupermarketEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Receipt.cs">
-      <DependentUpon>SupermarketEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Receipt_Details.cs">
-      <DependentUpon>SupermarketEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Role.cs">
-      <DependentUpon>SupermarketEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SupermarketEntities.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SupermarketEntities.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SupermarketEntities.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SupermarketEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SupermarketEntities.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SupermarketEntities.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\User.cs">
-      <DependentUpon>SupermarketEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Stores\Navigation.cs" />
     <Compile Include="ViewModels\CashierViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -276,16 +276,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Helper\todo.txt" />
-    <Content Include="Models\SupermarketEntities.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SupermarketEntities.edmx</DependentUpon>
-      <LastGenOutput>SupermarketEntities.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\SupermarketEntities.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SupermarketEntities.edmx</DependentUpon>
-      <LastGenOutput>SupermarketEntities.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">
@@ -298,6 +288,18 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Models\SupermarketEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SupermarketEntities.edmx</DependentUpon>
+      <LastGenOutput>SupermarketEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\SupermarketEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SupermarketEntities.edmx</DependentUpon>
+      <LastGenOutput>SupermarketEntities.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
