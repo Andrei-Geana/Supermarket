@@ -39,5 +39,17 @@ namespace SupermarketApp.Models.BusinessLogic
                 throw new Exception("Receipt was not added to database");
             }
         }
+
+        public Receipt GetReceiptWithId(int id)
+        {
+            try
+            {
+                return _receipts.Where(receipt => receipt.id_receipt == id).FirstOrDefault();
+            }
+            catch
+            {
+                throw new Exception("Receipt was not found in database.");
+            }
+        }
     }
 }

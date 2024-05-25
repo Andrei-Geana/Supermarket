@@ -172,6 +172,9 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="GetProductsWithProviderAndCategoryName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetReceiptDetailsByReceiptId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="receipt_id" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetRemainingStock" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetStockDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -448,6 +451,9 @@
             <Parameter Name="ReleaseDate" Mode="In" Type="DateTime" />
             <Parameter Name="ReceivedAmount" Mode="In" Type="Double" />
           </FunctionImport>
+          <FunctionImport Name="GetReceiptDetailsByReceiptId" ReturnType="Collection(SupermarketMAPModel.GetReceiptDetailsByReceiptId_Result)">
+            <Parameter Name="receipt_id" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetProductsWithProviderAndCategoryName_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -489,6 +495,12 @@
           <Property Type="DateTime" Name="expiration_date" Nullable="false" />
           <Property Type="Double" Name="buy_price" Nullable="false" />
           <Property Type="Double" Name="sell_price" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetReceiptDetailsByReceiptId_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="product_name" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="quantity" Nullable="false" />
+          <Property Type="Double" Name="price_per_item" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -644,6 +656,16 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="InsertReceiptAndGetId" FunctionName="SupermarketMAPModel.Store.InsertReceiptAndGetId" />
+          <FunctionImportMapping FunctionImportName="GetReceiptDetailsByReceiptId" FunctionName="SupermarketMAPModel.Store.GetReceiptDetailsByReceiptId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SupermarketMAPModel.GetReceiptDetailsByReceiptId_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="price_per_item" ColumnName="price_per_item" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

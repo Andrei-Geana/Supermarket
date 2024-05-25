@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SupermarketApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,18 @@ namespace SupermarketApp.Views
         public CashierView()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var viewModel = DataContext as CashierViewModel;
+            if (viewModel != null)
+            {
+                viewModel.CreateReceiptButton.Execute(null);
+                int id = viewModel.IdOfNewReceipt;
+                ReceiptView receiptView = new ReceiptView() { DataContext = new ReceiptViewModel(id) };
+                receiptView.Show();
+            }
         }
     }
 }

@@ -31,6 +31,8 @@ namespace SupermarketApp.ViewModels
         private string _category = "";
         private int _quantity;
         private DateTime _expirationDate;
+
+        public int IdOfNewReceipt {  get; set; }
         public CashierViewModel(Navigation navigation, Func<MainMenuViewModel> createMainMenu, Func<LoginViewModel> createLoginMenu)
         {
             NavigateBackToLogin = new NavigationCommand(navigation, createLoginMenu);
@@ -63,14 +65,14 @@ namespace SupermarketApp.ViewModels
             try
             {
                 Receipt receipt = new Receipt() { release_date = DateTime.Now, id_cashier = App.CurrentUser.id, received_amount = 100 };
-                int idReceipt = _receiptBLL.InsertReceiptAndGetId(receipt);
-                if(idReceipt == -1)
+                IdOfNewReceipt = _receiptBLL.InsertReceiptAndGetId(receipt);
+                if(IdOfNewReceipt == -1)
                 {
                     throw new Exception("Error: Unable to save receipt.");
                 }
                 foreach(var detail in ReceiptDetails)
                 {
-                    detail.id_receipt = idReceipt;
+                    detail.id_receipt = IdOfNewReceipt;
                     _receiptDetailBLL.InsertReceiptDetails(detail);
                 }
 

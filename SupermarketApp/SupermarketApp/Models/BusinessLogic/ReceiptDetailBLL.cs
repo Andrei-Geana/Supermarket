@@ -40,5 +40,16 @@ namespace SupermarketApp.Models.BusinessLogic
                 throw new Exception("Receipt detail was not added to database");
             }
         }
+
+        public ObservableCollection<GetReceiptDetailsByReceiptId_Result> GetDetailsOfReceiptId(int id)
+        {
+            ObservableCollection<GetReceiptDetailsByReceiptId_Result> returnedDetails = new ObservableCollection<GetReceiptDetailsByReceiptId_Result>();
+            var details = entities.GetReceiptDetailsByReceiptId(id).ToList();
+            foreach (var detail in details)
+            {
+                returnedDetails.Add(detail);
+            }
+            return returnedDetails;
+        }
     }
 }

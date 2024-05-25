@@ -1,6 +1,7 @@
 ﻿using SupermarketApp.Models;
 using SupermarketApp.Stores;
 using SupermarketApp.ViewModels;
+using SupermarketApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -30,6 +31,7 @@ namespace SupermarketApp
             };
             MainWindow.Show();
             base.OnStartup(e);
+
         }
 
         private MainMenuViewModel CreateMainMenu()
