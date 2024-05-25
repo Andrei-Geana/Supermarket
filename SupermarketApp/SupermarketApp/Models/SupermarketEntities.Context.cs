@@ -55,5 +55,22 @@ namespace SupermarketApp.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetRemainingStock_Result>("GetRemainingStock");
         }
+    
+        public virtual ObjectResult<Nullable<int>> InsertReceiptAndGetId(Nullable<int> idCashier, Nullable<System.DateTime> releaseDate, Nullable<double> receivedAmount)
+        {
+            var idCashierParameter = idCashier.HasValue ?
+                new ObjectParameter("IdCashier", idCashier) :
+                new ObjectParameter("IdCashier", typeof(int));
+    
+            var releaseDateParameter = releaseDate.HasValue ?
+                new ObjectParameter("ReleaseDate", releaseDate) :
+                new ObjectParameter("ReleaseDate", typeof(System.DateTime));
+    
+            var receivedAmountParameter = receivedAmount.HasValue ?
+                new ObjectParameter("ReceivedAmount", receivedAmount) :
+                new ObjectParameter("ReceivedAmount", typeof(double));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("InsertReceiptAndGetId", idCashierParameter, releaseDateParameter, receivedAmountParameter);
+        }
     }
 }

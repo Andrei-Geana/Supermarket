@@ -61,9 +61,11 @@ namespace SupermarketApp.Models.BusinessLogic
             {
                 var stockInDatabase = entities.Product_In_Stock.Where(stockInDb => stockInDb.id == stock.id).FirstOrDefault();
                 stockInDatabase.sell_price = stock.sell_price;
+                stockInDatabase.remaining_quantity = stock.remaining_quantity;
                 entities.SaveChanges();
                 var stockInList = _productsInStock.Where(stockInDb => stockInDb.id == stock.id).FirstOrDefault();
                 stockInList.sell_price = stock.sell_price;
+                stockInList.remaining_quantity = stock.remaining_quantity;
             }
             catch
             {

@@ -175,6 +175,11 @@
         <Function Name="GetRemainingStock" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetStockDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="InsertReceiptAndGetId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCashier" Type="int" Mode="In" />
+          <Parameter Name="ReleaseDate" Type="date" Mode="In" />
+          <Parameter Name="ReceivedAmount" Type="float" Mode="In" />
+        </Function>
         <EntityContainer Name="SupermarketMAPModelStoreContainer">
           <EntitySet Name="Product_Category" EntityType="Self.Product_Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product_In_Stock" EntityType="Self.Product_In_Stock" Schema="dbo" store:Type="Tables" />
@@ -438,6 +443,11 @@
           <FunctionImport Name="GetStockDetails" ReturnType="Collection(SupermarketMAPModel.GetStockDetails_Result)" />
           <FunctionImport Name="GetUsers" ReturnType="Collection(SupermarketMAPModel.GetUsers_Result)" />
           <FunctionImport Name="GetRemainingStock" ReturnType="Collection(SupermarketMAPModel.GetRemainingStock_Result)" />
+          <FunctionImport Name="InsertReceiptAndGetId" ReturnType="Collection(Int32)">
+            <Parameter Name="IdCashier" Mode="In" Type="Int32" />
+            <Parameter Name="ReleaseDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ReceivedAmount" Mode="In" Type="Double" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetProductsWithProviderAndCategoryName_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -633,6 +643,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InsertReceiptAndGetId" FunctionName="SupermarketMAPModel.Store.InsertReceiptAndGetId" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

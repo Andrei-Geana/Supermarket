@@ -15,9 +15,10 @@ namespace SupermarketApp.ViewModels
     {
         private RoleBLL _roleBLL;
         private StockBLL _stockBLL;
-        private ProductBLL _productBLL;
         private ProductCategoryBLL _categoryBLL;
         private ProviderBLL _providerBLL;
+        private ReceiptBLL _receiptBLL;
+        private ReceiptDetailBLL _receiptDetailBLL;
 
         private ObservableCollection<Product_Category> _categories;
         private ObservableCollection<Provider> _providers;
@@ -37,13 +38,14 @@ namespace SupermarketApp.ViewModels
             NavigateBack = new RelayCommand<object>(param => DecideWhereToGoBack());
             AddProductToReceipt = new RelayCommand<object>(param => AddProductToReceiptDetails());
             RemoveProductFromReceipt = new RelayCommand<object>(param => RemoveFromReceiptDetails());
+            CreateReceiptButton = new RelayCommand<object>(param => CreateReceipt());
 
-            _stockBLL = new StockBLL();
             _stockBLL = new StockBLL();
             _roleBLL = new RoleBLL();
             _categoryBLL = new ProductCategoryBLL();
             _providerBLL = new ProviderBLL();
-
+            _receiptBLL = new ReceiptBLL();
+            _receiptDetailBLL = new ReceiptDetailBLL();
 
             Categories = _categoryBLL.GetCategories();
             Providers = _providerBLL.GetProviders();
@@ -56,11 +58,58 @@ namespace SupermarketApp.ViewModels
 
         }
 
+        private void CreateReceipt()
+        {
+            try
+            {
+                Receipt receipt = new Receipt() { release_date = DateTime.Now, id_cashier = App.CurrentUser.id, received_amount = 100 };
+                int idReceipt = _receiptBLL.InsertReceiptAndGetId(receipt);
+                if(idReceipt == -1)
+                {
+                    throw new Exception("Error: Unable to save receipt.");
+                }
+                foreach(var detail in ReceiptDetails)
+                {
+                    detail.id_receipt = idReceipt;
+                    _receiptDetailBLL.InsertReceiptDetails(detail);
+                }
+
+                SaveRemainingStock();
+                ResetSelection();
+                ReceiptDetails = new ObservableCollection<Receipt_Details>();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void SaveRemainingStock()
+        {
+            try
+            {
+                foreach (var item in _stocks)
+                {
+                    GetStockDetails_Result stock = new GetStockDetails_Result()
+                    {
+                        id = item.id,
+                        remaining_quantity = item.remaining_quantity,
+                        sell_price=item.sell_price,
+                    };
+                    _stockBLL.ModifyStock(stock);
+                }
+            }
+            catch
+            {
+                throw new Exception("Error: Unable to modify stock.");
+            }
+        }
+
         private void RemoveFromReceiptDetails()
         {
             try
             {
-                if (Quantity < 0 || Quantity > SelectedReceiptDetail.quantity)
+                if (Quantity <= 0 || Quantity > SelectedReceiptDetail.quantity)
                 {
                     throw new Exception("Invalid data: Quantity invalid to remove.");
                 }
@@ -92,7 +141,7 @@ namespace SupermarketApp.ViewModels
         {
             try
             {
-                if(Quantity<0 || Quantity>SelectedStock.remaining_quantity)
+                if(Quantity<=0 || Quantity>SelectedStock.remaining_quantity)
                 {
                     throw new Exception("Invalid data: Quantity invalid.");
                 }
@@ -128,24 +177,13 @@ namespace SupermarketApp.ViewModels
         public ICommand NavigateBack { get; set; }
         public ICommand AddProductToReceipt { get; set; }
         public ICommand RemoveProductFromReceipt { get; set; }
+        public ICommand CreateReceiptButton { get; set; }
 
         public void ResetSelection()
         {
             Stocks = _stockBLL.GetRemainingStock();
             SelectedStock = new GetRemainingStock_Result();
         }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         public ObservableCollection<GetRemainingStock_Result> Stocks 
