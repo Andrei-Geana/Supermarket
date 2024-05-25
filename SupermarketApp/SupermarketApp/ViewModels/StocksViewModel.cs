@@ -24,9 +24,10 @@ namespace SupermarketApp.ViewModels
         private Product_In_Stock _productIn_Stock;
         private GetProductsWithProviderAndCategoryName_Result _selectedProduct;
         private ObservableCollection<GetProductsWithProviderAndCategoryName_Result> _products;
-        public StocksViewModel(Navigation navigation, Func<MainMenuViewModel> createMainMenu)
+        public StocksViewModel(Navigation navigation, Func<MainMenuViewModel> createMainMenu, Func<StocksManagementViewModel> createStockManagementMenu)
         {
             NavigateBackToMenu = new NavigationCommand(navigation, createMainMenu);
+            NavigateToStockManagementMenu = new NavigationCommand(navigation, createStockManagementMenu);
             AddButton = new RelayCommand<object>(param => AddStock());
 
             _productBLL = new ProductBLL();
@@ -95,6 +96,7 @@ namespace SupermarketApp.ViewModels
         }
 
         public ICommand NavigateBackToMenu { get; set; }
+        public ICommand NavigateToStockManagementMenu { get; set; }
         public ICommand AddButton { get; set; }
         public GetProductsWithProviderAndCategoryName_Result SelectedProduct 
         { 
