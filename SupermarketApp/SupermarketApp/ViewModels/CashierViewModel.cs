@@ -132,6 +132,10 @@ namespace SupermarketApp.ViewModels
             {
                 MessageBox.Show(exception.Message, "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            finally
+            {
+                OnPropertyChanged(nameof(CreateReceiptButtonIsEnabled));
+            }
         }
 
         private ObservableCollection<Receipt_Details> _receiptDetails;
@@ -139,6 +143,7 @@ namespace SupermarketApp.ViewModels
 
         private void AddProductToReceiptDetails()
         {
+            OnPropertyChanged(nameof(CreateReceiptButtonIsEnabled));
             try
             {
                 if(Quantity<=0 || Quantity>SelectedStock.remaining_quantity)
@@ -169,6 +174,10 @@ namespace SupermarketApp.ViewModels
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message, "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                OnPropertyChanged(nameof(CreateReceiptButtonIsEnabled));
             }
         }
 
@@ -254,6 +263,7 @@ namespace SupermarketApp.ViewModels
 
         public bool MinusButtonIsEnabled => SelectedReceiptDetail != null && SelectedReceiptDetail.quantity != 0;
         public bool AddButtonIsEnabled => SelectedStock != null && SelectedStock.id != 0;
+        public bool CreateReceiptButtonIsEnabled => ReceiptDetails.Count != 0;
 
         public int Quantity { get => _quantity; set { _quantity = value; OnPropertyChanged(nameof(Quantity)); } }
 

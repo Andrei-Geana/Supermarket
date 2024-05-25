@@ -78,7 +78,7 @@ namespace SupermarketApp.ViewModels
                     arrival_date = ProductIn_Stock.arrival_date,
                     expiration_date = ProductIn_Stock.expiration_date,
                     buy_price = ProductIn_Stock.buy_price,
-                    sell_price = ProductIn_Stock.sell_price + TVA,
+                    sell_price = ProductIn_Stock.buy_price + TVA,
                 };
                 _stockBLL.AddProductInStock(newProduct);
                 ResetData();
