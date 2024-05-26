@@ -89,6 +89,12 @@
     <Compile Include="Models\GetReceiptDetailsByReceiptId_Result.cs">
       <DependentUpon>SupermarketEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetReceiptsWithCashierNamesAndTotalAmount_Result.cs">
+      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetReceiptsWithCashierNames_Result.cs">
+      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GetRemainingStock_Result.cs">
       <DependentUpon>SupermarketEntities.tt</DependentUpon>
     </Compile>

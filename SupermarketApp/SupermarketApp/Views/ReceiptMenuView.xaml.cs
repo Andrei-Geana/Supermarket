@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SupermarketApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,44 @@ namespace SupermarketApp.Views
         public ReceiptMenuView()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var viewModel = DataContext as ReceiptMenuViewModel;
+            if(viewModel != null)
+            {
+                if (viewModel.SelectedReceipt.id_receipt != 0)
+                {
+                    ReceiptView receiptView = new ReceiptView() { DataContext = new ReceiptViewModel(viewModel.SelectedReceipt.id_receipt) };
+                    receiptView.Show();
+
+                }
+                else
+                {
+                    //no selection
+                }
+            }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            var viewModel = DataContext as ReceiptMenuViewModel;
+            if (viewModel != null)
+            {
+                //get highest in selectedReceipt
+                viewModel.GetHighestReceiptOfTheDay.Execute(null);
+                if (viewModel.SelectedReceipt.id_receipt != 0)
+                {
+                    ReceiptView receiptView = new ReceiptView() { DataContext = new ReceiptViewModel(viewModel.SelectedReceipt.id_receipt) };
+                    receiptView.Show();
+
+                }
+                else
+                {
+                    //no selection
+                }
+            }
         }
     }
 }

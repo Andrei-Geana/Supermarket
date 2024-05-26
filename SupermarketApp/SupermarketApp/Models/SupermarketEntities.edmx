@@ -175,6 +175,8 @@
         <Function Name="GetReceiptDetailsByReceiptId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="receipt_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetReceiptsWithCashierNames" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetReceiptsWithCashierNamesAndTotalAmount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetRemainingStock" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetStockDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -452,8 +454,10 @@
             <Parameter Name="ReceivedAmount" Mode="In" Type="Double" />
           </FunctionImport>
           <FunctionImport Name="GetReceiptDetailsByReceiptId" ReturnType="Collection(SupermarketMAPModel.GetReceiptDetailsByReceiptId_Result)">
-            <Parameter Name="receipt_id" Mode="In" Type="Int32" />
+          <Parameter Name="receipt_id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="GetReceiptsWithCashierNames" ReturnType="Collection(SupermarketMAPModel.GetReceiptsWithCashierNames_Result)" />
+          <FunctionImport Name="GetReceiptsWithCashierNamesAndTotalAmount" ReturnType="Collection(SupermarketMAPModel.GetReceiptsWithCashierNamesAndTotalAmount_Result)" />
         </EntityContainer>
         <ComplexType Name="GetProductsWithProviderAndCategoryName_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -501,6 +505,21 @@
           <Property Type="String" Name="product_name" Nullable="false" MaxLength="255" />
           <Property Type="Int32" Name="quantity" Nullable="false" />
           <Property Type="Double" Name="price_per_item" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetReceiptsWithCashierNames_Result">
+          <Property Type="Int32" Name="id_receipt" Nullable="false" />
+          <Property Type="String" Name="cashier_name" Nullable="false" MaxLength="255" />
+          <Property Type="DateTime" Name="release_date" Nullable="false" />
+          <Property Type="Double" Name="received_amount" Nullable="false" />
+          <Property Type="Boolean" Name="deleted" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetReceiptsWithCashierNamesAndTotalAmount_Result">
+          <Property Type="Int32" Name="id_receipt" Nullable="false" />
+          <Property Type="String" Name="cashier_name" Nullable="false" MaxLength="255" />
+          <Property Type="DateTime" Name="release_date" Nullable="false" />
+          <Property Type="Double" Name="received_amount" Nullable="false" />
+          <Property Type="Double" Name="total_amount" Nullable="false" />
+          <Property Type="Boolean" Name="deleted" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -663,6 +682,29 @@
                 <ScalarProperty Name="product_name" ColumnName="product_name" />
                 <ScalarProperty Name="quantity" ColumnName="quantity" />
                 <ScalarProperty Name="price_per_item" ColumnName="price_per_item" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetReceiptsWithCashierNames" FunctionName="SupermarketMAPModel.Store.GetReceiptsWithCashierNames">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SupermarketMAPModel.GetReceiptsWithCashierNames_Result">
+                <ScalarProperty Name="id_receipt" ColumnName="id_receipt" />
+                <ScalarProperty Name="cashier_name" ColumnName="cashier_name" />
+                <ScalarProperty Name="release_date" ColumnName="release_date" />
+                <ScalarProperty Name="received_amount" ColumnName="received_amount" />
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetReceiptsWithCashierNamesAndTotalAmount" FunctionName="SupermarketMAPModel.Store.GetReceiptsWithCashierNamesAndTotalAmount">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SupermarketMAPModel.GetReceiptsWithCashierNamesAndTotalAmount_Result">
+                <ScalarProperty Name="id_receipt" ColumnName="id_receipt" />
+                <ScalarProperty Name="cashier_name" ColumnName="cashier_name" />
+                <ScalarProperty Name="release_date" ColumnName="release_date" />
+                <ScalarProperty Name="received_amount" ColumnName="received_amount" />
+                <ScalarProperty Name="total_amount" ColumnName="total_amount" />
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

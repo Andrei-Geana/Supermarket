@@ -51,5 +51,13 @@ namespace SupermarketApp.Models.BusinessLogic
                 throw new Exception("Receipt was not found in database.");
             }
         }
+
+        public ObservableCollection<GetReceiptsWithCashierNamesAndTotalAmount_Result> GetReceiptsWithCashierNames()
+        {
+            var data = entities.GetReceiptsWithCashierNamesAndTotalAmount().ToList();
+            ObservableCollection<GetReceiptsWithCashierNamesAndTotalAmount_Result> result = new ObservableCollection<GetReceiptsWithCashierNamesAndTotalAmount_Result>();
+            foreach (var item in data) result.Add(item);
+            return result;
+        }
     }
 }

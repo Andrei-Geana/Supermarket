@@ -81,5 +81,15 @@ namespace SupermarketApp.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetReceiptDetailsByReceiptId_Result>("GetReceiptDetailsByReceiptId", receipt_idParameter);
         }
+    
+        public virtual ObjectResult<GetReceiptsWithCashierNames_Result> GetReceiptsWithCashierNames()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetReceiptsWithCashierNames_Result>("GetReceiptsWithCashierNames");
+        }
+    
+        public virtual ObjectResult<GetReceiptsWithCashierNamesAndTotalAmount_Result> GetReceiptsWithCashierNamesAndTotalAmount()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetReceiptsWithCashierNamesAndTotalAmount_Result>("GetReceiptsWithCashierNamesAndTotalAmount");
+        }
     }
 }
