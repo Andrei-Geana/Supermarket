@@ -31,6 +31,7 @@ namespace SupermarketApp.ViewModels
         private string _category = "";
         private int _quantity;
         private double _receivedAmount;
+        private double _total;
         private DateTime _expirationDate;
 
         public int IdOfNewReceipt {  get; set; }
@@ -66,9 +67,7 @@ namespace SupermarketApp.ViewModels
             try
             {
                 IdOfNewReceipt = -1;
-                double total = 0;
-                foreach (var detail in _receiptDetails) { total += detail.quantity * detail.price_per_item; }
-                if (total > ReceivedAmount)
+                if (Total > ReceivedAmount)
                 {
                     throw new Exception("Invalid data: Received amount is not enough.");
                 }
@@ -88,6 +87,8 @@ namespace SupermarketApp.ViewModels
                 SaveRemainingStock();
                 ResetSelection();
                 ReceiptDetails = new ObservableCollection<Receipt_Details>();
+                Quantity = 0;
+                ReceivedAmount = 0;
             }
             catch (Exception exception)
             {
@@ -146,6 +147,7 @@ namespace SupermarketApp.ViewModels
             finally
             {
                 OnPropertyChanged(nameof(CreateReceiptButtonIsEnabled));
+                OnPropertyChanged(nameof(Total));
             }
         }
 
@@ -188,7 +190,8 @@ namespace SupermarketApp.ViewModels
             }
             finally
             {
-                OnPropertyChanged(nameof(CreateReceiptButtonIsEnabled));
+                OnPropertyChanged(nameof(CreateReceiptButtonIsEnabled)); 
+                OnPropertyChanged(nameof(Total));
             }
         }
 
@@ -289,18 +292,29 @@ namespace SupermarketApp.ViewModels
 
         public int Quantity { get => _quantity; set { _quantity = value; OnPropertyChanged(nameof(Quantity)); } }
 
-        public ObservableCollection<Receipt_Details> ReceiptDetails { get => _receiptDetails; set { _receiptDetails = value; OnPropertyChanged(nameof(ReceiptDetails)); } }
+        public ObservableCollection<Receipt_Details> ReceiptDetails { get => _receiptDetails; set { _receiptDetails = value; OnPropertyChanged(nameof(ReceiptDetails)); OnPropertyChanged(nameof(Total)); } }
         public Receipt_Details SelectedReceiptDetail { get => _selectedReceiptDetail; set { _selectedReceiptDetail = value; OnPropertyChanged(nameof(SelectedReceiptDetail)); OnPropertyChanged(nameof(MinusButtonIsEnabled)); } }
 
-        public double ReceivedAmount 
-        { 
+        public double ReceivedAmount
+        {
             get => _receivedAmount;
-            set 
-            { 
-                _receivedAmount = value; 
-                OnPropertyChanged(nameof(ReceivedAmount)); 
-                OnPropertyChanged(nameof(CreateReceiptButtonIsEnabled)); 
+            set
+            {
+                _receivedAmount = value;
+                OnPropertyChanged(nameof(ReceivedAmount));
+                OnPropertyChanged(nameof(CreateReceiptButtonIsEnabled));
             }
+        }
+
+        public double Total
+        {
+            get
+            {
+                double total = 0;
+                foreach (var detail in _receiptDetails) { total += detail.quantity * detail.price_per_item; }
+                return total;
+            }
+            set => _total=value;
         }
     }
 }
