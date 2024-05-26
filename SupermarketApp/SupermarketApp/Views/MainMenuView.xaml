@@ -60,5 +60,12 @@
         Grid.Row="3">
             RECEIPTS
         </Button>
+
+        <Button Command="{Binding NavigateToStatisticsMenu}" 
+        Margin="50 25 50 25"
+        Grid.Column="2" 
+        Grid.Row="4">
+            STATISTICS
+        </Button>
     </Grid>
 </UserControl>

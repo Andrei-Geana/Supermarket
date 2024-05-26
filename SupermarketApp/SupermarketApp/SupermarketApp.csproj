@@ -149,6 +149,7 @@
     <Compile Include="ViewModels\ReceiptMenuViewModel.cs" />
     <Compile Include="ViewModels\ReceiptViewModel.cs" />
     <Compile Include="ViewModels\RolesViewModel.cs" />
+    <Compile Include="ViewModels\StatisticsViewModel.cs" />
     <Compile Include="ViewModels\StocksManagementViewModel.cs" />
     <Compile Include="ViewModels\StocksViewModel.cs" />
     <Compile Include="Views\CategoriesView.xaml.cs">
@@ -168,6 +169,9 @@
     </Compile>
     <Compile Include="Views\RolesView.xaml.cs">
       <DependentUpon>RolesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StatisticsView.xaml.cs">
+      <DependentUpon>StatisticsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StocksManagement.xaml.cs">
       <DependentUpon>StocksManagement.xaml</DependentUpon>
@@ -250,6 +254,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RolesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StatisticsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
