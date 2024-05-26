@@ -25,5 +25,27 @@
         <Button Command="{Binding NavigateToEarningsStatistics}" Grid.Row="0" Grid.Column="1" Margin="25,25,25,25">EARNINGS STATISTICS</Button>
         <Button IsEnabled="False" Grid.Row="0" Grid.Column="2" Margin="50,25,50,25">PROVIDER STATISTICS</Button>
 
+
+        <Label Content="Category" Grid.ColumnSpan="2" Margin="80,72,80,3" Grid.RowSpan="2" Grid.Column="1"/>
+        <ComboBox 
+        Grid.Row="1" Grid.Column="1" Margin="80,19,130,31"
+        ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+        DisplayMemberPath="name"
+        SelectedValue="{Binding Category, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+        SelectedValuePath="name" Grid.ColumnSpan="2"
+        />
+        <Label Content="Provider" Grid.ColumnSpan="2" Margin="55,72,105,3" Grid.RowSpan="2"/>
+        <ComboBox 
+        Grid.Row="1" Margin="55,22,155,28"
+        ItemsSource="{Binding Providers, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+        DisplayMemberPath="name"
+        SelectedValue="{Binding Provider, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+        SelectedValuePath="name" Grid.ColumnSpan="2"
+        />
+
+        <DataGrid Name="stocksGrid" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Grid.RowSpan="3" AutoGenerateColumns="True"
+        ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" ItemsSource="{Binding Products, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+        </DataGrid>
+
     </Grid>
 </UserControl>
