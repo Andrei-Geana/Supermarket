@@ -171,6 +171,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="calculate_total_receipts_for_all_users_all_days" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetProductsWithProviderAndCategoryName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetReceiptDetailsByReceiptId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="receipt_id" Type="int" Mode="In" />
@@ -458,6 +459,7 @@
           </FunctionImport>
           <FunctionImport Name="GetReceiptsWithCashierNames" ReturnType="Collection(SupermarketMAPModel.GetReceiptsWithCashierNames_Result)" />
           <FunctionImport Name="GetReceiptsWithCashierNamesAndTotalAmount" ReturnType="Collection(SupermarketMAPModel.GetReceiptsWithCashierNamesAndTotalAmount_Result)" />
+          <FunctionImport Name="calculate_total_receipts_for_all_users_all_days" ReturnType="Collection(SupermarketMAPModel.calculate_total_receipts_for_all_users_all_days_Result)" />
         </EntityContainer>
         <ComplexType Name="GetProductsWithProviderAndCategoryName_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -520,6 +522,12 @@
           <Property Type="Double" Name="received_amount" Nullable="false" />
           <Property Type="Double" Name="total_amount" Nullable="false" />
           <Property Type="Boolean" Name="deleted" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="calculate_total_receipts_for_all_users_all_days_Result">
+          <Property Type="DateTime" Name="release_date" Nullable="false" />
+          <Property Type="Int32" Name="user_id" Nullable="false" />
+          <Property Type="String" Name="user_name" Nullable="false" MaxLength="255" />
+          <Property Type="Double" Name="total_sum" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -705,6 +713,16 @@
                 <ScalarProperty Name="received_amount" ColumnName="received_amount" />
                 <ScalarProperty Name="total_amount" ColumnName="total_amount" />
                 <ScalarProperty Name="deleted" ColumnName="deleted" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="calculate_total_receipts_for_all_users_all_days" FunctionName="SupermarketMAPModel.Store.calculate_total_receipts_for_all_users_all_days">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SupermarketMAPModel.calculate_total_receipts_for_all_users_all_days_Result">
+                <ScalarProperty Name="release_date" ColumnName="release_date" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="total_sum" ColumnName="total_sum" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
