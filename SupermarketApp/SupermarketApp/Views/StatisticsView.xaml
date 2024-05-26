@@ -22,6 +22,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Button Command="{Binding NavigateBackToMenu}" Grid.Row="0" Grid.Column="0" Margin="50 25 50 25">BACK</Button>
+        <Button IsEnabled="False" Grid.Row="0" Grid.Column="1" Margin="25,25,25,25">EARNINGS STATISTICS</Button>
+        <Button Command="{Binding NavigateToProviderStatistics}" Grid.Row="0" Grid.Column="2" Margin="50,25,50,25">PROVIDER STATISTICS</Button>
 
         <DataGrid Name="dataGrid" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2" AutoGenerateColumns="True"
           ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" ItemsSource="{Binding Results, Mode=TwoWay}" Margin="11 20"

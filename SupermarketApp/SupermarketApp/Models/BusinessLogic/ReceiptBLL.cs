@@ -62,7 +62,7 @@ namespace SupermarketApp.Models.BusinessLogic
 
         public ObservableCollection<calculate_total_receipts_for_all_users_all_days_Result> GetSumOfReceiptsPerDays()
         {
-            var data = entities.calculate_total_receipts_for_all_users_all_days().ToList();
+            var data = entities.calculate_total_receipts_for_all_users_all_days().ToList().OrderBy(item => item.release_date);
             ObservableCollection<calculate_total_receipts_for_all_users_all_days_Result> result = new ObservableCollection<calculate_total_receipts_for_all_users_all_days_Result>();
             foreach (var item in data) result.Add(item);
             return result;
