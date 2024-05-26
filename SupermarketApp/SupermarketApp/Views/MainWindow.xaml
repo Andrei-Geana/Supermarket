@@ -40,6 +40,9 @@
             <DataTemplate DataType="{x:Type vm:StocksManagementViewModel}">
                 <view:StocksManagement/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:ReceiptMenuViewModel}">
+                <view:ReceiptMenuView/>
+            </DataTemplate>
         </Grid.Resources>
         <ContentControl Content="{Binding CurrentViewModel}"/>
     </Grid>

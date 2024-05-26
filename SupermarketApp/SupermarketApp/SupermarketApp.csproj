@@ -140,6 +140,7 @@
     <Compile Include="ViewModels\CategoriesViewModel.cs" />
     <Compile Include="ViewModels\ProductsViewModel.cs" />
     <Compile Include="ViewModels\ProvidersViewModel.cs" />
+    <Compile Include="ViewModels\ReceiptMenuViewModel.cs" />
     <Compile Include="ViewModels\ReceiptViewModel.cs" />
     <Compile Include="ViewModels\RolesViewModel.cs" />
     <Compile Include="ViewModels\StocksManagementViewModel.cs" />
@@ -152,6 +153,9 @@
     </Compile>
     <Compile Include="Views\ProvidersView.xaml.cs">
       <DependentUpon>ProvidersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReceiptMenuView.xaml.cs">
+      <DependentUpon>ReceiptMenuView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ReceiptView.xaml.cs">
       <DependentUpon>ReceiptView.xaml</DependentUpon>
@@ -228,6 +232,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ProvidersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ReceiptMenuView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
