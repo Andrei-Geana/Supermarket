@@ -30,6 +30,7 @@ namespace SupermarketApp.ViewModels
         private string _provider = "";
         private string _category = "";
         private int _quantity;
+        private double _receivedAmount;
         private DateTime _expirationDate;
 
         public int IdOfNewReceipt {  get; set; }
@@ -64,7 +65,15 @@ namespace SupermarketApp.ViewModels
         {
             try
             {
-                Receipt receipt = new Receipt() { release_date = DateTime.Now, id_cashier = App.CurrentUser.id, received_amount = 100 };
+                IdOfNewReceipt = -1;
+                double total = 0;
+                foreach (var detail in _receiptDetails) { total += detail.quantity * detail.price_per_item; }
+                if (total > ReceivedAmount)
+                {
+                    throw new Exception("Invalid data: Received amount is not enough.");
+                }
+
+                Receipt receipt = new Receipt() { release_date = DateTime.Now, id_cashier = App.CurrentUser.id, received_amount = ReceivedAmount };
                 IdOfNewReceipt = _receiptBLL.InsertReceiptAndGetId(receipt);
                 if(IdOfNewReceipt == -1)
                 {
@@ -224,7 +233,18 @@ namespace SupermarketApp.ViewModels
         }
         public GetRemainingStock_Result SelectedStock { get => _selectedStock; set { _selectedStock = value; OnPropertyChanged(nameof(SelectedStock)); OnPropertyChanged(nameof(AddButtonIsEnabled)); } }
 
-        public string Barcode { get => _barcode; set { _barcode = value; OnPropertyChanged(nameof(Barcode)); OnPropertyChanged(nameof(Stocks)); } }
+        public string Barcode 
+        { 
+            get => _barcode; 
+            set 
+            { 
+                if (value.Length > 8) 
+                    return; 
+                _barcode = value; 
+                OnPropertyChanged(nameof(Barcode)); 
+                OnPropertyChanged(nameof(Stocks)); 
+            } 
+        }
         public string Name { get => _name; set { _name = value; OnPropertyChanged(nameof(Name)); OnPropertyChanged(nameof(Stocks)); } }
         public string Provider { get => _provider; set { _provider = value; OnPropertyChanged(nameof(Provider)); OnPropertyChanged(nameof(Stocks)); } }
         public string Category { get => _category; set { _category = value; OnPropertyChanged(nameof(Category)); OnPropertyChanged(nameof(Stocks)); } }
@@ -265,11 +285,22 @@ namespace SupermarketApp.ViewModels
 
         public bool MinusButtonIsEnabled => SelectedReceiptDetail != null && SelectedReceiptDetail.quantity != 0;
         public bool AddButtonIsEnabled => SelectedStock != null && SelectedStock.id != 0;
-        public bool CreateReceiptButtonIsEnabled => ReceiptDetails.Count != 0;
+        public bool CreateReceiptButtonIsEnabled => ReceiptDetails.Count != 0 && ReceivedAmount>0;
 
         public int Quantity { get => _quantity; set { _quantity = value; OnPropertyChanged(nameof(Quantity)); } }
 
         public ObservableCollection<Receipt_Details> ReceiptDetails { get => _receiptDetails; set { _receiptDetails = value; OnPropertyChanged(nameof(ReceiptDetails)); } }
         public Receipt_Details SelectedReceiptDetail { get => _selectedReceiptDetail; set { _selectedReceiptDetail = value; OnPropertyChanged(nameof(SelectedReceiptDetail)); OnPropertyChanged(nameof(MinusButtonIsEnabled)); } }
+
+        public double ReceivedAmount 
+        { 
+            get => _receivedAmount;
+            set 
+            { 
+                _receivedAmount = value; 
+                OnPropertyChanged(nameof(ReceivedAmount)); 
+                OnPropertyChanged(nameof(CreateReceiptButtonIsEnabled)); 
+            }
+        }
     }
 }

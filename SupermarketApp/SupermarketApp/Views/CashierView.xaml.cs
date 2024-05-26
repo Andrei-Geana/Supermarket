@@ -33,6 +33,10 @@ namespace SupermarketApp.Views
             {
                 viewModel.CreateReceiptButton.Execute(null);
                 int id = viewModel.IdOfNewReceipt;
+                if(id==-1)
+                {
+                    return;
+                }
                 ReceiptView receiptView = new ReceiptView() { DataContext = new ReceiptViewModel(id) };
                 receiptView.Show();
             }

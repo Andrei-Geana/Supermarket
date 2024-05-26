@@ -22,6 +22,7 @@
         </Grid.RowDefinitions>
 
         <Label Content="BON" Grid.Row="0" HorizontalAlignment="Center"/>
+        <Border BorderBrush="Black" BorderThickness="0,1,0,0" VerticalAlignment="Bottom"/>
 
         <ItemsControl ItemsSource="{Binding ReceiptDetails}" Grid.Row="1" Margin="10">
             <ItemsControl.ItemTemplate>
@@ -62,7 +63,6 @@
 
         <TextBlock Text="{Binding TotalSum, StringFormat='Total Price: {0:C}'}" Grid.Row="2" HorizontalAlignment="Right" Margin="10"/>
         <TextBlock Text="{Binding Receipt.received_amount, StringFormat='Received Amount: {0:C}'}" Grid.Row="3" HorizontalAlignment="Right" Margin="10"/>
-        <Border BorderBrush="Black" BorderThickness="0,1,0,0" VerticalAlignment="Bottom"/>
         <Border BorderBrush="Black" BorderThickness="0,1,0,0" Grid.Row="3" VerticalAlignment="Bottom" Margin="10"/>
         <TextBlock Text="{Binding RemainingAmount, StringFormat='TOTAL: {0}$'}" Grid.Row="4" HorizontalAlignment="Right" Margin="10"/>
         <TextBlock Text="{Binding Receipt.release_date}" Grid.Row="5" HorizontalAlignment="Right" Margin="10"/>
