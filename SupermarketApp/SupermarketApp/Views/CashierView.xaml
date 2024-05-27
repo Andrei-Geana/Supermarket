@@ -47,17 +47,30 @@
 
         <Calendar Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="3" SelectedDate="{Binding ExpirationDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
-        <DataGrid Name="stocksGrid" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Grid.RowSpan="3" AutoGenerateColumns="True"
-        ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" ItemsSource="{Binding Stocks, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+        <DataGrid Name="stocksGrid" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Grid.RowSpan="3" AutoGenerateColumns="False"
+        Margin="22 0 0 0" ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" ItemsSource="{Binding Stocks, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
         SelectedItem="{Binding SelectedStock, Mode=TwoWay}">
             <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding id}" />
+                <DataGridTextColumn Header="Name" Binding="{Binding product_name}" />
+                <DataGridTextColumn Header="BarCode" Binding="{Binding bar_code}" />
+                <DataGridTextColumn Header="Category" Binding="{Binding category_name}" />
+                <DataGridTextColumn Header="Provider" Binding="{Binding provider_name}" />
+                <DataGridTextColumn Header="In Stock" Binding="{Binding remaining_quantity}" />
+                <!--<DataGridTextColumn Header="UOM" Binding="{Binding unit_of_measurement}" />-->
+                <DataGridTextColumn Header="Expiration_Date" Binding="{Binding expiration_date, StringFormat=\{0:dd/MM/yyyy\}}" />
+                <DataGridTextColumn Header="Price" Binding="{Binding sell_price}" />
             </DataGrid.Columns>
         </DataGrid>
 
-        <DataGrid Name="detailsGrid" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="2" AutoGenerateColumns="True" Margin="50,22,50,3"
+        <DataGrid Name="detailsGrid" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="2" AutoGenerateColumns="False" Margin="50,22,50,3"
         ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" ItemsSource="{Binding ReceiptDetails, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
         SelectedItem="{Binding SelectedReceiptDetail, Mode=TwoWay}">
             <DataGrid.Columns>
+                <DataGridTextColumn Header="ID_Stock" Binding="{Binding id_stock}" />
+                <DataGridTextColumn Header="Name" Binding="{Binding product_name}" />
+                <DataGridTextColumn Header="Quantity" Binding="{Binding quantity}" />
+                <DataGridTextColumn Header="Price" Binding="{Binding price_per_item}" />
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Quantity" Grid.ColumnSpan="2" Margin="22,0,138,0" Grid.Row="5"/>

@@ -31,13 +31,11 @@ namespace SupermarketApp.ViewModels
         private void GetHighest()
         {
             SelectedReceipt = Receipts.OrderByDescending(receipt => receipt.total_amount).FirstOrDefault();
-            if(SelectedReceipt == null) { SelectedReceipt = new GetReceiptsWithCashierNamesAndTotalAmount_Result(); }
         }
 
         private void ResetReceipt()
         {
             Receipts = _receiptBLL.GetReceiptsWithCashierNames();
-            SelectedReceipt = new GetReceiptsWithCashierNamesAndTotalAmount_Result();
         }
         public ICommand NavigateBackToMenu { get; set; }
         public ICommand GetHighestReceiptOfTheDay { get; set; }
