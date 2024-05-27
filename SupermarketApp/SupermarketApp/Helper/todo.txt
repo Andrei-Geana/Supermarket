@@ -1,3 +1,6 @@
 ﻿
+-receipt menu => add total amount and received amount?
+
+
 -logic elimination
 -de aranjat frumos tabelele si label-uri

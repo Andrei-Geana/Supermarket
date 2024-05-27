@@ -25,14 +25,25 @@
         <Button IsEnabled="False" Grid.Row="0" Grid.Column="2" Margin="50 25 50 25">MANAGEMENT</Button>
         <Button Command="{Binding NavigateToAddStockMenu}" Grid.Row="0" Grid.Column="3" Margin="50 25 50 25">ADD STOCK</Button>
 
-        <DataGrid Name="categoriesGrid" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" Grid.RowSpan="2" AutoGenerateColumns="True"
+        <DataGrid Name="categoriesGrid" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" Grid.RowSpan="2" AutoGenerateColumns="False"
           ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" ItemsSource="{Binding Stocks, Mode=TwoWay}" Margin="11 20"
           SelectedItem="{Binding SelectedStock, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
             <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding id}" />
+                <DataGridTextColumn Header="Product" Binding="{Binding product_name}" />
+                <DataGridTextColumn Header="Category" Binding="{Binding category_name}" />
+                <DataGridTextColumn Header="Init_Q" Binding="{Binding initial_quantity}" />
+                <DataGridTextColumn Header="Remain_Q" Binding="{Binding remaining_quantity}" />
+                <DataGridTextColumn Header="UOM" Binding="{Binding unit_of_measurement}" />
+                <DataGridTextColumn Header="Arrival" Binding="{Binding arrival_date, StringFormat=\{0:dd/MM/yyyy\}}" />
+                <DataGridTextColumn Header="Expiration" Binding="{Binding expiration_date, StringFormat=\{0:dd/MM/yyyy\}}" />
+                <DataGridTextColumn Header="UOM" Binding="{Binding unit_of_measurement}" />
+                <DataGridTextColumn Header="Buy_Price" Binding="{Binding buy_price}" />
+                <DataGridTextColumn Header="Sell_Price" Binding="{Binding sell_price}" />
             </DataGrid.Columns>
         </DataGrid>
 
-        <Label Content="Sell price" Grid.ColumnSpan="2" Margin="36,80,164,10" Grid.RowSpan="2" Grid.Row="2"/>
+        <Label Content="Sell price" Grid.ColumnSpan="2" Margin="36,88,164,2" Grid.RowSpan="2" Grid.Row="2"/>
         <TextBox Grid.Row="3" Grid.Column="0"
             Text="{Binding SelectedStock.sell_price, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="36,16,36,16"/>
 

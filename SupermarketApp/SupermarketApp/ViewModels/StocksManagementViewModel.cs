@@ -17,8 +17,6 @@ namespace SupermarketApp.ViewModels
     public class StocksManagementViewModel : ViewModelBase
     {
         private StockBLL _stockBLL;
-        private ProductBLL _productBLL;
-        private ObservableCollection<Product> _products;
 
         private ObservableCollection<GetStockDetails_Result> _stocks;
         private GetStockDetails_Result _selectedStock;
@@ -27,8 +25,6 @@ namespace SupermarketApp.ViewModels
             NavigateBackToMenu = new NavigationCommand(navigation, createMainMenu);
             NavigateToAddStockMenu = new NavigationCommand(navigation, createAddStockMenu);
             _stockBLL = new StockBLL();
-            _productBLL = new ProductBLL();
-            _products = _productBLL.GetProducts();
 
 
             ResetData();
