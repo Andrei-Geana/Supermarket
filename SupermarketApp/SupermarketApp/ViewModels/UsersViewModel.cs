@@ -73,6 +73,10 @@ namespace SupermarketApp.ViewModels
         {
             try
             {
+                if(SelectedUser.Name.Contains(' ') || SelectedUser.Password.Contains(' '))
+                {
+                    throw new Exception("Username and/or password must not contain blank characters");
+                }
                 if (string.IsNullOrEmpty(SelectedUser.Name) || string.IsNullOrEmpty(SelectedUser.Password) || string.IsNullOrEmpty(SelectedUser.Role))
                 {
                     throw new Exception("All fields must be filled.");
@@ -84,11 +88,14 @@ namespace SupermarketApp.ViewModels
                     id_role = Roles.Where(role => role.name == SelectedUser.Role).FirstOrDefault().id
                 };
                 _userBLL.AddUser(newUser); 
-                ResetUser();
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message, "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                ResetUser();
             }
         }
 
@@ -108,11 +115,14 @@ namespace SupermarketApp.ViewModels
                     id_role = Roles.Where(role => role.name == SelectedUser.Role).FirstOrDefault().id
                 };
                 _userBLL.ModifyUser(newUser);
-                ResetUser();
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message, "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                ResetUser();
             }
         }
 
@@ -120,12 +130,19 @@ namespace SupermarketApp.ViewModels
         {
             try
             {
+                if(App.CurrentUser.id == SelectedUser.ID)
+                {
+                    throw new Exception("Unable to delete: Is app user.");
+                }
                 _userBLL.DeleteUserWithId(SelectedUser.ID);
-                ResetUser();
             }
             catch(Exception exception)
             {
                 MessageBox.Show(exception.Message, "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                ResetUser();
             }
         }
         private void ResetUser()

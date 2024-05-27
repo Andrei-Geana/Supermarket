@@ -44,8 +44,8 @@
         SelectedValuePath="name" Grid.ColumnSpan="2"
         />
 
-        <DataGrid Name="stocksGrid" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Grid.RowSpan="3" AutoGenerateColumns="True"
-        ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" ItemsSource="{Binding Products, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+        <DataGrid Name="stocksGrid" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" Grid.RowSpan="4" AutoGenerateColumns="True"
+        ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" ItemsSource="{Binding Products, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="10,72,190,3">
         </DataGrid>
 
     </Grid>

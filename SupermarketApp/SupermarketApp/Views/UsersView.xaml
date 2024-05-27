@@ -21,7 +21,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Button Command="{Binding NavigateBackToMenu}" Grid.Row="0" Grid.Column="0" Margin="50 25 50 25">BACK</Button>
+        <Button Command="{Binding NavigateBackToMenu}" Grid.Row="0" Grid.Column="0" Margin="30 20">BACK</Button>
         <Button Margin="30 20" IsEnabled="False" Grid.Row="0" Grid.Column="2">GO TO USERS</Button>
         <Button Margin="30 20" Command="{Binding NavigateToRolesMenu}" Grid.Row="0" Grid.Column="3">GO TO ROLES</Button>
 

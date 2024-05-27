@@ -26,10 +26,14 @@
         <Button Command="{Binding NavigateToProviderStatistics}" Grid.Row="0" Grid.Column="2" Margin="50,25,50,25">PROVIDER STATISTICS</Button>
         <Button Command="{Binding NavigateToCategoryStatistics}" Grid.Row="0" Grid.Column="3" Margin="50,25,50,25">CATEGORY STATISTICS</Button>
 
-        <DataGrid Name="dataGrid" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2" AutoGenerateColumns="True"
+        <DataGrid Name="dataGrid" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2" AutoGenerateColumns="False"
           ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" ItemsSource="{Binding Results, Mode=TwoWay}" Margin="11 20"
           >
             <DataGrid.Columns>
+                <DataGridTextColumn Header="ReleaseDate" Binding="{Binding release_date, StringFormat=\{0:dd/MM/yyyy\}}" />
+                <DataGridTextColumn Header="Cashier" Binding="{Binding user_name}" />
+                <DataGridTextColumn Header="Total" Binding="{Binding total_sum}" />
+
             </DataGrid.Columns>
         </DataGrid>
 
