@@ -172,6 +172,7 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="calculate_total_receipts_for_all_users_all_days" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetCategoryValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetProductsWithProviderAndCategoryName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetReceiptDetailsByReceiptId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="receipt_id" Type="int" Mode="In" />
@@ -460,6 +461,7 @@
           <FunctionImport Name="GetReceiptsWithCashierNames" ReturnType="Collection(SupermarketMAPModel.GetReceiptsWithCashierNames_Result)" />
           <FunctionImport Name="GetReceiptsWithCashierNamesAndTotalAmount" ReturnType="Collection(SupermarketMAPModel.GetReceiptsWithCashierNamesAndTotalAmount_Result)" />
           <FunctionImport Name="calculate_total_receipts_for_all_users_all_days" ReturnType="Collection(SupermarketMAPModel.calculate_total_receipts_for_all_users_all_days_Result)" />
+          <FunctionImport Name="GetCategoryValue" ReturnType="Collection(SupermarketMAPModel.GetCategoryValue_Result)" />
         </EntityContainer>
         <ComplexType Name="GetProductsWithProviderAndCategoryName_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -528,6 +530,10 @@
           <Property Type="Int32" Name="user_id" Nullable="false" />
           <Property Type="String" Name="user_name" Nullable="false" MaxLength="255" />
           <Property Type="Double" Name="total_sum" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetCategoryValue_Result">
+          <Property Type="String" Name="CategoryName" Nullable="false" MaxLength="255" />
+          <Property Type="Double" Name="TotalValue" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -723,6 +729,14 @@
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="user_name" ColumnName="user_name" />
                 <ScalarProperty Name="total_sum" ColumnName="total_sum" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetCategoryValue" FunctionName="SupermarketMAPModel.Store.GetCategoryValue">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SupermarketMAPModel.GetCategoryValue_Result">
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="TotalValue" ColumnName="TotalValue" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

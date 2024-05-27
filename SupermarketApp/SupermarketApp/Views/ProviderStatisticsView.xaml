@@ -24,6 +24,7 @@
         <Button Command="{Binding NavigateBackToMenu}" Grid.Row="0" Grid.Column="0" Margin="50 25 50 25">BACK</Button>
         <Button Command="{Binding NavigateToEarningsStatistics}" Grid.Row="0" Grid.Column="1" Margin="25,25,25,25">EARNINGS STATISTICS</Button>
         <Button IsEnabled="False" Grid.Row="0" Grid.Column="2" Margin="50,25,50,25">PROVIDER STATISTICS</Button>
+        <Button Command="{Binding NavigateToCategoryStatistics}" Grid.Row="0" Grid.Column="3" Margin="50,25,50,25">CATEGORY STATISTICS</Button>
 
 
         <Label Content="Category" Grid.ColumnSpan="2" Margin="80,72,80,3" Grid.RowSpan="2" Grid.Column="1"/>

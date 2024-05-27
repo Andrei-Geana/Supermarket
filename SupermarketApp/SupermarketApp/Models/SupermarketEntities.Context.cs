@@ -96,5 +96,10 @@ namespace SupermarketApp.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<calculate_total_receipts_for_all_users_all_days_Result>("calculate_total_receipts_for_all_users_all_days");
         }
+    
+        public virtual ObjectResult<GetCategoryValue_Result> GetCategoryValue()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCategoryValue_Result>("GetCategoryValue");
+        }
     }
 }

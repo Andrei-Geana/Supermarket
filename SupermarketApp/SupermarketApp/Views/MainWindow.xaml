@@ -49,6 +49,9 @@
             <DataTemplate DataType="{x:Type vm:ProviderStatisticsViewModel}">
                 <view:ProviderStatisticsView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:CategoryStatisticsViewModel}">
+                <view:CategoryStatisticsView/>
+            </DataTemplate>
         </Grid.Resources>
         <ContentControl Content="{Binding CurrentViewModel}"/>
     </Grid>

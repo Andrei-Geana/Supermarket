@@ -68,7 +68,7 @@ namespace SupermarketApp.Models.BusinessLogic
             }
         }
 
-        internal void DeleteCategoryWithId(int id)
+        public void DeleteCategoryWithId(int id)
         {
             try
             {
@@ -81,6 +81,17 @@ namespace SupermarketApp.Models.BusinessLogic
             {
                 throw new Exception("Category to be deleted was not found in database.");
             }
+        }
+
+        public ObservableCollection<GetCategoryValue_Result> GetCategoryStatistics()
+        {
+            ObservableCollection<GetCategoryValue_Result> returnedStatistics = new ObservableCollection<GetCategoryValue_Result>();
+            var stats = entities.GetCategoryValue().ToList();
+            foreach (var stat in stats)
+            {
+                returnedStatistics.Add(stat);
+            }
+            return returnedStatistics;
         }
     }
 }

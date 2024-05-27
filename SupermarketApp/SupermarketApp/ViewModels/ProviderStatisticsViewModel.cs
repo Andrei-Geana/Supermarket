@@ -26,10 +26,12 @@ namespace SupermarketApp.ViewModels
 
         private string _selectedCategory = "";
         private string _selectedProvider = "";
-        public ProviderStatisticsViewModel(Navigation navigation, Func<MainMenuViewModel> createMainMenu, Func<StatisticsViewModel> createReceiptStatistics)
+        public ProviderStatisticsViewModel(Navigation navigation, Func<MainMenuViewModel> createMainMenu, Func<StatisticsViewModel> createReceiptStatistics,
+            Func<CategoryStatisticsViewModel> createCategoryStatisticsMenu)
         {
             NavigateBackToMenu = new NavigationCommand(navigation, createMainMenu);
             NavigateToEarningsStatistics = new NavigationCommand(navigation, createReceiptStatistics);
+            NavigateToCategoryStatistics = new NavigationCommand(navigation, createCategoryStatisticsMenu);
             
             _categoryBLL = new ProductCategoryBLL();
             _providerBLL = new ProviderBLL();
@@ -51,6 +53,7 @@ namespace SupermarketApp.ViewModels
 
         public ICommand NavigateBackToMenu { get; set; }
         public ICommand NavigateToEarningsStatistics { get; set; }
+        public ICommand NavigateToCategoryStatistics { get; set; }
         public ObservableCollection<Product_Category> Categories { get => _categories; set => _categories = value; }
         public ObservableCollection<Provider> Providers { get => _providers; set => _providers = value; }
         public ObservableCollection<GetProductsWithProviderAndCategoryName_Result> Products 

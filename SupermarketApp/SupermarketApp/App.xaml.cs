@@ -92,13 +92,19 @@ namespace SupermarketApp
 
         private StatisticsViewModel CreateStatisticsMenu()
         {
-            return new StatisticsViewModel(_navigation, CreateMainMenu, CreateProviderStatisticsMenu);
+            return new StatisticsViewModel(_navigation, CreateMainMenu, CreateProviderStatisticsMenu, CreateCategoryStatisticsMenu);
         }
 
         private ProviderStatisticsViewModel CreateProviderStatisticsMenu()
         {
-            return new ProviderStatisticsViewModel(_navigation, CreateMainMenu, CreateStatisticsMenu);
+            return new ProviderStatisticsViewModel(_navigation, CreateMainMenu, CreateStatisticsMenu, CreateCategoryStatisticsMenu);
         }
+
+        private CategoryStatisticsViewModel CreateCategoryStatisticsMenu()
+        {
+            return new CategoryStatisticsViewModel(_navigation, CreateMainMenu, CreateProviderStatisticsMenu, CreateStatisticsMenu);
+        }
+
         private void ResetCurrentUser()
         {
             CurrentUser = new User();

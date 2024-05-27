@@ -21,10 +21,12 @@ namespace SupermarketApp.ViewModels
 
         private DateTime _date = DateTime.Now;
         private string _userName = "";
-        public StatisticsViewModel(Navigation navigation, Func<MainMenuViewModel> createMainMenu, Func<ProviderStatisticsViewModel> createProviderStatisticsMenu)
+        public StatisticsViewModel(Navigation navigation, Func<MainMenuViewModel> createMainMenu, Func<ProviderStatisticsViewModel> createProviderStatisticsMenu,
+            Func<CategoryStatisticsViewModel> createCategoryStatisticsMenu)
         {
             NavigateBackToMenu = new NavigationCommand(navigation, createMainMenu);
             NavigateToProviderStatistics = new NavigationCommand(navigation, createProviderStatisticsMenu);
+            NavigateToCategoryStatistics = new NavigationCommand(navigation, createCategoryStatisticsMenu);
 
             ResetSelection();
         }
@@ -37,6 +39,7 @@ namespace SupermarketApp.ViewModels
 
         public ICommand NavigateBackToMenu { get; set; }
         public ICommand NavigateToProviderStatistics { get; set; }
+        public ICommand NavigateToCategoryStatistics { get; set; }
         public ObservableCollection<calculate_total_receipts_for_all_users_all_days_Result> Results 
         {
             get 
