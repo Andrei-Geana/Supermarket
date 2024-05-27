@@ -15,10 +15,10 @@ namespace SupermarketApp.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class SupermarketMAPEntities1 : DbContext
+    public partial class SupermarketMAPEntities : DbContext
     {
-        public SupermarketMAPEntities1()
-            : base("name=SupermarketMAPEntities1")
+        public SupermarketMAPEntities()
+            : base("name=SupermarketMAPEntities")
         {
         }
     
@@ -36,41 +36,19 @@ namespace SupermarketApp.Models
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
     
+        public virtual ObjectResult<calculate_total_receipts_for_all_users_all_days_Result> calculate_total_receipts_for_all_users_all_days()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<calculate_total_receipts_for_all_users_all_days_Result>("calculate_total_receipts_for_all_users_all_days");
+        }
+    
+        public virtual ObjectResult<GetCategoryValue_Result> GetCategoryValue()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCategoryValue_Result>("GetCategoryValue");
+        }
+    
         public virtual ObjectResult<GetProductsWithProviderAndCategoryName_Result> GetProductsWithProviderAndCategoryName()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetProductsWithProviderAndCategoryName_Result>("GetProductsWithProviderAndCategoryName");
-        }
-    
-        public virtual ObjectResult<GetStockDetails_Result> GetStockDetails()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetStockDetails_Result>("GetStockDetails");
-        }
-    
-        public virtual ObjectResult<GetUsers_Result> GetUsers()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUsers_Result>("GetUsers");
-        }
-    
-        public virtual ObjectResult<GetRemainingStock_Result> GetRemainingStock()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetRemainingStock_Result>("GetRemainingStock");
-        }
-    
-        public virtual ObjectResult<Nullable<int>> InsertReceiptAndGetId(Nullable<int> idCashier, Nullable<System.DateTime> releaseDate, Nullable<double> receivedAmount)
-        {
-            var idCashierParameter = idCashier.HasValue ?
-                new ObjectParameter("IdCashier", idCashier) :
-                new ObjectParameter("IdCashier", typeof(int));
-    
-            var releaseDateParameter = releaseDate.HasValue ?
-                new ObjectParameter("ReleaseDate", releaseDate) :
-                new ObjectParameter("ReleaseDate", typeof(System.DateTime));
-    
-            var receivedAmountParameter = receivedAmount.HasValue ?
-                new ObjectParameter("ReceivedAmount", receivedAmount) :
-                new ObjectParameter("ReceivedAmount", typeof(double));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("InsertReceiptAndGetId", idCashierParameter, releaseDateParameter, receivedAmountParameter);
         }
     
         public virtual ObjectResult<GetReceiptDetailsByReceiptId_Result> GetReceiptDetailsByReceiptId(Nullable<int> receipt_id)
@@ -92,14 +70,36 @@ namespace SupermarketApp.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetReceiptsWithCashierNamesAndTotalAmount_Result>("GetReceiptsWithCashierNamesAndTotalAmount");
         }
     
-        public virtual ObjectResult<calculate_total_receipts_for_all_users_all_days_Result> calculate_total_receipts_for_all_users_all_days()
+        public virtual ObjectResult<GetRemainingStock_Result> GetRemainingStock()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<calculate_total_receipts_for_all_users_all_days_Result>("calculate_total_receipts_for_all_users_all_days");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetRemainingStock_Result>("GetRemainingStock");
         }
     
-        public virtual ObjectResult<GetCategoryValue_Result> GetCategoryValue()
+        public virtual ObjectResult<GetStockDetails_Result> GetStockDetails()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCategoryValue_Result>("GetCategoryValue");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetStockDetails_Result>("GetStockDetails");
+        }
+    
+        public virtual ObjectResult<GetUsers_Result> GetUsers()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUsers_Result>("GetUsers");
+        }
+    
+        public virtual ObjectResult<Nullable<int>> InsertReceiptAndGetId(Nullable<int> idCashier, Nullable<System.DateTime> releaseDate, Nullable<double> receivedAmount)
+        {
+            var idCashierParameter = idCashier.HasValue ?
+                new ObjectParameter("IdCashier", idCashier) :
+                new ObjectParameter("IdCashier", typeof(int));
+    
+            var releaseDateParameter = releaseDate.HasValue ?
+                new ObjectParameter("ReleaseDate", releaseDate) :
+                new ObjectParameter("ReleaseDate", typeof(System.DateTime));
+    
+            var receivedAmountParameter = receivedAmount.HasValue ?
+                new ObjectParameter("ReceivedAmount", receivedAmount) :
+                new ObjectParameter("ReceivedAmount", typeof(double));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("InsertReceiptAndGetId", idCashierParameter, releaseDateParameter, receivedAmountParameter);
         }
     }
 }

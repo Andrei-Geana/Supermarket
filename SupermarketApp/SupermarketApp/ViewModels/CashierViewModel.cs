@@ -32,7 +32,7 @@ namespace SupermarketApp.ViewModels
         private int _quantity;
         private double _receivedAmount;
         private double _total;
-        private DateTime _expirationDate;
+        private DateTime _expirationDate = DateTime.Now;
 
         public int IdOfNewReceipt {  get; set; }
         public CashierViewModel(Navigation navigation, Func<MainMenuViewModel> createMainMenu, Func<LoginViewModel> createLoginMenu)
@@ -216,6 +216,8 @@ namespace SupermarketApp.ViewModels
                 ObservableCollection<GetRemainingStock_Result> finalResult = new ObservableCollection<GetRemainingStock_Result>();
                 foreach(var item in _stocks)
                 {
+                    if(finalResult.Where(itemInResultAlready => itemInResultAlready.product_id ==  item.product_id).Any())
+                            continue;
                     if (item.remaining_quantity == 0)
                         continue;
                     if (!item.bar_code.StartsWith(Barcode))
@@ -226,7 +228,7 @@ namespace SupermarketApp.ViewModels
                         continue;
                     if (!string.IsNullOrEmpty(Category) && item.category_name != Category)
                         continue;
-                    if (item.expiration_date < ExpirationDate)
+                    if (item.expiration_date <= ExpirationDate)
                         continue;
                     finalResult.Add(item);
                 }
@@ -251,7 +253,23 @@ namespace SupermarketApp.ViewModels
         public string Name { get => _name; set { _name = value; OnPropertyChanged(nameof(Name)); OnPropertyChanged(nameof(Stocks)); } }
         public string Provider { get => _provider; set { _provider = value; OnPropertyChanged(nameof(Provider)); OnPropertyChanged(nameof(Stocks)); } }
         public string Category { get => _category; set { _category = value; OnPropertyChanged(nameof(Category)); OnPropertyChanged(nameof(Stocks)); } }
-        public DateTime ExpirationDate { get => _expirationDate; set { _expirationDate = value; OnPropertyChanged(nameof(ExpirationDate)); OnPropertyChanged(nameof(Stocks)); } }
+        public DateTime ExpirationDate 
+        { 
+            get => _expirationDate; 
+            set 
+            {
+                DateTime currentDay = DateTime.Now;
+                if (value.Year < currentDay.Year ||
+                (value.Year == currentDay.Year && value.Month < currentDay.Month) ||
+                (value.Year == currentDay.Year && value.Month == currentDay.Month && value.Day < currentDay.Day))
+                {
+                    return;
+                }
+                _expirationDate = value; 
+                OnPropertyChanged(nameof(ExpirationDate)); 
+                OnPropertyChanged(nameof(Stocks)); 
+            }
+        }
 
         public ObservableCollection<Product_Category> Categories { get => _categories; set => _categories = value; }
         public ObservableCollection<Provider> Providers { get => _providers; set => _providers = value; }

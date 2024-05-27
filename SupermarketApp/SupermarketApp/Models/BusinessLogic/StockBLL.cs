@@ -9,7 +9,7 @@ namespace SupermarketApp.Models.BusinessLogic
 {
     public class StockBLL
     {
-        private SupermarketMAPEntities1 entities = new SupermarketMAPEntities1();
+        private SupermarketMAPEntities entities = new SupermarketMAPEntities();
         private ObservableCollection<Product_In_Stock> _productsInStock;
 
         public StockBLL()
@@ -90,7 +90,7 @@ namespace SupermarketApp.Models.BusinessLogic
 
         public ObservableCollection<GetRemainingStock_Result> GetRemainingStock()
         {
-            var data = entities.GetRemainingStock().ToList();
+            var data = entities.GetRemainingStock().ToList().OrderBy(stock => stock.arrival_date);
             ObservableCollection<GetRemainingStock_Result> result = new ObservableCollection<GetRemainingStock_Result>();
             foreach (var item in data) result.Add(item);
             return result;

@@ -84,70 +84,70 @@
     </ApplicationDefinition>
     <Compile Include="Converters\SubTotalConverter.cs" />
     <Compile Include="Models\calculate_total_receipts_for_all_users_all_days_Result.cs">
-      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+      <DependentUpon>SupermarketMAP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GetCategoryValue_Result.cs">
-      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+      <DependentUpon>SupermarketMAP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GetProductsWithProviderAndCategoryName_Result.cs">
-      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+      <DependentUpon>SupermarketMAP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GetReceiptDetailsByReceiptId_Result.cs">
-      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+      <DependentUpon>SupermarketMAP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GetReceiptsWithCashierNamesAndTotalAmount_Result.cs">
-      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+      <DependentUpon>SupermarketMAP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GetReceiptsWithCashierNames_Result.cs">
-      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+      <DependentUpon>SupermarketMAP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GetRemainingStock_Result.cs">
-      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+      <DependentUpon>SupermarketMAP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GetStockDetails_Result.cs">
-      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+      <DependentUpon>SupermarketMAP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GetUsers_Result.cs">
-      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+      <DependentUpon>SupermarketMAP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Product.cs">
-      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+      <DependentUpon>SupermarketMAP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Product_Category.cs">
-      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+      <DependentUpon>SupermarketMAP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Product_In_Stock.cs">
-      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+      <DependentUpon>SupermarketMAP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Provider.cs">
-      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+      <DependentUpon>SupermarketMAP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Receipt.cs">
-      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+      <DependentUpon>SupermarketMAP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Receipt_Details.cs">
-      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+      <DependentUpon>SupermarketMAP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Role.cs">
-      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+      <DependentUpon>SupermarketMAP.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SupermarketEntities.Context.cs">
+    <Compile Include="Models\SupermarketMAP.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SupermarketEntities.Context.tt</DependentUpon>
+      <DependentUpon>SupermarketMAP.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SupermarketEntities.cs">
+    <Compile Include="Models\SupermarketMAP.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+      <DependentUpon>SupermarketMAP.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SupermarketEntities.Designer.cs">
+    <Compile Include="Models\SupermarketMAP.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SupermarketEntities.edmx</DependentUpon>
+      <DependentUpon>SupermarketMAP.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>SupermarketEntities.tt</DependentUpon>
+      <DependentUpon>SupermarketMAP.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\CategoriesViewModel.cs" />
     <Compile Include="ViewModels\CategoryStatisticsViewModel.cs" />
@@ -314,12 +314,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="Models\SupermarketEntities.edmx">
+    <EntityDeploy Include="Models\SupermarketMAP.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SupermarketEntities.Designer.cs</LastGenOutput>
+      <LastGenOutput>SupermarketMAP.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Models\SupermarketEntities.edmx.diagram">
-      <DependentUpon>SupermarketEntities.edmx</DependentUpon>
+    <None Include="Models\SupermarketMAP.edmx.diagram">
+      <DependentUpon>SupermarketMAP.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -349,15 +349,15 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Models\SupermarketEntities.Context.tt">
+    <Content Include="Models\SupermarketMAP.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SupermarketEntities.edmx</DependentUpon>
-      <LastGenOutput>SupermarketEntities.Context.cs</LastGenOutput>
+      <DependentUpon>SupermarketMAP.edmx</DependentUpon>
+      <LastGenOutput>SupermarketMAP.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\SupermarketEntities.tt">
+    <Content Include="Models\SupermarketMAP.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SupermarketEntities.edmx</DependentUpon>
-      <LastGenOutput>SupermarketEntities.cs</LastGenOutput>
+      <DependentUpon>SupermarketMAP.edmx</DependentUpon>
+      <LastGenOutput>SupermarketMAP.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

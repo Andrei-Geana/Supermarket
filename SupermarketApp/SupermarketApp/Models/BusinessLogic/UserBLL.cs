@@ -11,7 +11,7 @@ namespace SupermarketApp.Models.BusinessLogic
 {
     public class UserBLL
     {
-        private SupermarketMAPEntities1 entities = new SupermarketMAPEntities1();
+        private SupermarketMAPEntities entities = new SupermarketMAPEntities();
         private ObservableCollection<User> _users;
         public UserBLL() 
         {

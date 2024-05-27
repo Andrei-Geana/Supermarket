@@ -9,7 +9,7 @@ namespace SupermarketApp.Models.BusinessLogic
 {
     public class ReceiptDetailBLL
     {
-        private SupermarketMAPEntities1 entities = new SupermarketMAPEntities1();
+        private SupermarketMAPEntities entities = new SupermarketMAPEntities();
         private ObservableCollection<Receipt_Details> _receipts;
 
         public ReceiptDetailBLL()
