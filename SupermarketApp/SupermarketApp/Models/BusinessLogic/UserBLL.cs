@@ -61,7 +61,7 @@ namespace SupermarketApp.Models.BusinessLogic
         {
             try
             {
-                entities.Users.Add(newUser);
+                entities.InsertUser(newUser.name, newUser.password, newUser.id_role);
                 entities.SaveChanges();
                 _users.Add(newUser);
             }
@@ -75,10 +75,7 @@ namespace SupermarketApp.Models.BusinessLogic
         {
             try
             {
-                var existingUser = entities.Users.FirstOrDefault(user => user.id == userToBeModified.id) ?? throw new Exception();
-                existingUser.name = userToBeModified.name;
-                existingUser.password = userToBeModified.password;
-                existingUser.id_role = userToBeModified.id_role;
+                entities.UpdateUser(userToBeModified.id, userToBeModified.name, userToBeModified.password, userToBeModified.id_role);
                 entities.SaveChanges();
 
                 var currentUser = _users.FirstOrDefault(user => user.id == userToBeModified.id);

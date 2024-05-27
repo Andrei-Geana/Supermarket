@@ -89,8 +89,7 @@ namespace SupermarketApp.Models.BusinessLogic
         {
             try
             {
-                var existingCategory = entities.Roles.FirstOrDefault(role => role.id == newRole.id) ?? throw new Exception("Role not found in database");
-                existingCategory.name = newRole.name;
+                entities.UpdateRole(newRole.id, newRole.name);
                 entities.SaveChanges();
                 var currentCategory = _roles.FirstOrDefault(role => role.id == newRole.id);
                 currentCategory.name = newRole.name;

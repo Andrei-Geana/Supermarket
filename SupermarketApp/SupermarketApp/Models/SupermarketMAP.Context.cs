@@ -36,11 +36,6 @@ namespace SupermarketApp.Models
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
     
-        public virtual ObjectResult<calculate_total_receipts_for_all_users_all_days_Result> calculate_total_receipts_for_all_users_all_days()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<calculate_total_receipts_for_all_users_all_days_Result>("calculate_total_receipts_for_all_users_all_days");
-        }
-    
         public virtual ObjectResult<GetCategoryValue_Result> GetCategoryValue()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCategoryValue_Result>("GetCategoryValue");
@@ -58,6 +53,11 @@ namespace SupermarketApp.Models
                 new ObjectParameter("receipt_id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetReceiptDetailsByReceiptId_Result>("GetReceiptDetailsByReceiptId", receipt_idParameter);
+        }
+    
+        public virtual ObjectResult<GetReceiptMonthlyStatistics_Result> GetReceiptMonthlyStatistics()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetReceiptMonthlyStatistics_Result>("GetReceiptMonthlyStatistics");
         }
     
         public virtual ObjectResult<GetReceiptsWithCashierNames_Result> GetReceiptsWithCashierNames()
@@ -100,6 +100,57 @@ namespace SupermarketApp.Models
                 new ObjectParameter("ReceivedAmount", typeof(double));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("InsertReceiptAndGetId", idCashierParameter, releaseDateParameter, receivedAmountParameter);
+        }
+    
+        public virtual int InsertUser(string name, string password, Nullable<int> idRole)
+        {
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("password", password) :
+                new ObjectParameter("password", typeof(string));
+    
+            var idRoleParameter = idRole.HasValue ?
+                new ObjectParameter("idRole", idRole) :
+                new ObjectParameter("idRole", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertUser", nameParameter, passwordParameter, idRoleParameter);
+        }
+    
+        public virtual int UpdateRole(Nullable<int> roleId, string name)
+        {
+            var roleIdParameter = roleId.HasValue ?
+                new ObjectParameter("roleId", roleId) :
+                new ObjectParameter("roleId", typeof(int));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateRole", roleIdParameter, nameParameter);
+        }
+    
+        public virtual int UpdateUser(Nullable<int> userId, string name, string password, Nullable<int> idRole)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(int));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("password", password) :
+                new ObjectParameter("password", typeof(string));
+    
+            var idRoleParameter = idRole.HasValue ?
+                new ObjectParameter("idRole", idRole) :
+                new ObjectParameter("idRole", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateUser", userIdParameter, nameParameter, passwordParameter, idRoleParameter);
         }
     }
 }

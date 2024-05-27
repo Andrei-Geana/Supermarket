@@ -83,9 +83,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\SubTotalConverter.cs" />
-    <Compile Include="Models\calculate_total_receipts_for_all_users_all_days_Result.cs">
-      <DependentUpon>SupermarketMAP.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\GetCategoryValue_Result.cs">
       <DependentUpon>SupermarketMAP.tt</DependentUpon>
     </Compile>
@@ -93,6 +90,9 @@
       <DependentUpon>SupermarketMAP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GetReceiptDetailsByReceiptId_Result.cs">
+      <DependentUpon>SupermarketMAP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetReceiptMonthlyStatistics_Result.cs">
       <DependentUpon>SupermarketMAP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GetReceiptsWithCashierNamesAndTotalAmount_Result.cs">

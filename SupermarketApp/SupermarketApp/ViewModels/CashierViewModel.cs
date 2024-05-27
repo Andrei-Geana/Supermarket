@@ -228,7 +228,7 @@ namespace SupermarketApp.ViewModels
                         continue;
                     if (!string.IsNullOrEmpty(Category) && item.category_name != Category)
                         continue;
-                    if (item.expiration_date <= ExpirationDate)
+                    if (item.expiration_date < ExpirationDate)
                         continue;
                     finalResult.Add(item);
                 }

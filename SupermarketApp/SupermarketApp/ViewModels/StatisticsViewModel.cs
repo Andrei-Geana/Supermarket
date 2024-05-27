@@ -17,7 +17,7 @@ namespace SupermarketApp.ViewModels
     public class StatisticsViewModel : ViewModelBase
     {
         private ReceiptBLL _receiptBLL;
-        private ObservableCollection<calculate_total_receipts_for_all_users_all_days_Result> _results;
+        private ObservableCollection<GetReceiptMonthlyStatistics_Result> _results;
 
         private DateTime _date = DateTime.Now;
         private string _userName = "";
@@ -40,11 +40,11 @@ namespace SupermarketApp.ViewModels
         public ICommand NavigateBackToMenu { get; set; }
         public ICommand NavigateToProviderStatistics { get; set; }
         public ICommand NavigateToCategoryStatistics { get; set; }
-        public ObservableCollection<calculate_total_receipts_for_all_users_all_days_Result> Results 
+        public ObservableCollection<GetReceiptMonthlyStatistics_Result> Results 
         {
             get 
             {
-                ObservableCollection<calculate_total_receipts_for_all_users_all_days_Result> finalResult = new ObservableCollection<calculate_total_receipts_for_all_users_all_days_Result>();
+                ObservableCollection<GetReceiptMonthlyStatistics_Result> finalResult = new ObservableCollection<GetReceiptMonthlyStatistics_Result>();
                 foreach (var item in _results)
                 {
                     if (!string.IsNullOrEmpty(UserName) && !item.user_name.StartsWith(UserName.ToLower()))

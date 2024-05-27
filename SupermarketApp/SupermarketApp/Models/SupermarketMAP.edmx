@@ -171,12 +171,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="calculate_total_receipts_for_all_users_all_days" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetCategoryValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetProductsWithProviderAndCategoryName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetReceiptDetailsByReceiptId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="receipt_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetReceiptMonthlyStatistics" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetReceiptsWithCashierNames" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetReceiptsWithCashierNamesAndTotalAmount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetRemainingStock" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -186,6 +186,21 @@
           <Parameter Name="IdCashier" Type="int" Mode="In" />
           <Parameter Name="ReleaseDate" Type="date" Mode="In" />
           <Parameter Name="ReceivedAmount" Type="float" Mode="In" />
+        </Function>
+        <Function Name="InsertUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+          <Parameter Name="idRole" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UpdateRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="roleId" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="UpdateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+          <Parameter Name="idRole" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="SupermarketMAPModelStoreContainer">
           <EntitySet Name="Product_Category" EntityType="Self.Product_Category" Schema="dbo" store:Type="Tables" />
@@ -447,12 +462,12 @@
             <End Role="Role" EntitySet="Roles" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
-          <FunctionImport Name="calculate_total_receipts_for_all_users_all_days" ReturnType="Collection(SupermarketMAPModel.calculate_total_receipts_for_all_users_all_days_Result)" />
           <FunctionImport Name="GetCategoryValue" ReturnType="Collection(SupermarketMAPModel.GetCategoryValue_Result)" />
           <FunctionImport Name="GetProductsWithProviderAndCategoryName" ReturnType="Collection(SupermarketMAPModel.GetProductsWithProviderAndCategoryName_Result)" />
           <FunctionImport Name="GetReceiptDetailsByReceiptId" ReturnType="Collection(SupermarketMAPModel.GetReceiptDetailsByReceiptId_Result)">
             <Parameter Name="receipt_id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="GetReceiptMonthlyStatistics" ReturnType="Collection(SupermarketMAPModel.GetReceiptMonthlyStatistics_Result)" />
           <FunctionImport Name="GetReceiptsWithCashierNames" ReturnType="Collection(SupermarketMAPModel.GetReceiptsWithCashierNames_Result)" />
           <FunctionImport Name="GetReceiptsWithCashierNamesAndTotalAmount" ReturnType="Collection(SupermarketMAPModel.GetReceiptsWithCashierNamesAndTotalAmount_Result)" />
           <FunctionImport Name="GetRemainingStock" ReturnType="Collection(SupermarketMAPModel.GetRemainingStock_Result)" />
@@ -463,13 +478,22 @@
             <Parameter Name="ReleaseDate" Mode="In" Type="DateTime" />
             <Parameter Name="ReceivedAmount" Mode="In" Type="Double" />
           </FunctionImport>
+          <FunctionImport Name="InsertUser">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="idRole" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateRole">
+            <Parameter Name="roleId" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateUser">
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="idRole" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
-        <ComplexType Name="calculate_total_receipts_for_all_users_all_days_Result">
-          <Property Type="DateTime" Name="release_date" Nullable="false" />
-          <Property Type="Int32" Name="user_id" Nullable="false" />
-          <Property Type="String" Name="user_name" Nullable="false" MaxLength="255" />
-          <Property Type="Double" Name="total_sum" Nullable="true" />
-        </ComplexType>
         <ComplexType Name="GetCategoryValue_Result">
           <Property Type="String" Name="CategoryName" Nullable="false" MaxLength="255" />
           <Property Type="Double" Name="TotalValue" Nullable="true" />
@@ -487,6 +511,12 @@
           <Property Type="String" Name="product_name" Nullable="false" MaxLength="255" />
           <Property Type="Int32" Name="quantity" Nullable="false" />
           <Property Type="Double" Name="price_per_item" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetReceiptMonthlyStatistics_Result">
+          <Property Type="DateTime" Name="release_date" Nullable="false" />
+          <Property Type="Int32" Name="user_id" Nullable="false" />
+          <Property Type="String" Name="user_name" Nullable="false" MaxLength="255" />
+          <Property Type="Double" Name="total_sum" Nullable="true" />
         </ComplexType>
         <ComplexType Name="GetReceiptsWithCashierNames_Result">
           <Property Type="Int32" Name="id_receipt" Nullable="false" />
@@ -633,16 +663,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="calculate_total_receipts_for_all_users_all_days" FunctionName="SupermarketMAPModel.Store.calculate_total_receipts_for_all_users_all_days">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SupermarketMAPModel.calculate_total_receipts_for_all_users_all_days_Result">
-                <ScalarProperty Name="release_date" ColumnName="release_date" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="user_name" ColumnName="user_name" />
-                <ScalarProperty Name="total_sum" ColumnName="total_sum" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetCategoryValue" FunctionName="SupermarketMAPModel.Store.GetCategoryValue">
             <ResultMapping>
               <ComplexTypeMapping TypeName="SupermarketMAPModel.GetCategoryValue_Result">
@@ -670,6 +690,16 @@
                 <ScalarProperty Name="product_name" ColumnName="product_name" />
                 <ScalarProperty Name="quantity" ColumnName="quantity" />
                 <ScalarProperty Name="price_per_item" ColumnName="price_per_item" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetReceiptMonthlyStatistics" FunctionName="SupermarketMAPModel.Store.GetReceiptMonthlyStatistics">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SupermarketMAPModel.GetReceiptMonthlyStatistics_Result">
+                <ScalarProperty Name="release_date" ColumnName="release_date" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="total_sum" ColumnName="total_sum" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -743,6 +773,9 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="InsertReceiptAndGetId" FunctionName="SupermarketMAPModel.Store.InsertReceiptAndGetId" />
+          <FunctionImportMapping FunctionImportName="InsertUser" FunctionName="SupermarketMAPModel.Store.InsertUser" />
+          <FunctionImportMapping FunctionImportName="UpdateRole" FunctionName="SupermarketMAPModel.Store.UpdateRole" />
+          <FunctionImportMapping FunctionImportName="UpdateUser" FunctionName="SupermarketMAPModel.Store.UpdateUser" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

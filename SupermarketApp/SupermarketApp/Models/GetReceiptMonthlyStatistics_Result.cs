@@ -11,7 +11,7 @@ namespace SupermarketApp.Models
 {
     using System;
     
-    public partial class calculate_total_receipts_for_all_users_all_days_Result
+    public partial class GetReceiptMonthlyStatistics_Result
     {
         public System.DateTime release_date { get; set; }
         public int user_id { get; set; }

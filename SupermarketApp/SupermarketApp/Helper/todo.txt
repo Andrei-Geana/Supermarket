@@ -1,5 +1,5 @@
-﻿-update GetRemainingStock so that if the expiration date is before current date, it will become inactive
-
-
+﻿
 -logic elimination
 -stored procedures
+
+-de aranjat frumos tabelele si label-uri

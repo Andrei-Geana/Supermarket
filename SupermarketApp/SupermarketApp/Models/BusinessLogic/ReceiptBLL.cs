@@ -60,10 +60,10 @@ namespace SupermarketApp.Models.BusinessLogic
             return result;
         }
 
-        public ObservableCollection<calculate_total_receipts_for_all_users_all_days_Result> GetSumOfReceiptsPerDays()
+        public ObservableCollection<GetReceiptMonthlyStatistics_Result> GetSumOfReceiptsPerDays()
         {
-            var data = entities.calculate_total_receipts_for_all_users_all_days().ToList().OrderBy(item => item.release_date);
-            ObservableCollection<calculate_total_receipts_for_all_users_all_days_Result> result = new ObservableCollection<calculate_total_receipts_for_all_users_all_days_Result>();
+            var data = entities.GetReceiptMonthlyStatistics().ToList().OrderBy(item => item.release_date);
+            ObservableCollection<GetReceiptMonthlyStatistics_Result> result = new ObservableCollection<GetReceiptMonthlyStatistics_Result>();
             foreach (var item in data) result.Add(item);
             return result;
         }
