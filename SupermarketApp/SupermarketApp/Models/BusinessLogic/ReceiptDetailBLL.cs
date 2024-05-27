@@ -41,6 +41,25 @@ namespace SupermarketApp.Models.BusinessLogic
             }
         }
 
+        public void InsertReceiptDetails(GetReceiptDetailsWithProductNames_Result receipt)
+        {
+            try
+            {
+                entities.InsertReceiptDetail(receipt.id_receipt, receipt.id_stock, receipt.quantity, receipt.price_per_item);
+                entities.SaveChanges();
+                _receipts.Add(new Receipt_Details() { 
+                    id_receipt = receipt.id_receipt,
+                    id_stock = receipt.id_stock,
+                    quantity = receipt.quantity,
+                    price_per_item = receipt.price_per_item
+                });
+            }
+            catch
+            {
+                throw new Exception("Receipt detail was not added to database");
+            }
+        }
+
         public ObservableCollection<GetReceiptDetailsByReceiptId_Result> GetDetailsOfReceiptId(int id)
         {
             ObservableCollection<GetReceiptDetailsByReceiptId_Result> returnedDetails = new ObservableCollection<GetReceiptDetailsByReceiptId_Result>();

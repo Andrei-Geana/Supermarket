@@ -92,6 +92,9 @@
     <Compile Include="Models\GetReceiptDetailsByReceiptId_Result.cs">
       <DependentUpon>SupermarketMAP.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetReceiptDetailsWithProductNames_Result.cs">
+      <DependentUpon>SupermarketMAP.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GetReceiptMonthlyStatistics_Result.cs">
       <DependentUpon>SupermarketMAP.tt</DependentUpon>
     </Compile>

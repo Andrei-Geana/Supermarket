@@ -152,5 +152,31 @@ namespace SupermarketApp.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateUser", userIdParameter, nameParameter, passwordParameter, idRoleParameter);
         }
+    
+        public virtual ObjectResult<GetReceiptDetailsWithProductNames_Result> GetReceiptDetailsWithProductNames()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetReceiptDetailsWithProductNames_Result>("GetReceiptDetailsWithProductNames");
+        }
+    
+        public virtual int InsertReceiptDetail(Nullable<int> idReceipt, Nullable<int> idStock, Nullable<int> quantity, Nullable<double> pricePerItem)
+        {
+            var idReceiptParameter = idReceipt.HasValue ?
+                new ObjectParameter("idReceipt", idReceipt) :
+                new ObjectParameter("idReceipt", typeof(int));
+    
+            var idStockParameter = idStock.HasValue ?
+                new ObjectParameter("idStock", idStock) :
+                new ObjectParameter("idStock", typeof(int));
+    
+            var quantityParameter = quantity.HasValue ?
+                new ObjectParameter("quantity", quantity) :
+                new ObjectParameter("quantity", typeof(int));
+    
+            var pricePerItemParameter = pricePerItem.HasValue ?
+                new ObjectParameter("pricePerItem", pricePerItem) :
+                new ObjectParameter("pricePerItem", typeof(double));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertReceiptDetail", idReceiptParameter, idStockParameter, quantityParameter, pricePerItemParameter);
+        }
     }
 }

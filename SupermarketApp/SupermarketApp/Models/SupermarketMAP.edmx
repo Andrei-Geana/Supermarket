@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SupermarketMAPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SupermarketMAPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Product_Category">
           <Key>
             <PropertyRef Name="id" />
@@ -176,6 +176,7 @@
         <Function Name="GetReceiptDetailsByReceiptId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="receipt_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetReceiptDetailsWithProductNames" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetReceiptMonthlyStatistics" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetReceiptsWithCashierNames" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetReceiptsWithCashierNamesAndTotalAmount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -186,6 +187,12 @@
           <Parameter Name="IdCashier" Type="int" Mode="In" />
           <Parameter Name="ReleaseDate" Type="date" Mode="In" />
           <Parameter Name="ReceivedAmount" Type="float" Mode="In" />
+        </Function>
+        <Function Name="InsertReceiptDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idReceipt" Type="int" Mode="In" />
+          <Parameter Name="idStock" Type="int" Mode="In" />
+          <Parameter Name="quantity" Type="int" Mode="In" />
+          <Parameter Name="pricePerItem" Type="float" Mode="In" />
         </Function>
         <Function Name="InsertUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="name" Type="varchar" Mode="In" />
@@ -240,8 +247,7 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SupermarketMAPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -465,7 +471,7 @@
           <FunctionImport Name="GetCategoryValue" ReturnType="Collection(SupermarketMAPModel.GetCategoryValue_Result)" />
           <FunctionImport Name="GetProductsWithProviderAndCategoryName" ReturnType="Collection(SupermarketMAPModel.GetProductsWithProviderAndCategoryName_Result)" />
           <FunctionImport Name="GetReceiptDetailsByReceiptId" ReturnType="Collection(SupermarketMAPModel.GetReceiptDetailsByReceiptId_Result)">
-            <Parameter Name="receipt_id" Mode="In" Type="Int32" />
+          <Parameter Name="receipt_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetReceiptMonthlyStatistics" ReturnType="Collection(SupermarketMAPModel.GetReceiptMonthlyStatistics_Result)" />
           <FunctionImport Name="GetReceiptsWithCashierNames" ReturnType="Collection(SupermarketMAPModel.GetReceiptsWithCashierNames_Result)" />
@@ -492,6 +498,13 @@
             <Parameter Name="name" Mode="In" Type="String" />
             <Parameter Name="password" Mode="In" Type="String" />
             <Parameter Name="idRole" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetReceiptDetailsWithProductNames" ReturnType="Collection(SupermarketMAPModel.GetReceiptDetailsWithProductNames_Result)" />
+          <FunctionImport Name="InsertReceiptDetail">
+            <Parameter Name="idReceipt" Mode="In" Type="Int32" />
+            <Parameter Name="idStock" Mode="In" Type="Int32" />
+            <Parameter Name="quantity" Mode="In" Type="Int32" />
+            <Parameter Name="pricePerItem" Mode="In" Type="Double" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetCategoryValue_Result">
@@ -566,6 +579,14 @@
           <Property Type="String" Name="Name" Nullable="false" MaxLength="255" />
           <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
           <Property Type="String" Name="Role" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="GetReceiptDetailsWithProductNames_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="id_receipt" Nullable="false" />
+          <Property Type="Int32" Name="id_stock" Nullable="false" />
+          <Property Type="String" Name="product_name" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="quantity" Nullable="false" />
+          <Property Type="Double" Name="price_per_item" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -776,6 +797,19 @@
           <FunctionImportMapping FunctionImportName="InsertUser" FunctionName="SupermarketMAPModel.Store.InsertUser" />
           <FunctionImportMapping FunctionImportName="UpdateRole" FunctionName="SupermarketMAPModel.Store.UpdateRole" />
           <FunctionImportMapping FunctionImportName="UpdateUser" FunctionName="SupermarketMAPModel.Store.UpdateUser" />
+          <FunctionImportMapping FunctionImportName="GetReceiptDetailsWithProductNames" FunctionName="SupermarketMAPModel.Store.GetReceiptDetailsWithProductNames">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SupermarketMAPModel.GetReceiptDetailsWithProductNames_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_receipt" ColumnName="id_receipt" />
+                <ScalarProperty Name="id_stock" ColumnName="id_stock" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="price_per_item" ColumnName="price_per_item" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InsertReceiptDetail" FunctionName="SupermarketMAPModel.Store.InsertReceiptDetail" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

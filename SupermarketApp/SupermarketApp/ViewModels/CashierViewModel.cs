@@ -53,7 +53,7 @@ namespace SupermarketApp.ViewModels
 
             Categories = _categoryBLL.GetCategories();
             Providers = _providerBLL.GetProviders();
-            ReceiptDetails = new ObservableCollection<Receipt_Details>();
+            ReceiptDetails = new ObservableCollection<GetReceiptDetailsWithProductNames_Result>();
 
             Categories.Insert(0, new Product_Category() { name = "" });
             Providers.Insert(0, new Provider() { name = "" });
@@ -86,7 +86,7 @@ namespace SupermarketApp.ViewModels
 
                 SaveRemainingStock();
                 ResetSelection();
-                ReceiptDetails = new ObservableCollection<Receipt_Details>();
+                ReceiptDetails = new ObservableCollection<GetReceiptDetailsWithProductNames_Result>();
                 Quantity = 0;
                 ReceivedAmount = 0;
             }
@@ -133,7 +133,7 @@ namespace SupermarketApp.ViewModels
                 }
                 else
                 {
-                    var updatedDetails = new ObservableCollection<Receipt_Details>(_receiptDetails);
+                    var updatedDetails = new ObservableCollection<GetReceiptDetailsWithProductNames_Result>(_receiptDetails);
                     ReceiptDetails = updatedDetails;
                 }
                 var updatedStocks = new ObservableCollection<GetRemainingStock_Result>(_stocks);
@@ -151,8 +151,8 @@ namespace SupermarketApp.ViewModels
             }
         }
 
-        private ObservableCollection<Receipt_Details> _receiptDetails;
-        private Receipt_Details _selectedReceiptDetail;
+        private ObservableCollection<GetReceiptDetailsWithProductNames_Result> _receiptDetails;
+        private GetReceiptDetailsWithProductNames_Result _selectedReceiptDetail;
 
         private void AddProductToReceiptDetails()
         {
@@ -163,18 +163,19 @@ namespace SupermarketApp.ViewModels
                 {
                     throw new Exception("Invalid data: Quantity invalid.");
                 }
-                Receipt_Details details = new Receipt_Details()
+                GetReceiptDetailsWithProductNames_Result details = new GetReceiptDetailsWithProductNames_Result()
                 {
                     id_stock = SelectedStock.id,
                     price_per_item = SelectedStock.sell_price,
-                    quantity = Quantity
+                    quantity = Quantity,
+                    product_name = SelectedStock.product_name
 
                 };
                 var alreadyIn = ReceiptDetails.Where(x => x.id_stock == details.id_stock).FirstOrDefault();
                 if(alreadyIn!=null)
                 {
                     alreadyIn.quantity += details.quantity;
-                    var updatedDetails = new ObservableCollection<Receipt_Details>(_receiptDetails);
+                    var updatedDetails = new ObservableCollection<GetReceiptDetailsWithProductNames_Result>(_receiptDetails);
                     ReceiptDetails = updatedDetails;
                 }
                 else
@@ -310,8 +311,8 @@ namespace SupermarketApp.ViewModels
 
         public int Quantity { get => _quantity; set { _quantity = value; OnPropertyChanged(nameof(Quantity)); } }
 
-        public ObservableCollection<Receipt_Details> ReceiptDetails { get => _receiptDetails; set { _receiptDetails = value; OnPropertyChanged(nameof(ReceiptDetails)); OnPropertyChanged(nameof(Total)); } }
-        public Receipt_Details SelectedReceiptDetail { get => _selectedReceiptDetail; set { _selectedReceiptDetail = value; OnPropertyChanged(nameof(SelectedReceiptDetail)); OnPropertyChanged(nameof(MinusButtonIsEnabled)); } }
+        public ObservableCollection<GetReceiptDetailsWithProductNames_Result> ReceiptDetails { get => _receiptDetails; set { _receiptDetails = value; OnPropertyChanged(nameof(ReceiptDetails)); OnPropertyChanged(nameof(Total)); } }
+        public GetReceiptDetailsWithProductNames_Result SelectedReceiptDetail { get => _selectedReceiptDetail; set { _selectedReceiptDetail = value; OnPropertyChanged(nameof(SelectedReceiptDetail)); OnPropertyChanged(nameof(MinusButtonIsEnabled)); } }
 
         public double ReceivedAmount
         {
