@@ -232,6 +232,8 @@ namespace SupermarketApp.ViewModels
                         continue;
                     if (item.expiration_date.Date < ExpirationDate.Date)
                         continue;
+                    if(item.arrival_date.Date > DateTime.Now.Date)  
+                        continue;
                     finalResult.Add(item);
                 }
                 return finalResult;

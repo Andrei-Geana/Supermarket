@@ -46,15 +46,21 @@ namespace SupermarketApp.ViewModels
                     throw new Exception("Invalid data: Data must not be smaller than 0.");
 
                 }
-                if(ProductIn_Stock.arrival_date > ProductIn_Stock.expiration_date)
+
+                if(ProductIn_Stock.arrival_date.Date > ProductIn_Stock.expiration_date.Date)
                 {
                     throw new Exception("Invalid dates: Expiration date must be after arrival date.");
-
                 }
-                if(DateTime.Now > ProductIn_Stock.expiration_date)
+
+                if(DateTime.Now.Date > ProductIn_Stock.expiration_date.Date)
                 {
                     throw new Exception("Invalid dates: Expiration date must be after current date.");
                 }
+
+                //if(DateTime.Now.Date > ProductIn_Stock.arrival_date.Date)
+                //{
+                //    throw new Exception("Invalid dates: Arrival date must be after current date.");
+                //}
 
                 if (string.IsNullOrEmpty(ProductIn_Stock.unit_of_measurement))
                 {
