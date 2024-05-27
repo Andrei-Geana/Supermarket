@@ -6,6 +6,7 @@ using SupermarketApp.Stores;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,8 +17,6 @@ namespace SupermarketApp.ViewModels
 {
     public class StocksViewModel : ViewModelBase
     {
-        private const double TVA = 2.5;
-
         private ProductBLL _productBLL;
         private StockBLL _stockBLL;
 
@@ -84,7 +83,7 @@ namespace SupermarketApp.ViewModels
                     arrival_date = ProductIn_Stock.arrival_date,
                     expiration_date = ProductIn_Stock.expiration_date,
                     buy_price = ProductIn_Stock.buy_price,
-                    sell_price = ProductIn_Stock.buy_price + TVA,
+                    sell_price = ProductIn_Stock.buy_price + double.Parse(ConfigurationManager.AppSettings["TVA"]),
                 };
                 _stockBLL.AddProductInStock(newProduct);
                 ResetData();

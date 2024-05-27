@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
+using System.Configuration;
 
 namespace SupermarketApp.ViewModels
 {
@@ -38,6 +39,10 @@ namespace SupermarketApp.ViewModels
         {
             try
             {
+                if(SelectedRole.id == int.Parse(ConfigurationManager.AppSettings["admin_id"]) || SelectedRole.id == int.Parse(ConfigurationManager.AppSettings["cashier_id"]))
+                {
+                    throw new Exception("Unable to delete role: Cannot delete ADMIN/CASHIER");
+                }
                 _roleBLL.DeleteRoleWithId(SelectedRole.id);
                 ResetRole();
             }
@@ -61,7 +66,7 @@ namespace SupermarketApp.ViewModels
                     name = SelectedRole.name,
                 };
                 _roleBLL.ModifyRole(newRole);
-                ResetRole();
+                SelectedRole = newRole;
             }
             catch (Exception exception)
             {

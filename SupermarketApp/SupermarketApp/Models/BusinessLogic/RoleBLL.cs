@@ -9,9 +9,6 @@ namespace SupermarketApp.Models.BusinessLogic
 {
     public class RoleBLL
     {
-        private static readonly string _adminString = "ADMIN";
-        private static readonly string _cashierString = "CASHIER";
-
         private SupermarketMAPEntities entities = new SupermarketMAPEntities();
         private ObservableCollection<Role> _roles;
 
@@ -22,7 +19,7 @@ namespace SupermarketApp.Models.BusinessLogic
 
         private void ReinitializeList()
         {
-            var roles = entities.Roles.ToList();
+            var roles = entities.Roles.Where(item => item.deleted == false).ToList();
             _roles = new ObservableCollection<Role>();
             foreach (var role in roles)
             {
@@ -35,20 +32,10 @@ namespace SupermarketApp.Models.BusinessLogic
             }
         }
 
-        public int GetIdOfAdmin()
-        {
-            return _roles.Where(role => role.name == _adminString).First().id;
-        }
-
         public ObservableCollection<Role> GetRoles()
         {
             ReinitializeList();
             return _roles;
-        }
-
-        public int GetIdOfRole(string roleName)
-        {
-            return _roles.Where(role => role.name.Equals(roleName)).FirstOrDefault().id;
         }
 
         public string GetRoleName(int id)
@@ -76,7 +63,8 @@ namespace SupermarketApp.Models.BusinessLogic
             try
             {
                 //need to update with only logic deletion
-                entities.Roles.Remove(entities.Roles.Where(role => role.id == id).FirstOrDefault());
+               // entities.Roles.Remove(entities.Roles.Where(role => role.id == id).FirstOrDefault());
+                entities.Roles.Where(role => role.id == id).FirstOrDefault().deleted = true;
                 entities.SaveChanges();
                 _roles.Remove(_roles.Where(role => role.id == id).FirstOrDefault());
             }

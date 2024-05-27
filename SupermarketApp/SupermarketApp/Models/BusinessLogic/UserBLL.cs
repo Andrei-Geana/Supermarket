@@ -26,7 +26,7 @@ namespace SupermarketApp.Models.BusinessLogic
 
         public void ReinitializeList()
         {
-            var users = entities.Users.ToList();
+            var users = entities.Users.Where(item => item.deleted == false).ToList();
             _users = new ObservableCollection<User>();
             foreach (var user in users) { _users.Add(user); }
         }
@@ -47,13 +47,15 @@ namespace SupermarketApp.Models.BusinessLogic
             try
             {
                 //need to update with only logic deletion
-                entities.Users.Remove(entities.Users.Where(user => user.id == ID).FirstOrDefault());
+                //entities.Users.Remove(entities.Users.Where(user => user.id == ID).FirstOrDefault());
+                entities.Users.Where(user => user.id == ID).FirstOrDefault().deleted = true;
                 entities.SaveChanges();
                 _users.Remove(_users.Where(user => user.id == ID).FirstOrDefault());
             }
             catch
             {
                 entities = new SupermarketMAPEntities();
+                ReinitializeList();
                 throw new Exception ( "User to be deleted was not found in database." ); 
             }
         }
@@ -69,6 +71,7 @@ namespace SupermarketApp.Models.BusinessLogic
             catch
             {
                 entities = new SupermarketMAPEntities();
+                ReinitializeList();
                 throw new Exception("User was not added to database.");
             }
         }
@@ -89,6 +92,7 @@ namespace SupermarketApp.Models.BusinessLogic
             catch
             {
                 entities = new SupermarketMAPEntities();
+                ReinitializeList();
                 throw new Exception("User was not modified in database.");
             }
         }

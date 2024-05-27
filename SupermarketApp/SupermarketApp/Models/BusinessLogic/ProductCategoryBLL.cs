@@ -19,7 +19,7 @@ namespace SupermarketApp.Models.BusinessLogic
 
         private void ReinitializeList()
         {
-            var categories = entities.Product_Category.ToList();
+            var categories = entities.Product_Category.Where(item => item.deleted == false).ToList();
             product_Categories = new ObservableCollection<Product_Category>();
             foreach (var category in categories)
             {
@@ -75,7 +75,8 @@ namespace SupermarketApp.Models.BusinessLogic
             try
             {
                 //need to update with only logic deletion
-                entities.Product_Category.Remove(entities.Product_Category.Where(category => category.id == id).FirstOrDefault());
+               // entities.Product_Category.Remove(entities.Product_Category.Where(category => category.id == id).FirstOrDefault());
+                entities.Product_Category.Where(category => category.id == id).FirstOrDefault().deleted=true;
                 entities.SaveChanges();
                 product_Categories.Remove(product_Categories.Where(category => category.id == id).FirstOrDefault());
             }

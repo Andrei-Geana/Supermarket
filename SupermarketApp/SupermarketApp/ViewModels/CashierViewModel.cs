@@ -5,6 +5,7 @@ using SupermarketApp.Models.BusinessLogic;
 using SupermarketApp.Stores;
 using System;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -277,8 +278,7 @@ namespace SupermarketApp.ViewModels
 
         private void DecideWhereToGoBack()
         {
-            //if current user is admin
-            if (App.CurrentUser.id_role == _roleBLL.GetIdOfAdmin())
+            if (App.CurrentUser.id_role != int.Parse(ConfigurationManager.AppSettings["cashier_id"]))
             {
                 NavigateBackToMainMenu.Execute(null);
             }
@@ -292,7 +292,7 @@ namespace SupermarketApp.ViewModels
         {
             get
             {
-                if (App.CurrentUser.id_role == _roleBLL.GetIdOfAdmin())
+                if (App.CurrentUser.id_role == int.Parse(ConfigurationManager.AppSettings["admin_id"]))
                 {
                     return "BACK";
                 }

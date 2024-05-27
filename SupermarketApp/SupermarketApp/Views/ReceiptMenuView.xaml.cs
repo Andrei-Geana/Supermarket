@@ -56,15 +56,9 @@ namespace SupermarketApp.Views
             {
                 //get highest in selectedReceipt
                 viewModel.GetHighestReceiptOfTheDay.Execute(null);
-                if (viewModel.SelectedReceipt.id_receipt != 0)
+                if (viewModel.SelectedReceipt == null)
                 {
-                    ReceiptView receiptView = new ReceiptView() { DataContext = new ReceiptViewModel(viewModel.SelectedReceipt.id_receipt) };
-                    receiptView.Show();
-
-                }
-                else
-                {
-                    MessageBox.Show("No receipt was found for the day.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("No receipt was found for the day.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }

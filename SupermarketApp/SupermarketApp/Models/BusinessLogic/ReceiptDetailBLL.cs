@@ -19,7 +19,7 @@ namespace SupermarketApp.Models.BusinessLogic
 
         private void ReinitializeList()
         {
-            var receipts = entities.Receipt_Details.ToList();
+            var receipts = entities.Receipt_Details.Where(item => item.deleted == false).ToList();
             _receipts = new ObservableCollection<Receipt_Details>();
             foreach (var receipt in receipts)
             {

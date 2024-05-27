@@ -5,6 +5,7 @@ using SupermarketApp.Models.BusinessLogic;
 using SupermarketApp.Stores;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,14 +17,12 @@ namespace SupermarketApp.ViewModels
     public class LoginViewModel : ViewModelBase
     {
         private UserBLL _userBLL;
-        private RoleBLL _roleBLL;
         public LoginViewModel(Navigation navigation, Func<MainMenuViewModel> createMenuViewModel, Func<CashierViewModel> createCashierViewModel) 
         {
             NavigateToAdminMenu = new NavigationCommand(navigation, createMenuViewModel);
             NavigateToCashierMenu = new NavigationCommand(navigation, createCashierViewModel);
             LoginCommand = new RelayCommand<object>(param => Login());
             _userBLL = new UserBLL();
-            _roleBLL = new RoleBLL();
         }
 
         public ICommand LoginCommand { get; set; }
@@ -60,7 +59,7 @@ namespace SupermarketApp.ViewModels
             {
                 App.CurrentUser = user;
                 //checks if user is admin
-                if (App.CurrentUser.id_role == _roleBLL.GetIdOfAdmin())
+                if (App.CurrentUser.id_role == int.Parse(ConfigurationManager.AppSettings["admin_id"]))
                     NavigateToAdminMenu.Execute(null);
                 else
                     NavigateToCashierMenu.Execute(null);
