@@ -26,5 +26,9 @@
         <Button Command="{Binding NavigateToEarningsStatistics}" Grid.Row="0" Grid.Column="1" Margin="25,25,25,25">EARNINGS STATISTICS</Button>
         <Button Command="{Binding NavigateToProviderStatistics}" Grid.Row="0" Grid.Column="2" Margin="50,25,50,25">PROVIDER STATISTICS</Button>
         <Button IsEnabled="False" Grid.Row="0" Grid.Column="3" Margin="50,25,50,25">CATEGORY STATISTICS</Button>
+
+        <DataGrid Name="categoriesGrid" Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="3" AutoGenerateColumns="True"
+          ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" ItemsSource="{Binding Results, Mode=TwoWay}"/>
+
     </Grid>
 </UserControl>
