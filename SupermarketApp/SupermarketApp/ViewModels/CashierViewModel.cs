@@ -229,7 +229,7 @@ namespace SupermarketApp.ViewModels
                         continue;
                     if (!string.IsNullOrEmpty(Category) && item.category_name != Category)
                         continue;
-                    if (item.expiration_date < ExpirationDate)
+                    if (item.expiration_date.Date < ExpirationDate.Date)
                         continue;
                     finalResult.Add(item);
                 }
@@ -260,9 +260,7 @@ namespace SupermarketApp.ViewModels
             set 
             {
                 DateTime currentDay = DateTime.Now;
-                if (value.Year < currentDay.Year ||
-                (value.Year == currentDay.Year && value.Month < currentDay.Month) ||
-                (value.Year == currentDay.Year && value.Month == currentDay.Month && value.Day < currentDay.Day))
+                if(value.Date < currentDay.Date)
                 {
                     return;
                 }

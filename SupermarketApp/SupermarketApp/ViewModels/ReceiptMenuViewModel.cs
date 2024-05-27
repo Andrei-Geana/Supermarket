@@ -19,7 +19,7 @@ namespace SupermarketApp.ViewModels
         private ReceiptBLL _receiptBLL;
         private ObservableCollection<GetReceiptsWithCashierNamesAndTotalAmount_Result> _receipts;
         private GetReceiptsWithCashierNamesAndTotalAmount_Result _receiptWithCashierNames;
-        private DateTime _selectedDate;
+        private DateTime _selectedDate = DateTime.Now;
         public ReceiptMenuViewModel(Navigation navigation, Func<MainMenuViewModel> createMainMenu)
         {
             NavigateBackToMenu = new NavigationCommand(navigation, createMainMenu);
@@ -46,7 +46,7 @@ namespace SupermarketApp.ViewModels
                 ObservableCollection<GetReceiptsWithCashierNamesAndTotalAmount_Result> finalResult = new ObservableCollection<GetReceiptsWithCashierNamesAndTotalAmount_Result>();
                 foreach (var item in _receipts)
                 {
-                    if (item.release_date != SelectedDate)
+                    if (item.release_date.Date != SelectedDate.Date)
                         continue;
                     finalResult.Add(item);
                 }

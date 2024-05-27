@@ -62,6 +62,12 @@ namespace SupermarketApp.ViewModels
                     throw new Exception("Invalid data: Unit field must be filled.");
 
                 }
+
+                if(ProductIn_Stock.unit_of_measurement.Any(item => !char.IsLetter(item)))
+                {
+                    throw new Exception("Invalid data: Unit field must have only letters.");
+                }
+
                 foreach (var caracter in ProductIn_Stock.unit_of_measurement)
                 {
                     if (char.IsDigit(caracter))

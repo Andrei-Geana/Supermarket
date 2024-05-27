@@ -3,9 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:SupermarketApp.Views"
+             xmlns:local="clr-namespace:SupermarketApp.Views" xmlns:local1="clr-namespace:SupermarketApp.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <local1:DoubleToStringConverter x:Key="DoubleToStringConverter"/>
+    </UserControl.Resources>
     <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -80,7 +83,7 @@
         <TextBox IsEnabled="False" Text="{Binding Total, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="3" Grid.Row="4" Margin="22,59,22,65" Grid.RowSpan="2"/>
 
         <Label Content="Received Amount" Grid.ColumnSpan="2" Margin="22,15,138,-15" Grid.Row="5" Grid.Column="3"/>
-        <TextBox Text="{Binding ReceivedAmount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="3" Grid.Row="5" Margin="22,40,22,10"/>
+        <TextBox Text="{Binding ReceivedAmount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DoubleToStringConverter}}" Grid.Column="3" Grid.Row="5" Margin="22,40,22,10"/>
 
         <Button IsEnabled="{Binding AddButtonIsEnabled, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" Grid.Column="3" Margin="30,10,30,51" Command="{Binding AddProductToReceipt}">+</Button>
         <Button IsEnabled="{Binding MinusButtonIsEnabled, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" Grid.Column="4" Margin="30,10,30,51" Command="{Binding RemoveProductFromReceipt}">-</Button>

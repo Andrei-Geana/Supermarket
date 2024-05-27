@@ -82,6 +82,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\DoubleToStringConverter.cs" />
     <Compile Include="Converters\SubTotalConverter.cs" />
     <Compile Include="Models\GetCategoryValue_Result.cs">
       <DependentUpon>SupermarketMAP.tt</DependentUpon>
