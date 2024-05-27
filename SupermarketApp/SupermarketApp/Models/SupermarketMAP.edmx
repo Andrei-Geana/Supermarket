@@ -180,6 +180,9 @@
         <Function Name="GetReceiptMonthlyStatistics" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetReceiptsWithCashierNames" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetReceiptsWithCashierNamesAndTotalAmount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetReceiptWithUsername" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="receiptId" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetRemainingStock" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetStockDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -506,6 +509,9 @@
             <Parameter Name="quantity" Mode="In" Type="Int32" />
             <Parameter Name="pricePerItem" Mode="In" Type="Double" />
           </FunctionImport>
+          <FunctionImport Name="GetReceiptWithUsername" ReturnType="Collection(SupermarketMAPModel.GetReceiptWithUsername_Result)">
+            <Parameter Name="receiptId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetCategoryValue_Result">
           <Property Type="String" Name="CategoryName" Nullable="false" MaxLength="255" />
@@ -587,6 +593,12 @@
           <Property Type="String" Name="product_name" Nullable="false" MaxLength="255" />
           <Property Type="Int32" Name="quantity" Nullable="false" />
           <Property Type="Double" Name="price_per_item" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetReceiptWithUsername_Result">
+          <Property Type="Int32" Name="id_receipt" Nullable="false" />
+          <Property Type="String" Name="cashier_name" Nullable="false" MaxLength="255" />
+          <Property Type="DateTime" Name="release_date" Nullable="false" />
+          <Property Type="Double" Name="received_amount" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -810,6 +822,16 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="InsertReceiptDetail" FunctionName="SupermarketMAPModel.Store.InsertReceiptDetail" />
+          <FunctionImportMapping FunctionImportName="GetReceiptWithUsername" FunctionName="SupermarketMAPModel.Store.GetReceiptWithUsername">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SupermarketMAPModel.GetReceiptWithUsername_Result">
+                <ScalarProperty Name="id_receipt" ColumnName="id_receipt" />
+                <ScalarProperty Name="cashier_name" ColumnName="cashier_name" />
+                <ScalarProperty Name="release_date" ColumnName="release_date" />
+                <ScalarProperty Name="received_amount" ColumnName="received_amount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

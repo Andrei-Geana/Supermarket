@@ -29,18 +29,23 @@ namespace SupermarketApp.Views
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var viewModel = DataContext as ReceiptMenuViewModel;
-            if(viewModel != null)
+            if (viewModel != null)
             {
+                if (viewModel.SelectedReceipt == null)
+                {
+                    MessageBox.Show("No receipt was selected.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+
+                }
                 if (viewModel.SelectedReceipt.id_receipt != 0)
                 {
                     ReceiptView receiptView = new ReceiptView() { DataContext = new ReceiptViewModel(viewModel.SelectedReceipt.id_receipt) };
                     receiptView.Show();
+                    return;
 
                 }
-                else
-                {
-                    //no selection
-                }
+                MessageBox.Show("Unable to open receipt.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+
             }
         }
 
@@ -59,7 +64,7 @@ namespace SupermarketApp.Views
                 }
                 else
                 {
-                    //no selection
+                    MessageBox.Show("No receipt was found for the day.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
         }

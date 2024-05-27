@@ -1,5 +1,3 @@
 ﻿
 -logic elimination
--stored procedures
-
 -de aranjat frumos tabelele si label-uri

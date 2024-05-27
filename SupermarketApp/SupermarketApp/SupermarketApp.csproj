@@ -104,6 +104,9 @@
     <Compile Include="Models\GetReceiptsWithCashierNames_Result.cs">
       <DependentUpon>SupermarketMAP.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetReceiptWithUsername_Result.cs">
+      <DependentUpon>SupermarketMAP.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GetRemainingStock_Result.cs">
       <DependentUpon>SupermarketMAP.tt</DependentUpon>
     </Compile>

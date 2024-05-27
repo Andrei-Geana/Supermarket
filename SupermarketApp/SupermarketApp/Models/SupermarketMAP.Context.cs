@@ -178,5 +178,14 @@ namespace SupermarketApp.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertReceiptDetail", idReceiptParameter, idStockParameter, quantityParameter, pricePerItemParameter);
         }
+    
+        public virtual ObjectResult<GetReceiptWithUsername_Result> GetReceiptWithUsername(Nullable<int> receiptId)
+        {
+            var receiptIdParameter = receiptId.HasValue ?
+                new ObjectParameter("receiptId", receiptId) :
+                new ObjectParameter("receiptId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetReceiptWithUsername_Result>("GetReceiptWithUsername", receiptIdParameter);
+        }
     }
 }
