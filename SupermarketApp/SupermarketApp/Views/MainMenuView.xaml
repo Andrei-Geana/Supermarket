@@ -17,7 +17,6 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition/>
         </Grid.RowDefinitions>
         
         <Button 
@@ -35,14 +34,14 @@
         
         <Button Command="{Binding NavigateToProductsMenu}" 
         Margin="50 25 50 25"
-        Grid.Column="1" 
+        Grid.Column="0" 
         Grid.Row="2">
             PRODUCTS
         </Button>
 
         <Button Command="{Binding NavigateToUsersMenu}" 
         Margin="50 25 50 25"
-        Grid.Column="2" 
+        Grid.Column="0" 
         Grid.Row="1">
             USERS
         </Button>
@@ -50,21 +49,21 @@
         <Button Command="{Binding NavigateToStocksMenu}" 
         Margin="50 25 50 25"
         Grid.Column="2" 
-        Grid.Row="2">
+        Grid.Row="1">
             STOCKS
         </Button>
         
         <Button Command="{Binding NavigateToReceiptMenu}" 
         Margin="50 25 50 25"
-        Grid.Column="2" 
-        Grid.Row="3">
+        Grid.Column="1" 
+        Grid.Row="2">
             RECEIPTS
         </Button>
 
         <Button Command="{Binding NavigateToStatisticsMenu}" 
         Margin="50 25 50 25"
         Grid.Column="2" 
-        Grid.Row="4">
+        Grid.Row="2">
             STATISTICS
         </Button>
     </Grid>
