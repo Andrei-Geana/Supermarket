@@ -66,6 +66,7 @@ namespace SupermarketApp.Models.BusinessLogic
             }
             catch
             {
+                entities = new SupermarketMAPEntities();
                 throw new Exception("Role was not added to database.");
             }
         }
@@ -81,6 +82,7 @@ namespace SupermarketApp.Models.BusinessLogic
             }
             catch
             {
+                entities = new SupermarketMAPEntities();
                 throw new Exception("Role to be deleted was not found in database.");
             }
         }
@@ -96,6 +98,7 @@ namespace SupermarketApp.Models.BusinessLogic
             }
             catch
             {
+                entities = new SupermarketMAPEntities();
                 throw new Exception("Role was not modified in database.");
             }
         }

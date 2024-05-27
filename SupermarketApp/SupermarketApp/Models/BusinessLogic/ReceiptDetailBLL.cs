@@ -37,6 +37,7 @@ namespace SupermarketApp.Models.BusinessLogic
             }
             catch
             {
+                entities = new SupermarketMAPEntities();
                 throw new Exception("Receipt detail was not added to database");
             }
         }
@@ -56,6 +57,7 @@ namespace SupermarketApp.Models.BusinessLogic
             }
             catch
             {
+                entities = new SupermarketMAPEntities();
                 throw new Exception("Receipt detail was not added to database");
             }
         }

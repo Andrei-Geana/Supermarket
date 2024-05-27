@@ -55,6 +55,7 @@ namespace SupermarketApp.Models.BusinessLogic
             }
             catch
             {
+                entities = new SupermarketMAPEntities();
                 throw new Exception("Product to be deleted was not found in database.");
             }
         }
@@ -69,6 +70,7 @@ namespace SupermarketApp.Models.BusinessLogic
             }
             catch
             {
+                entities = new SupermarketMAPEntities();
                 throw new Exception("Product was not added to database.");
             }
         }
@@ -93,6 +95,7 @@ namespace SupermarketApp.Models.BusinessLogic
             }
             catch
             {
+                entities = new SupermarketMAPEntities();
                 throw new Exception("Product was not modified in database.");
             }
         }

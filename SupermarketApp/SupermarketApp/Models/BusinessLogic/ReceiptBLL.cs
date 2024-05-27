@@ -36,6 +36,7 @@ namespace SupermarketApp.Models.BusinessLogic
             }
             catch
             {
+                entities = new SupermarketMAPEntities();
                 throw new Exception("Receipt was not added to database");
             }
         }
@@ -48,6 +49,7 @@ namespace SupermarketApp.Models.BusinessLogic
             }
             catch
             {
+                entities = new SupermarketMAPEntities();
                 throw new Exception("Receipt was not found in database.");
             }
         }
@@ -60,6 +62,7 @@ namespace SupermarketApp.Models.BusinessLogic
             }
             catch
             {
+                entities = new SupermarketMAPEntities();
                 throw new Exception("Receipt was not found in database.");
             }
         }
