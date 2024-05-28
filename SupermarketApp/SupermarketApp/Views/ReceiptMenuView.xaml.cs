@@ -60,6 +60,11 @@ namespace SupermarketApp.Views
                 {
                     MessageBox.Show("No receipt was found for the day.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+                else
+                {
+                    ReceiptView receiptView = new ReceiptView() { DataContext = new ReceiptViewModel(viewModel.SelectedReceipt.id_receipt) };
+                    receiptView.Show();
+                }
             }
         }
     }
