@@ -83,7 +83,7 @@ namespace SupermarketApp.ViewModels
                 {
                     id = SelectedProvider.id,
                     name = SelectedProvider.name,
-                    country_of_origin = SelectedProvider.country_of_origin,
+                    country_of_origin = SelectedProvider.country_of_origin.ToLower(),
                 };
                 _providerBLL.ModifyProvider(newRole);
                 ResetProvider();
@@ -105,7 +105,7 @@ namespace SupermarketApp.ViewModels
                 Provider newProvider = new Provider
                 {
                     name = SelectedProvider.name,
-                    country_of_origin = SelectedProvider.country_of_origin,
+                    country_of_origin = SelectedProvider.country_of_origin.ToLower(),
                 };
                 _providerBLL.AddProvider(newProvider);
                 ResetProvider();

@@ -71,9 +71,11 @@ namespace SupermarketApp.Models.BusinessLogic
             {
                 var existingCategory = entities.Providers.FirstOrDefault(Provider => Provider.id == newProvider.id) ?? throw new Exception("Provider not found in database");
                 existingCategory.name = newProvider.name;
+                existingCategory.country_of_origin = newProvider.country_of_origin;
                 entities.SaveChanges();
                 var currentCategory = _providers.FirstOrDefault(Provider => Provider.id == newProvider.id);
                 currentCategory.name = newProvider.name;
+                existingCategory.country_of_origin = newProvider.country_of_origin;
             }
             catch
             {

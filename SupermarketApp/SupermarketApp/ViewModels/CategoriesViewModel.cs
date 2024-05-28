@@ -59,7 +59,7 @@ namespace SupermarketApp.ViewModels
                 Product_Category newCategory = new Product_Category
                 {
                     id = SelectedCategory.id,
-                    name = SelectedCategory.name,
+                    name = SelectedCategory.name.ToLower(),
                 };
                 _productCategoryBLL.ModifyCategory(newCategory);
                 ResetCategory();
@@ -80,7 +80,7 @@ namespace SupermarketApp.ViewModels
                 }
                 Product_Category newCategory = new Product_Category
                 {
-                    name = SelectedCategory.name,
+                    name = SelectedCategory.name.ToLower(),
                 };
                 _productCategoryBLL.AddCategory(newCategory);
                 ResetCategory();
