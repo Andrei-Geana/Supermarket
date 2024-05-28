@@ -35,6 +35,7 @@ namespace SupermarketApp.ViewModels
             ProductList = _productBLL.GetProductsWithCategoryAndProviderName();
             ProductIn_Stock = new Product_In_Stock();
 
+            ResetData();
         }
 
         private void AddStock()
@@ -57,6 +58,10 @@ namespace SupermarketApp.ViewModels
                     throw new Exception("Invalid dates: Expiration date must be after current date.");
                 }
 
+                if(ProductIn_Stock.expiration_date == DateTime.MinValue || ProductIn_Stock.arrival_date == DateTime.MinValue)
+                {
+                    throw new Exception("Invalid dates: Must be set.");
+                }
                 //if(DateTime.Now.Date > ProductIn_Stock.arrival_date.Date)
                 //{
                 //    throw new Exception("Invalid dates: Arrival date must be after current date.");
@@ -102,8 +107,11 @@ namespace SupermarketApp.ViewModels
 
         private void ResetData()
         {
-            SelectedProduct = new GetProductsWithProviderAndCategoryName_Result();
-            ProductIn_Stock = new Product_In_Stock();
+            ProductIn_Stock = new Product_In_Stock() 
+            {
+                arrival_date = DateTime.Now,
+                expiration_date = DateTime.Now
+            };
         }
 
         public ICommand NavigateBackToMenu { get; set; }
@@ -136,6 +144,8 @@ namespace SupermarketApp.ViewModels
             {
                 _productIn_Stock = value;
                 OnPropertyChanged(nameof(ProductIn_Stock));
+                OnPropertyChanged(nameof(ProductIn_Stock.arrival_date));
+                OnPropertyChanged(nameof(ProductIn_Stock.expiration_date));
             }
         }
 
